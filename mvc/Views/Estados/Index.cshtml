@@ -1,0 +1,37 @@
+﻿@model IEnumerable<mvc.Models.EstadosVista>
+@{
+	ViewBag.Title = "Cruz Roja";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Estados</h2>
+@Html.ActionLink("Nuevo", "Nuevo", null, new { @class = "btn btn-outline-info" })
+<table class="table">
+	<thead class="thead-dark">
+		<tr>
+			<th>
+				País
+			</th>
+			<th>
+				Estado
+			</th>
+		</tr>
+		@foreach (var modelo in Model)
+		{
+			<tr>
+				<td>
+					@modelo.paises.Pais
+				</td>
+				<td>
+					@modelo.estados.Estado
+				</td>
+				<td>
+					@Html.ActionLink("Editar", "Editar", new { @Id = modelo.estados.Id }, new { @class = "btn btn-outline-primary" })
+				</td>
+			</tr>
+		}
+	</thead>
+</table>
+
+
+

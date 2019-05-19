@@ -1,0 +1,38 @@
+﻿@model mvc.Models.Estados
+@{
+	ViewBag.Title = "Nuevo";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Estados</h2>
+@Html.ActionLink("Regresar", "Index",null,new { @class="btn btn-outline-info"})
+@using (Html.BeginForm("Guardar", "Estados", FormMethod.Post))
+{
+	@Html.AntiForgeryToken();
+	@Html.ValidationSummary(true);
+	<legend>Ingrese los datos del Estado</legend>
+	<fieldset>
+		<div>
+			@Html.HiddenFor(model => model.Id, new { @Value = 0 })
+		</div>
+		<div>
+			@Html.LabelFor(model => model.IdPais)
+		</div>
+		<div>
+			@Html.DropDownListFor(model => model.IdPais, new SelectList(Model.pais, "Id", "Pais"))
+
+			@Html.ValidationMessageFor(model => model.IdPais)
+		</div>
+		<div>
+			@Html.LabelFor(model => model.Estado)
+		</div>
+		<div>
+			@Html.EditorFor(model => model.Estado)
+			@Html.ValidationMessageFor(model => model.Estado)
+		</div>
+		<div>
+			<input type="submit" value="Guardar" class="btn btn-outline-success" />
+			@Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-outline-dark" })
+		</div>
+	</fieldset>
+}

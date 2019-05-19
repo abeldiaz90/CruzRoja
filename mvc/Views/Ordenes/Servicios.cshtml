@@ -1,0 +1,24 @@
+﻿@model mvc.Models.Ordenes
+
+@using (Html.BeginForm("Agregar", "Ordenes", FormMethod.Post))
+{
+	<div class="container">
+		<div class="row">
+			<div class="col-sm">
+				@Html.HiddenFor(model => model.ordentemporal.IdFolio, new { @Value = Model.Id })
+			</div>
+			<div class="col-sm">
+				@Html.LabelFor(model => model.ordentemporal.IdServicio)
+				@Html.DropDownListFor(model => model.ordentemporal.IdServicio, new SelectList(Model.serviciosDelegacions, "Id", "NombreServicio"))
+			</div>
+			<div class="col-sm">
+				@Html.LabelFor(model => model.ordentemporal.cantidad)
+				@Html.EditorFor(model => model.ordentemporal.cantidad, new { @class = "text-form" })
+			</div>
+			<div class="col-sm">
+				<input type="submit" value="Agregar" class="btn btn-outline-secondary" />
+			</div>
+		</div>
+	</div>
+}
+@Html.Partial("OrdenesTemporal",Model.ordenestemporalvista);

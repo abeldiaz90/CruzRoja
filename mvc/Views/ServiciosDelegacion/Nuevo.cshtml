@@ -1,0 +1,49 @@
+﻿@model mvc.Models.ServiciosDelegacion
+@{
+	ViewBag.Title = "Editar";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Nuevo Servicio</h2>
+@Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-outline-info" })
+@using (Html.BeginForm("Guardar", "ServiciosDelegacion", FormMethod.Post))
+{
+	@Html.AntiForgeryToken();
+	@Html.ValidationSummary(true);
+	<legend>Ingrese los datos del Estado</legend>
+	<fieldset>
+		<div>
+			@Html.HiddenFor(model => model.Id, new { @Value = 0 })
+		</div>
+		<div>
+			@Html.LabelFor(model => model.IdDelegacion)
+		</div>
+		<div>
+			@Html.DropDownListFor(model => model.IdDelegacion, new SelectList(Model.delegaciones, "Id", "Municipio"))
+			@Html.ValidationMessageFor(model => model.IdDelegacion)
+		</div>
+		<div>
+			@Html.LabelFor(model => model.IdServicio)
+		</div>
+		<div>
+			@Html.DropDownListFor(model => model.IdServicio, new SelectList(Model.servicios, "Id", "NombreServicio"))
+			@Html.ValidationMessageFor(model => model.IdServicio)
+		</div>
+		<div>
+			@Html.LabelFor(model => model.NombreServicio)
+		</div>
+		<div>
+			@Html.EditorFor(model => model.NombreServicio)
+			@Html.ValidationMessageFor(model => model.NombreServicio)
+		</div>
+		<div>
+			@Html.LabelFor(model => model.PreciosinIVA)
+		</div>
+		<div>
+			@Html.EditorFor(model => model.PreciosinIVA)
+			@Html.ValidationMessageFor(model => model.PreciosinIVA)
+		</div>
+		<input type="submit" value="Guardar" class="btn btn-outline-success" />
+		@Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-outline-dark" })
+	</fieldset>
+}
+

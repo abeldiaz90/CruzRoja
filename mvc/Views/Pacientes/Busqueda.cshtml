@@ -1,0 +1,22 @@
+﻿@model mvc.Models.Pacientes
+@{
+	ViewBag.Title = "Busqueda";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Busqueda de Pacientes</h2>
+@using (Html.BeginForm("Buscar", "Pacientes", FormMethod.Post))
+{
+	<legend>Busqueda</legend>
+	<div>
+		@Html.LabelFor(model => model.RFC)
+	</div>
+	<div>
+		@Html.EditorFor(model => model.RFC, new { @class = "form-control" })
+	</div>
+	<input type="submit" value="Buscar" />
+
+	<fieldset>
+		@Html.Partial("Buscar",Model)
+	</fieldset>
+}

@@ -1,0 +1,56 @@
+﻿@model IEnumerable<mvc.Models.DelegacionesVista>
+@{
+	ViewBag.Title = "Cruz Roja";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delegaciones</h2>
+@Html.ActionLink("Nuevo", "Nuevo",null, new { @class="btn btn-outline-info"})
+<table class="table">
+	<thead class="thead-dark">
+		<tr>
+			<th>
+				Clave
+			</th>
+			<th>
+				Estado
+			</th>
+			<th>
+				Clave de Delegación
+			</th>
+			<th>
+				Municipio
+			</th>
+			<th>
+				Colonia
+			</th>
+			<th>
+				Telefono
+			</th>
+		</tr>
+		@foreach (var modelo in Model)
+		{
+			<tr>
+				<td>
+					@modelo.delegaciones.claveDelegacion
+				</td>
+				<td>
+					@modelo.estados.Estado
+				</td>
+				<td>
+					@modelo.delegaciones.Municipio
+				</td>
+				<td>
+					@modelo.delegaciones.Colonia
+				</td>
+				<td>
+					@modelo.delegaciones.Telefono
+				</td>
+				<td>
+					@Html.ActionLink("Editar", "Editar", new { @Id = modelo.delegaciones.Id }, new { @class = "btn btn-outline-primary" })
+				</td>
+			</tr>
+		}
+	</thead>
+</table>
+

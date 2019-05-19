@@ -1,0 +1,53 @@
+﻿@model IEnumerable<mvc.Models.OrdenesTemporalVista>
+
+<table class="table table-sm table-dark">
+	<thead>
+		<tr>
+			<th>
+				Servicio
+			</th>
+			<th>
+				Cantidad
+			</th>
+			<th>
+				Precio
+			</th>
+			<th>
+				SubTotal
+			</th>
+		</tr>
+		@foreach (var modelo in Model)
+		{
+			<tr>
+				<td>
+					@modelo.serviciosDelegacion.NombreServicio
+				</td>
+				<td>
+					@modelo.ordenesTemporal.cantidad
+				</td>
+				<td>
+					@String.Format("{0:C}", @modelo.serviciosDelegacion.PreciosinIVA)
+				</td>
+				<td>
+					@String.Format("{0:C}", (modelo.serviciosDelegacion.PreciosinIVA * @modelo.ordenesTemporal.cantidad))
+				</td>
+				<td>
+					@Html.ActionLink("Editar", "Editar", new { @Id = modelo.ordenesTemporal.Id }, new { @class = "btn btn-outline-primary" })
+					@Html.ActionLink("Eliminar", "Eliminar", new { @Id = modelo.ordenesTemporal.Id }, new { @class = "btn btn-outline-danger" })
+				</td>
+			</tr>
+		}
+		<tr>
+			<td></td>
+			<td></td>
+			<td>Subtotal</td>
+			<td>@String.Format("{0:C}", Model.Sum(modelo => modelo.serviciosDelegacion.PreciosinIVA))</td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td>IVA</td>
+			<td>@String.Format("{0:C}",Model.Sum(modelo => modelo.serviciosDelegacion.PreciosinIVA))</td>
+		</tr>
+	</thead>
+</table>

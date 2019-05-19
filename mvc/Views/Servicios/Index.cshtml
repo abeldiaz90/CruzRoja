@@ -1,0 +1,34 @@
+﻿@model IEnumerable<mvc.Models.Servicios>
+@{
+	ViewBag.Title = "Cruz Roja";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Catalogo de Servicios</h2>
+@Html.ActionLink("Nuevo", "Nuevo", null, new { @class = "btn btn-outline-info" })
+<table class="table">
+	<thead class="thead-dark">
+		<tr>
+			<th scope="col">
+				Clave
+			</th>
+			<th scope="col">
+				Servicio
+			</th>
+		</tr>
+		@foreach (var modelo in Model)
+		{
+			<tr>
+				<td scope="row">
+					@modelo.Clave
+				</td>
+				<td scope="row">
+					@modelo.NombreServicio
+				</td>
+				<td scope="row">
+					@Html.ActionLink("Editar", "Editar", new { @Id = modelo.Id }, new { @class = "btn btn-outline-primary" })
+				</td>
+			</tr>
+		}
+	</thead>
+</table>

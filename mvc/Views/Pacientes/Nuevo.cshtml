@@ -1,0 +1,73 @@
+﻿@model mvc.Models.Pacientes
+@{
+	ViewBag.Title = "Nuevo Paciente";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-outline-info" })
+@using (Html.BeginForm("Guardar", "pacientes", FormMethod.Post))
+{
+	@Html.AntiForgeryToken();
+	@Html.ValidationSummary(true);
+
+	<legend>Pacientes</legend>
+	<fieldset>
+		<div>
+			@Html.HiddenFor(model => model.Id, new { @Value = "0" })
+		</div>
+		<div>
+			@Html.LabelFor(model => model.Nombre, new { @class = "control-label col-md-2" })
+		</div>
+		<div>
+			@Html.EditorFor(model => model.Nombre, new { @class = "form-control" })
+			@Html.ValidationMessageFor(model => model.Nombre, string.Empty, new { htmlAttributes = new { @class = "text-danger" } })
+		</div>
+		<div>
+			@Html.LabelFor(model => model.SegundoNombre, new { @class = "control-label col-md-2" })
+		</div>
+		<div>
+			@Html.EditorFor(model => model.SegundoNombre, new { @class = "form-control" })
+			@Html.ValidationMessageFor(model => model.SegundoNombre)
+		</div>
+		<div>
+			@Html.LabelFor(model => model.ApellidoPaterno, new { @class = "control-label col-md-2" })
+		</div>
+		<div>
+			@Html.EditorFor(model => model.ApellidoPaterno, new { @class = "form-control" })
+			@Html.ValidationMessageFor(model => model.ApellidoPaterno)
+		</div>
+		<div>
+			@Html.LabelFor(model => model.ApellidoMaterno, new { @class = "control-label col-md-2" })
+		</div>
+		<div>
+			@Html.EditorFor(model => model.ApellidoMaterno, new { @class = "form-control" })
+			@Html.ValidationMessageFor(model => model.ApellidoMaterno)
+		</div>
+		<div>
+			@Html.LabelFor(model => model.FechaNacimiento, new { @class = "control-label col-md-2" })
+		</div>
+		<div>
+			@Html.EditorFor(model => model.FechaNacimiento, new { @class = "form-control" })
+			@Html.ValidationMessageFor(model => model.FechaNacimiento)
+		</div>
+		<div>
+			@Html.LabelFor(model => model.RFC, new { @class = "control-label col-md-2" })
+		</div>
+		<div>
+			@Html.EditorFor(model => model.RFC, new { @class = "form-control", @style = "text-transform:uppercase" })
+			@Html.ValidationMessageFor(model => model.RFC)
+		</div>
+		<div>
+			@Html.LabelFor(model => model.CURP, new { @class = "control-label col-md-2" })
+		</div>
+		<div>
+			@Html.EditorFor(model => model.CURP, new { @class = "form-control" })
+			@Html.ValidationMessageFor(model => model.CURP)
+		</div>
+		<input type="submit" value="Guardar" class="btn btn-outline-success" />
+		@Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-outline-dark" })
+
+	</fieldset>
+
+}
+
+

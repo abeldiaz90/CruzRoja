@@ -1,0 +1,87 @@
+﻿@model mvc.Models.Delegaciones
+@{
+	ViewBag.Title = "cruz roja-Edición de delegaciones";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edición de delegaciones</h2>
+@Html.ActionLink("Regresar", "Index",null,new { @class="btn btn-outline-info"})
+@using (Html.BeginForm("Guardar", "Delegaciones", FormMethod.Post))
+{
+	@Html.AntiForgeryToken();
+	@Html.ValidationSummary(true);
+	<legend>Ingrese los datos del Estado</legend>
+	<fieldset>
+		<div>
+			@Html.HiddenFor(model => model.Id)
+		</div>
+		<div>
+			@Html.LabelFor(model => model.IdEstado)
+		</div>
+		<div>
+			@Html.DropDownListFor(model => model.IdEstado, new SelectList(Model.estado, "Id", "Estado"))
+			@Html.ValidationMessageFor(model => model.IdEstado)
+		</div>
+		<div>
+			@Html.LabelFor(model => model.claveDelegacion)
+		</div>
+		<div>
+			@Html.EditorFor(model => model.claveDelegacion)
+			@Html.ValidationMessageFor(model => model.claveDelegacion)
+		</div>
+		<div>
+			@Html.LabelFor(model => model.Municipio)
+		</div>
+		<div>
+			@Html.EditorFor(model => model.Municipio)
+			@Html.ValidationMessageFor(model => model.Municipio)
+		</div>
+		<div>
+			@Html.LabelFor(model => model.Colonia)
+		</div>
+		<div>
+			@Html.EditorFor(model => model.Colonia)
+			@Html.ValidationMessageFor(model => model.Colonia)
+		</div>
+
+		<div>
+			@Html.LabelFor(model => model.Calle)
+		</div>
+		<div>
+			@Html.EditorFor(model => model.Calle)
+			@Html.ValidationMessageFor(model => model.Calle)
+		</div>
+		<div>
+			@Html.LabelFor(model => model.NumeroExterior)
+		</div>
+		<div>
+			@Html.EditorFor(model => model.NumeroExterior)
+			@Html.ValidationMessageFor(model => model.NumeroExterior)
+		</div>
+		<div>
+			@Html.LabelFor(model => model.NumeroInterior)
+		</div>
+		<div>
+			@Html.EditorFor(model => model.NumeroInterior)
+			@Html.ValidationMessageFor(model => model.NumeroInterior)
+		</div>
+		<div>
+			@Html.LabelFor(model => model.CP)
+		</div>
+		<div>
+			@Html.EditorFor(model => model.CP)
+			@Html.ValidationMessageFor(model => model.CP)
+		</div>
+		<div>
+			@Html.LabelFor(model => model.Telefono)
+		</div>
+		<div>
+			@Html.EditorFor(model => model.Telefono)
+			@Html.ValidationMessageFor(model => model.Telefono)
+		</div>
+		<div>
+			<input type="submit" value="Guardar" class="btn btn-outline-success" />
+			@Html.ActionLink("Cancelar", "Index", null, new { @Class = "btn btn-outline-dark" })
+		</div>
+	</fieldset>
+}

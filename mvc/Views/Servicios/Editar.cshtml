@@ -1,0 +1,38 @@
+﻿@model mvc.Models.Servicios
+@{
+	ViewBag.Title = "cruz roja-Edición de servicios";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Edición de Servicios</h2>
+@Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-outline-info" })
+@using (Html.BeginForm("Guardar", "Servicios", FormMethod.Post))
+{
+	@Html.AntiForgeryToken();
+	@Html.ValidationSummary(true);
+	<legend>Ingrese los datos del servicio</legend>
+	<fieldset>
+		<div>
+			@Html.HiddenFor(model => model.Id)
+		</div>
+		<div>
+			@Html.LabelFor(model => model.Clave)
+		</div>
+		<div>
+			@Html.EditorFor(model => model.Clave)
+			@Html.ValidationMessageFor(model => model.Clave)
+		</div>
+		<div>
+			@Html.LabelFor(model => model.NombreServicio)
+		</div>
+		<div>
+			@Html.EditorFor(model => model.NombreServicio)
+			@Html.ValidationMessageFor(model => model.NombreServicio)
+		</div>
+		<div>
+			<input type="submit" value="Guardar" class="btn btn-outline-success" />
+			@Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-outline-dark" })
+		</div>
+	</fieldset>
+}
+

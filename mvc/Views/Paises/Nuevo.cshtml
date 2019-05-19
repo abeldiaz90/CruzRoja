@@ -1,0 +1,31 @@
+﻿@model mvc.Models.Paises
+@{
+	ViewBag.Title = "cruz roja-Paises";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Paises</h2>
+@Html.ActionLink("Regresar", "Index", null,new { @class="btn btn-outline-info"})
+@using (Html.BeginForm("Guardar", "Paises", FormMethod.Post))
+{
+	@Html.AntiForgeryToken();
+	@Html.ValidationSummary(true);
+	<legend>Ingrese los datos del Pais</legend>
+	<fieldset>
+		<div>
+			@Html.HiddenFor(model => model.Id, new { @Value = 0 })
+		</div>
+		<div>
+			@Html.LabelFor(model => model.Pais)
+		</div>
+		<div>
+			@Html.EditorFor(model => model.Pais)
+			@Html.ValidationMessageFor(model => model.Pais)
+		</div>
+		<div>
+			<input type="submit" value="Guardar" class="btn btn-outline-success" />
+			@Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-outline-dark" })
+		</div>
+	</fieldset>
+}
+

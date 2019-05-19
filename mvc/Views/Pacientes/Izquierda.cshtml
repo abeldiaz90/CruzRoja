@@ -1,0 +1,12 @@
+﻿@model mvc.Models.Pacientes
+@{ 
+	ViewBag.Title = "Izquierda";
+}
+	<div class="container__child signup__thumbnail">
+		<div class="thumbnail__logo">
+			<img src="@Url.Content(Model.RFC)" alt="Sample Image" width="350px" style="padding-top:40px" />
+			<h1 class="logo__text">@Model.RFC</h1>
+		</div>
+
+		<div class="signup__overlay"></div>
+	</div>
