@@ -3,36 +3,49 @@
 	ViewBag.Title = "Index";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h3>Ordenes de servicio</h3>
-@using (Html.BeginForm("Guardar", "Guardar", FormMethod.Post))
-{
-	<div class="container">
-		<div class="row justify-content-md-center">
-			<div class="col col-lg-2">
-			
-			</div>
-			<div class="col-md-auto">
-			
-			</div>
-			<div class="col col-lg-2">
-			
-			</div>
+<div class="container">
+	<div class="row justify-content-md-center">
+		<div class="col col-lg-2">
 		</div>
-		<div class="row">
-			<div class="col">
-				
-			</div>
-			<div class="col-md-auto">
-				
-			</div>
-			<div class="col col-lg-2">
-				<button type="button" class="btn btn-primary">
-					Folio: <span class="badge badge-light">	@Html.DisplayFor(model => model.Id)</span>
-				</button>
+		<div class="col-md-auto">
+		</div>
+		<div class="col col-lg-2">
+
+		</div>
+	</div>
+	<div class="row">
+		<div class="col">
+
+		</div>
+		<div class="col-md-auto">
+			@DateTime.Now
+		</div>
+		<div class="col col-lg-2">
+			<button type="button" class="btn btn-primary">
+				Folio: <span class="badge badge-light">	@Html.DisplayFor(model => model.Id)</span>
+			</button>
+		</div>
+	</div>
+</div>
+<h3>Ordenes de Servicio</h3>
+
+@using (Html.BeginForm("Cobrar", "Ordenes", FormMethod.Post))
+{
+	@Html.AntiForgeryToken();
+	@Html.ValidationSummary(true);
+	<legend>Ingrese los datos del Estado</legend>
+	<fieldset>
+		@Html.Partial("Pacientes")
+		@Html.Partial("Servicios")
+		<input type="submit" value="Cobrar" class="btn btn-outline-success" />
+	</fieldset>
+	<!--<button type="button" class="btn btn-outline-info" data-toggle="modal" data-target=".bd-cobro-modal-lg">Cobrar</button>-->
+	<div class="modal fade bd-cobro-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+			<div class="modal-content">
+
+
 			</div>
 		</div>
 	</div>
 }
-@Html.Partial("Pacientes")
-@Html.Partial("Servicios")

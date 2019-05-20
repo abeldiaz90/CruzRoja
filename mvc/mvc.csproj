@@ -256,6 +256,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Clientes.cs" />
+    <Compile Include="Models\Cobros.cs" />
     <Compile Include="Models\Conceptos.cs" />
     <Compile Include="Models\Contexto.cs" />
     <Compile Include="Models\Delegaciones.cs" />
@@ -263,10 +265,12 @@
     <Compile Include="Models\Estados.cs" />
     <Compile Include="Models\EstadosVista.cs" />
     <Compile Include="Models\Ordenes.cs" />
+    <Compile Include="Models\OrdenesDetalles.cs" />
     <Compile Include="Models\OrdenesTemporal.cs" />
     <Compile Include="Models\OrdenesTemporalVista.cs" />
     <Compile Include="Models\Pacientes.cs" />
     <Compile Include="Models\Paises.cs" />
+    <Compile Include="App_Data\Seguridad.cs" />
     <Compile Include="Models\Servicios.cs" />
     <Compile Include="Models\ServiciosDelegacion.cs" />
     <Compile Include="Models\ServiciosVista.cs" />
@@ -318,7 +322,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
+    <Folder Include="App_GlobalResources\" />
+    <Folder Include="Utlidades\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

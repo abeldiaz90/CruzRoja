@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using mvc.Models;
+using mvc;
 namespace mvc.Controllers
 {
     public class PaisesController : Controller
@@ -19,14 +20,17 @@ namespace mvc.Controllers
 
         public ActionResult Nuevo()
         {
-            return View();
+            return View();            
         }
 
         [HttpGet]
         public ActionResult Editar(Paises paises)
-        {
-            Paises paiseslistado = con.paises.FirstOrDefault(model => model.Id == paises.Id);
-            return View(paiseslistado);
+        {            
+            var paiseslistado = con.paises.FirstOrDefault(model => model.Id == paises.Id);
+            Paises p = new Paises();
+            p.Id = paiseslistado.Id;
+            p.Pais = Seguridad.Decrypt(paiseslistado.Pais);
+            return View(p);
         }
 
         [HttpPost]
@@ -34,15 +38,20 @@ namespace mvc.Controllers
         {
             if (ModelState.IsValid)
             {
+                Paises p = new Paises();
+                p.Id = paises.Id;
+                p.Pais = Seguridad.Encrypt(paises.Pais);
+
                 Paises paiseslistado = con.paises.FirstOrDefault(model => model.Id == paises.Id);
                 if (paiseslistado == null)
                 {
-                    con.paises.Add(paises);
+                 
+                    con.paises.Add(p);
                     con.SaveChanges();
                 }
                 else
                 {
-                    con.Set<Paises>().AddOrUpdate(paises);
+                    con.Set<Paises>().AddOrUpdate(p);
                     con.SaveChanges();
                 }
 

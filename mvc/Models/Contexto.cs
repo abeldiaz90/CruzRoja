@@ -20,6 +20,7 @@ namespace mvc.Models
         public DbSet<ServiciosDelegacion> serviciosdelegacion { set; get; }
         public DbSet<Ordenes> ordenes { set; get; }
         public DbSet<OrdenesTemporal> ordenestemporal { set; get; }
+        public DbSet<OrdenesDetalles> ordenesdetalles { set; get; }
 
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Configuration;
@@ -41,5 +42,23 @@ namespace mvc.Models
         [Display(Name = "Pacientes:")]
         public IEnumerable<Pacientes> pacientes { set; get; }
 
-   }
+        [Display(Name = "Sexo:")]
+        [Required(ErrorMessage = "Indique sexo del paciente:")]
+        public int IdSexo { set; get; }
+
+        [Display(Name = "Seleccione el sexo")]
+        public SexoLista Sexo { set; get; }
+
+    
+        public enum SexoLista
+        {
+            [Display(Name = "Masculino")]
+            Masculino,
+            [Display(Name = "Femenino")]
+            Femenino
+        };
+
+    
+
+    }
 }

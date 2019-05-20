@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<mvc.Models.EstadosVista>
+@using mvc.Models;
 @{
 	ViewBag.Title = "Cruz Roja";
 	Layout = "~/Views/Shared/_Layout.cshtml";
@@ -20,10 +21,10 @@
 		{
 			<tr>
 				<td>
-					@modelo.paises.Pais
+					@Seguridad.Decrypt(modelo.paises.Pais)
 				</td>
 				<td>
-					@modelo.estados.Estado
+					@Seguridad.Decrypt(modelo.estados.Estado)
 				</td>
 				<td>
 					@Html.ActionLink("Editar", "Editar", new { @Id = modelo.estados.Id }, new { @class = "btn btn-outline-primary" })

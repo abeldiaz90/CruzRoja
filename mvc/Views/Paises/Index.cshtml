@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<mvc.Models.Paises>
+@using mvc.Models;
 @{
 	ViewBag.Title = "Cruz Roja";
 	Layout = "~/Views/Shared/_Layout.cshtml";
@@ -16,7 +17,7 @@
 		{
 			<tr>
 				<td scope="row">
-					@modelo.Pais
+					@(Seguridad.Decrypt(modelo.Pais))
 				</td>
 				<td scope="row">
 					@Html.ActionLink("Editar", "Editar", new { @Id = modelo.Id }, new { @class = "btn btn-outline-primary" })
