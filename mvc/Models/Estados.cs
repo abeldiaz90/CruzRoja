@@ -9,12 +9,13 @@ namespace mvc.Models
 {
     public class Estados
     {
+        [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { set; get; }
-
-        
-        [Display(Name = "Pais")]
+        public int Id { set; get; }        
         public IEnumerable<Paises> pais { set; get; }
+
+        [ForeignKey("IdPais")]
+        public Paises paises { set; get; }
 
         [Required(ErrorMessage = "Seleccione el Pais")]
         [Display(Name = "Pais")]

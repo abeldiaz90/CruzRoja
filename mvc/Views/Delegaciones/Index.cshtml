@@ -1,11 +1,12 @@
 ﻿@model IEnumerable<mvc.Models.DelegacionesVista>
+@using mvc.Models;
 @{
 	ViewBag.Title = "Cruz Roja";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Delegaciones</h2>
-@Html.ActionLink("Nuevo", "Nuevo",null, new { @class="btn btn-outline-info"})
+@Html.ActionLink("Nuevo", "Nuevo", null, new { @class = "btn btn-outline-info" })
 <table class="table">
 	<thead class="thead-dark">
 		<tr>
@@ -32,19 +33,19 @@
 		{
 			<tr>
 				<td>
-					@modelo.delegaciones.claveDelegacion
+					@Seguridad.Decrypt(modelo.delegaciones.claveDelegacion)
 				</td>
 				<td>
-					@modelo.estados.Estado
+					@Seguridad.Decrypt(modelo.estados.Estado)
 				</td>
 				<td>
-					@modelo.delegaciones.Municipio
+					@Seguridad.Decrypt(modelo.delegaciones.Municipio)
 				</td>
 				<td>
-					@modelo.delegaciones.Colonia
+					@Seguridad.Decrypt(modelo.delegaciones.Colonia)
 				</td>
 				<td>
-					@modelo.delegaciones.Telefono
+					@Seguridad.Decrypt(modelo.delegaciones.Telefono)
 				</td>
 				<td>
 					@Html.ActionLink("Editar", "Editar", new { @Id = modelo.delegaciones.Id }, new { @class = "btn btn-outline-primary" })

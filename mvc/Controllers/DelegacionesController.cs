@@ -26,6 +26,16 @@ namespace mvc.Controllers
         {
             Delegaciones delegacioneslistado = new Delegaciones();
             delegacioneslistado.estado = con.estados.ToList();
+            List<Estados> estados = new List<Estados>();
+            foreach (var i in delegacioneslistado.estado)
+            {
+                Estados p = new Estados();
+                p.Id = i.Id;
+                p.Estado = Seguridad.Decrypt(i.Estado);
+                estados.Add(p);
+            }
+            delegacioneslistado.estado = estados;
+
             return View(delegacioneslistado);
         }
 
@@ -33,7 +43,26 @@ namespace mvc.Controllers
         public ActionResult Editar(Delegaciones delegaciones)
         {
             Delegaciones delegacioneslistado = con.delegaciones.FirstOrDefault(model => model.Id == delegaciones.Id);
+            delegacioneslistado.Calle = Seguridad.Decrypt(delegacioneslistado.Calle);
+            delegacioneslistado.claveDelegacion = Seguridad.Decrypt(delegacioneslistado.claveDelegacion);
+            delegacioneslistado.Colonia = Seguridad.Decrypt(delegacioneslistado.Colonia);
+            delegacioneslistado.CP = Seguridad.Decrypt(delegacioneslistado.CP);
+            delegacioneslistado.Municipio = Seguridad.Decrypt(delegacioneslistado.Municipio);
+            delegacioneslistado.NumeroExterior = Seguridad.Decrypt(delegacioneslistado.NumeroExterior);
+            delegacioneslistado.NumeroInterior = Seguridad.Decrypt(delegacioneslistado.NumeroInterior);
+            delegacioneslistado.Telefono = Seguridad.Decrypt(delegacioneslistado.Telefono);
             delegacioneslistado.estado = con.estados.ToList();
+
+            List<Estados> estados = new List<Estados>();
+            foreach (var i in delegacioneslistado.estado)
+            {
+                Estados p = new Estados();
+                p.Id = i.Id;
+                p.Estado = Seguridad.Decrypt(i.Estado);
+                estados.Add(p);
+            }
+            delegacioneslistado.estado = estados;
+
             return View(delegacioneslistado);
         }
 
@@ -43,14 +72,34 @@ namespace mvc.Controllers
             if (ModelState.IsValid)
             {
                 Delegaciones delegacioneslistado = con.delegaciones.FirstOrDefault(model => model.Id == delegaciones.Id);
+                
                 if (delegacioneslistado == null)
                 {
-                    con.delegaciones.Add(delegaciones);
+                    Delegaciones del = new Delegaciones();
+                    del.claveDelegacion = Seguridad.Encrypt(delegaciones.claveDelegacion);
+                    del.Calle = Seguridad.Encrypt(delegaciones.Calle);
+                    del.Colonia = Seguridad.Encrypt(delegaciones.Colonia);
+                    del.CP = Seguridad.Encrypt(delegaciones.CP);
+                    del.Municipio = Seguridad.Encrypt(delegaciones.Municipio);
+                    del.Telefono = Seguridad.Encrypt(delegaciones.Telefono);
+                    del.NumeroExterior = Seguridad.Encrypt(delegaciones.NumeroExterior);
+                    del.NumeroInterior = Seguridad.Encrypt(delegaciones.NumeroInterior);
+                    del.IdEstado = delegaciones.IdEstado;
+                    con.delegaciones.Add(del);
                     con.SaveChanges();
                 }
                 else
                 {
-                    con.Set<Delegaciones>().AddOrUpdate(delegaciones);
+                    delegacioneslistado.claveDelegacion = Seguridad.Encrypt(delegaciones.claveDelegacion);
+                    delegacioneslistado.Calle = Seguridad.Encrypt(delegaciones.Calle);
+                    delegacioneslistado.Colonia = Seguridad.Encrypt(delegaciones.Colonia);
+                    delegacioneslistado.CP = Seguridad.Encrypt(delegaciones.CP);
+                    delegacioneslistado.Municipio = Seguridad.Encrypt(delegaciones.Municipio);
+                    delegacioneslistado.Telefono = Seguridad.Encrypt(delegaciones.Telefono);
+                    delegacioneslistado.NumeroExterior = Seguridad.Encrypt(delegaciones.NumeroExterior);
+                    delegacioneslistado.NumeroInterior = Seguridad.Encrypt(delegaciones.NumeroInterior);
+                    delegacioneslistado.IdEstado = delegaciones.IdEstado;
+                    con.Set<Delegaciones>().AddOrUpdate(delegacioneslistado);
                     con.SaveChanges();
                 }
 

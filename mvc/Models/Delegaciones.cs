@@ -10,10 +10,14 @@ namespace mvc.Models
     public class Delegaciones
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [Key]
         public int Id { set; get; }
         
         [Display(Name ="Estado:")]
         public IEnumerable<Estados> estado { set; get; }
+
+        [ForeignKey("IdEstado")]
+        public Estados estados { set; get; }
 
         [Display(Name = "Estado:")]
         [Required(ErrorMessage ="Seleccione un Estado")]

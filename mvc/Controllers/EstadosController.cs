@@ -26,6 +26,19 @@ namespace mvc.Controllers
         {
             Estados estadoslistado = new Estados();
             estadoslistado.pais = con.paises.ToList();
+            estadoslistado.Id = estadoslistado.Id;
+            estadoslistado.IdPais = estadoslistado.IdPais;
+            estadoslistado.Estado = Seguridad.Decrypt(estadoslistado.Estado);
+            estadoslistado.pais = con.paises.ToList();
+            List<Paises> paises = new List<Paises>();
+            foreach (var i in estadoslistado.pais)
+            {
+                Paises p = new Paises();
+                p.Id = i.Id;
+                p.Pais = Seguridad.Decrypt(i.Pais);
+                paises.Add(p);
+            }
+            estadoslistado.pais = paises;
             return View(estadoslistado);
         }
 
@@ -38,7 +51,7 @@ namespace mvc.Controllers
             estadoslista.IdPais = estadoslistado.IdPais;
             estadoslista.Estado = Seguridad.Decrypt(estadoslistado.Estado);
             estadoslista.pais = con.paises.ToList();
-           
+
             List<Paises> paises = new List<Paises>();
             foreach (var i in estadoslista.pais)
             {
