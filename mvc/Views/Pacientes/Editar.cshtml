@@ -57,6 +57,20 @@
 			@Html.ValidationMessageFor(model => model.RFC)
 		</div>
 		<div>
+			@Html.LabelFor(model => model.IdSexo, new { @class = "control-label col-md-2" })
+		</div>
+		<div>
+			@Html.LabelFor(model => model.IdSexo)
+			@Html.EnumDropDownListFor(model => model.Sexo)
+		</div>
+		<div>
+			@Html.LabelFor(model => model.Sexo, new { @class = "control-label col-md-2" })
+		</div>
+		<div>
+			@Html.LabelFor(model => model.Sexo)
+			@Html.EnumDropDownListFor(model => model.Sexo)
+		</div>
+		<div>
 			@Html.LabelFor(model => model.CURP, new { @class = "control-label col-md-2" })
 		</div>
 		<div>

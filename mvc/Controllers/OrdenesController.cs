@@ -39,12 +39,22 @@ namespace mvc.Controllers
         }
 
 
-        public async Task<ActionResult> Agregar(Ordenes ordenes)
+        [HttpPost]
+        public ActionResult Agregar(Ordenes ordenes)
         {
             Contexto con = new Contexto();
             con.ordenestemporal.Add(ordenes.ordentemporal);
             con.SaveChanges();
-            return RedirectToAction("Index");
+
+            IEnumerable<ServiciosDelegacion> serviciosdelegacion = con.serviciosdelegacion.ToList();
+            IEnumerable<OrdenesTemporal> ordenestemporal = con.ordenestemporal.Where(m => m.IdFolio == ordenes.ordentemporal.IdFolio).ToList();
+            var vistaestados = from ot in ordenestemporal
+                               join se in serviciosdelegacion on ot.IdServicio equals se.Id
+                               orderby serviciosdelegacion.First()
+                               select new OrdenesTemporalVista { ordenesTemporal = ot, serviciosDelegacion = se };
+
+            ordenes.ordenestemporalvista = vistaestados.OrderBy(s => s.serviciosDelegacion.NombreServicio).OrderBy(s=>s.serviciosDelegacion.NombreServicio);
+            return PartialView("OrdenesTemporal", ordenes.ordenestemporalvista);
         }
         public async Task<ActionResult> Eliminar(int Id)
         {
@@ -109,29 +119,5 @@ namespace mvc.Controllers
 
             return RedirectToAction("Index");
         }
-
-
-        // [HttpPost]
-        /*  public ActionResult Editar(Ordenes ordenes)
-          {
-              Contexto con = new Contexto();
-              if (ModelState.IsValid)
-              {
-                  OrdenesTemporal ordenesTemporal = con.ordenestemporal.FirstOrDefault(model => model.Id == ordenes.);
-                  if (ordenesTemporal == null)
-                  {
-                      con.ordenestemporal.Add(ordenes.ordenestemporal);
-                      con.SaveChanges();
-                  }
-                  else
-                  {
-                      con.Set<OrdenesTemporal>().AddOrUpdate(paises);
-                      con.SaveChanges();
-                  }
-
-              }
-              return RedirectToAction("Index");
-          }*/
-
     }
 }

@@ -16,9 +16,48 @@
 				@Html.EditorFor(model => model.ordentemporal.cantidad, new { @class = "text-form" })
 			</div>
 			<div class="col-sm">
-				<input type="submit" value="Agregar" class="btn btn-outline-secondary" />
+				<input type="submit"/>
+				<button type="button" id="Agregar" value="Agregar" class="btn btn-outline-secondary" >Agregar</button>
 			</div>
 		</div>
 	</div>
 }
-@Html.Partial("OrdenesTemporal",Model.ordenestemporalvista)
+<div id="myPartialViewDiv">
+	@{
+		Html.RenderPartial("OrdenesTemporal", Model.ordenestemporalvista);
+	}
+</div>
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script>
+	$(document).ready(function () {
+			$("#Agregar").click(function () {
+				var JsonModel = '@Html.Raw(Json.Encode(Model))';
+				console.log(JsonModel);
+			var ordentemporal = {
+			IdFolio : @Model.Id,
+			IdServicio : $("#ordentemporal_IdServicio").val(),
+			cantidad : $("#ordentemporal_cantidad").val()
+				};
+				console.log(ordentemporal);
+			var modelo = JSON.parse(JsonModel);
+			$.ajax({
+				type: "POST",
+				url: '@Url.Action("Agregar")',
+				contentType: "application/json; charset:utf-8",
+				dataType: "json",    
+				//data: {'ordenes': modelo},     
+				data: {'ordenes': modelo,'ordenes.IdFolio':ordentemporal.IdFolio,'ordenes.IdServicio':ordentemporal.IdServicio,'ordenes.cantidad':ordentemporal.cantidad},                
+						success: function (data) {
+					$("#myPartialViewDiv").html(data);
+                },
+				error: function () {
+                    alert("Error while inserting data");
+                }
+            });
+            return false;
+        });
+    });
+
+</script>
+
+<!--@@Html.Partial("OrdenesTemporal",Model.ordenestemporalvista)-->

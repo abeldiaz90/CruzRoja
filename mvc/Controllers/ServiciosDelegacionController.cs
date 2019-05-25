@@ -22,10 +22,30 @@ namespace mvc.Controllers
 
         public ActionResult Nuevo()
         {
-            ServiciosDelegacion serviciosdelegacion = new ServiciosDelegacion();
-            serviciosdelegacion.delegaciones = con.delegaciones.ToList();
-            serviciosdelegacion.servicios = con.servicios.ToList();
-            return View(serviciosdelegacion);
+            ServiciosDelegacion serviciosDelegacion = new ServiciosDelegacion();
+            serviciosDelegacion.delegaciones = con.delegaciones.ToList();
+
+            List<Delegaciones> lista = new List<Delegaciones>();
+            foreach (var i in serviciosDelegacion.delegaciones)
+            {
+                Delegaciones d = new Delegaciones();
+                d.Id = i.Id;
+                d.Municipio = Seguridad.Decrypt(i.Municipio);
+                lista.Add(d);
+            }
+
+            serviciosDelegacion.servicios = con.servicios.ToList();
+            List<Servicios> listaserviciosdelegacion = new List<Servicios>();
+            foreach (var i in serviciosDelegacion.servicios)
+            {
+                Servicios ser = new Servicios();
+                ser.Id = i.Id;
+                ser.NombreServicio = Seguridad.Decrypt(i.NombreServicio);
+                listaserviciosdelegacion.Add(ser);
+            }
+            serviciosDelegacion.delegaciones = lista;
+            serviciosDelegacion.servicios = listaserviciosdelegacion;
+            return View(serviciosDelegacion);
         }
 
         [HttpGet]
@@ -33,7 +53,27 @@ namespace mvc.Controllers
         {
             ServiciosDelegacion serviciosDelegacion = con.serviciosdelegacion.FirstOrDefault(model => model.Id == serviciosdelegacion.Id);
             serviciosDelegacion.delegaciones = con.delegaciones.ToList();
+
+            List<Delegaciones> lista = new List<Delegaciones>();          
+            foreach(var i in serviciosDelegacion.delegaciones)
+            {
+                Delegaciones d = new Delegaciones();
+                d.Id = i.Id;
+                d.Municipio = Seguridad.Decrypt(i.Municipio);
+                lista.Add(d);
+            }
+         
             serviciosDelegacion.servicios = con.servicios.ToList();
+            List<Servicios> listaserviciosdelegacion = new List<Servicios>();
+            foreach (var i in serviciosDelegacion.servicios)
+            {
+                Servicios ser = new Servicios();
+                ser.Id = i.Id;
+                ser.NombreServicio = Seguridad.Decrypt(i.NombreServicio);
+                listaserviciosdelegacion.Add(ser);
+            }
+            serviciosDelegacion.delegaciones = lista;
+            serviciosDelegacion.servicios = listaserviciosdelegacion;
             return View(serviciosDelegacion);
         }
 
@@ -42,9 +82,11 @@ namespace mvc.Controllers
         {
             if (ModelState.IsValid)
             {
+                serviciosdelegacion.NombreServicio = Seguridad.Encrypt(serviciosdelegacion.NombreServicio);
                 ServiciosDelegacion delegacioneslistado = con.serviciosdelegacion.FirstOrDefault(model => model.Id == serviciosdelegacion.Id);
                 if (delegacioneslistado == null)
                 {
+
                     con.serviciosdelegacion.Add(serviciosdelegacion);
                     con.SaveChanges();
                 }

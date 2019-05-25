@@ -13,7 +13,9 @@ namespace mvc.Models
         [Display(Name ="Id")]
         public int Id { set; get; }
 
+        [ForeignKey("IdDelegacion")]
         public IEnumerable<Delegaciones> delegaciones { set; get; }
+        [ForeignKey("IdServicio")]
         public IEnumerable<Servicios> servicios { set; get; }
 
         [Required(ErrorMessage ="Seleccione la delegación")]

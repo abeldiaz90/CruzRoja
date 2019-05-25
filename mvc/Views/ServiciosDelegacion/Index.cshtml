@@ -3,6 +3,7 @@
 	ViewBag.Title = "Cruz Roja";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@using mvc.Models;
 
 <h2>Catalogo de Servicios</h2>
 @Html.ActionLink("Nuevo", "Nuevo",null,new { @class="btn btn-outline-info"})
@@ -23,10 +24,10 @@
 		{
 			<tr>
 				<td scope="row">
-					@modelo.servicios.NombreServicio
+					@Seguridad.Decrypt(modelo.servicios.NombreServicio)
 				</td>
 				<td scope="row">
-					@modelo.serviciosdelegacion.NombreServicio
+					@Seguridad.Decrypt(modelo.serviciosdelegacion.NombreServicio)
 				</td>
 				<td scope="row">
 					@String.Format("{0:C}", modelo.serviciosdelegacion.PreciosinIVA)
