@@ -12,12 +12,51 @@ namespace mvc.Controllers
         Contexto con = new Contexto();
         public ActionResult Index()
         {
+            ServiciosDelegacion serviciosDelegacion = new ServiciosDelegacion();
             IEnumerable<ServiciosDelegacion> serviciosDelegacions = con.serviciosdelegacion.ToList();
             IEnumerable<Servicios> serviciosvista = con.servicios.ToList();
-            var vistaservicios = from sd in serviciosDelegacions
-                                 join ss in serviciosvista on sd.IdServicio equals ss.Id
+            List<Servicios> servicios = new List<Servicios>();
+            foreach (var i in serviciosvista)
+            {
+                Servicios s = new Servicios();
+                s.Id = i.Id;
+                s.Clave = Seguridad.Decrypt(i.Clave);
+                s.NombreServicio = Seguridad.Decrypt(i.NombreServicio);
+                servicios.Add(s);
+            }
+
+            List<ServiciosDelegacion> serviciosdelegacion = new List<ServiciosDelegacion>();
+            foreach (var i in serviciosDelegacions)
+            {
+                ServiciosDelegacion s = new ServiciosDelegacion();
+                s.Id = i.Id;
+                s.IdDelegacion = i.IdDelegacion;
+                s.IdServicio = i.IdServicio;
+                s.NombreServicio= Seguridad.Decrypt(i.NombreServicio);
+                s.precios = i.precios;
+                s.servicios = i.servicios;
+                s.serviciosdelegacionvista = i.serviciosdelegacionvista;
+                serviciosdelegacion.Add(s);
+            }
+
+
+
+            var vistaservicios = from sd in serviciosdelegacion
+                                 join ss in servicios on sd.IdServicio equals ss.Id
                                  select new ServiciosVista { servicios = ss, serviciosdelegacion = sd };
-            return View(vistaservicios);
+            serviciosDelegacion.serviciosdelegacionvista = vistaservicios.OrderBy(s=>s.serviciosdelegacion.NombreServicio);
+         
+            //foreach (var i in vistaservicios)
+            //{
+            //    ServiciosVista sv = new ServiciosVista();
+            //    sv.servicios.Id = i.servicios.Id;
+            //    sv.servicios.Clave = Seguridad.Decrypt(i.servicios.Clave);
+            //    sv.servicios.NombreServicio = Seguridad.Decrypt(i.servicios.NombreServicio);
+            //    vistaservicios
+            //}
+
+            serviciosDelegacion.precios = con.serviciosDelegacionPrecios.ToList().Where(s => s.IdServicio == 20);
+            return View(serviciosDelegacion);
         }
 
         public ActionResult Nuevo()
@@ -98,6 +137,25 @@ namespace mvc.Controllers
 
             }
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ActionResult Precios(int id)
+        {
+            IEnumerable<ServiciosDelegacion> serviciosDelegacions = con.serviciosdelegacion.ToList();
+            IEnumerable<Servicios> serviciosvista = con.servicios.ToList();
+            IEnumerable<ServiciosDelegacionPrecios> serviciosdelegacionPrecios = con.serviciosDelegacionPrecios.ToList();
+            var vistaservicios = from sd in serviciosDelegacions
+                                 join ss in serviciosvista on sd.IdServicio equals ss.Id
+                                 select new ServiciosVista { servicios = ss, serviciosdelegacion = sd };
+
+            var vistatotal = from vista in vistaservicios
+                             join vistaprecios in serviciosdelegacionPrecios on vista.serviciosdelegacion.IdServicio equals vistaprecios.IdServicio
+                             select new ServiciosVista { servicios = vista.servicios, serviciosdelegacion = vista.serviciosdelegacion, serviciosdelegacionprecios = vistaprecios };
+
+
+            IEnumerable <ServiciosDelegacionPrecios> sdp = con.serviciosDelegacionPrecios.ToList().Where(s => s.IdServicio == id);
+            return PartialView("Precios", vistatotal.Where(s => s.serviciosdelegacionprecios.IdServicio == id));
         }
     }
 }

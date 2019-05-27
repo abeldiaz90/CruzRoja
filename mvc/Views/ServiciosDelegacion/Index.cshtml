@@ -1,45 +1,104 @@
-﻿@model IEnumerable<mvc.Models.ServiciosVista>
-@{
-	ViewBag.Title = "Cruz Roja";
-	Layout = "~/Views/Shared/_Layout.cshtml";
-}
-@using mvc.Models;
+﻿@using mvc.Models;
+@model ServiciosDelegacion
+	@{
+		ViewBag.Title = "Cruz Roja";
+		Layout = "~/Views/Shared/_Layout.cshtml";
+	}
 
-<h2>Catalogo de Servicios</h2>
-@Html.ActionLink("Nuevo", "Nuevo",null,new { @class="btn btn-outline-info"})
-<table class="table">
-	<thead class="thead-dark">
-		<tr>
-			<th scope="col">
-				Tipo de Servicio
-			</th>
-			<th scope="col">
-				Nombre del Servicio
-			</th>
-			<th scope="col">
-				Precio
-			</th>
-		</tr>
-		@foreach (var modelo in Model)
-		{
+	<h2>Catalogo de Servicios</h2>
+	@Html.ActionLink("Nuevo", "Nuevo", null, new { @class = "btn btn-outline-info" })
+	<table class="table">
+		<thead class="thead-dark">
 			<tr>
-				<td scope="row">
-					@Seguridad.Decrypt(modelo.servicios.NombreServicio)
-				</td>
-				<td scope="row">
-					@Seguridad.Decrypt(modelo.serviciosdelegacion.NombreServicio)
-				</td>
-				<td scope="row">
-					@String.Format("{0:C}", modelo.serviciosdelegacion.PreciosinIVA)
-				</td>
-				<td scope="row">
-					@Html.ActionLink("Editar", "Editar", new { @Id = modelo.serviciosdelegacion.Id }, new { @class = "btn btn-outline-primary" })
-				</td>
+				<th scope="col">
+					Tipo de Servicio
+				</th>
+				<th scope="col">
+					Nombre del Servicio
+				</th>
 			</tr>
-		}
+			@foreach (var modelo in Model.serviciosdelegacionvista)
+			{
+				<tr>
+					<td scope="row">
+						@modelo.servicios.NombreServicio
+					</td>
+					<td scope="row">
+						@modelo.serviciosdelegacion.NombreServicio
+					</td>
+					<td scope="row">
+						@Html.ActionLink("Editar", "../ServiciosPrecios/Editar", new { @Id = modelo.serviciosdelegacion.Id }, new { @class = "btn btn-outline-primary" })
+					</td>
+					<td scope="row">
+						<button type="button" id="btnConsultaPrecio_@modelo.serviciosdelegacion.Id" value="@modelo.serviciosdelegacion.Id" onclick="Datos(@modelo.serviciosdelegacion.Id)" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModalCenter">
+							Precios
+						</button>
+					</td>
+				</tr>
+			}
 		</thead>
-</table>
+	</table>
 
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLongTitle">Precios</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					@Html.ActionLink("Nuevo", "../ServiciosPrecios/Nuevo", null, new { @class = "btn btn-outline-info" })
+					<div id="myPartialViewDiv">
+						@{
+							Html.RenderPartial("Precios", Model.precios);
+						}
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	    		</div>
+			</div>
+		</div>
+	</div>
+
+ <script>
+	 $(document).ready(function () {
+		// $('#btnConsultaPrecio_' + $('#btnConsultaPrecio'.val())).on("click", function () {
+		 //var country = $('#btnConsultaPrecio_'+ $('#btnConsultaPrecio'.val())).val();
+		
+	 });
+
+	function Datos(valor) {
+		// var country = $('#btnConsultaPrecio $('#btnConsultaPrecio'.val())).val();
+			var obj = { country: valor };
+			AjaxCall('/ServiciosPrecios/Index/' + obj.country, JSON.stringify(obj), 'POST').done(function (response) {
+				if (response.length > 0) {
+					$('#myPartialViewDiv').html(response);
+					//var options = '';
+					//options += '<option value="Select">Select</option>';
+					//for (var i = 0; i < response.length; i++) {
+					//    options += '<option value="' + response[i] + '">' + response[i] + '</option>';
+					//}
+					//$('#stateDropDownList').append(options);
+
+				}
+			}).fail(function (error) {
+				alert(error.StatusText);
+			});
+		};
+
+	function AjaxCall(url, data, type) {
+		return $.ajax({
+			url: url,
+			type: type ? type : 'GET',
+			data: data,
+			contentType: 'application/json'
+		});
+	}
+	</script>
 
 
 

@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<mvc.Models.OrdenesTemporalVista>
-
+@using mvc.Models;
 <table class="table table-sm table-dark">
 	<thead>
 		<tr>
@@ -20,7 +20,7 @@
 		{
 			<tr>
 				<td>
-					@modelo.serviciosDelegacion.NombreServicio
+					@Seguridad.Decrypt(modelo.serviciosDelegacion.NombreServicio)
 				</td>
 				<td>
 					@modelo.ordenesTemporal.cantidad

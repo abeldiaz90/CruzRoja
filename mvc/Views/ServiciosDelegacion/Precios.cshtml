@@ -1,0 +1,22 @@
+﻿@using mvc.Models;
+@model IEnumerable<mvc.Models.ServiciosDelegacionPrecios>
+<table class="table">
+	<thead class="thead-dark">
+		<tr>
+			<th scope="col">
+				Precio:
+			</th>
+		</tr>
+		@foreach (var i in Model)
+		{
+			<tr>
+				<td scope="row">
+					@String.Format("{0:C}", i.PrecioSinIva);
+				</td>
+				<td scope="row">
+					@Html.ActionLink("Editar", "Editar", new { @Id = i.Id }, new { @class = "btn btn-outline-primary" })
+				</td>
+			</tr>
+		}
+	</thead>
+</table>

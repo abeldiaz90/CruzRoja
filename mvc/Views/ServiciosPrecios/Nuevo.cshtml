@@ -1,0 +1,69 @@
+﻿@using mvc.Models;
+@model ServiciosDelegacionPrecios
+@{
+	ViewBag.Title = "Cruz Roja";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("Guardar", "ServiciosPrecios", FormMethod.Post))
+{
+	@Html.AntiForgeryToken();
+	@Html.ValidationSummary(true);
+	<fieldset>
+		<div>
+			@Html.HiddenFor(m => m.Id, new { @Value = 0 })
+		</div>
+		<div>
+			@Html.LabelFor(m => m.IdServicio)
+		</div>
+		<div>
+			@Html.DropDownListFor(model => model.IdServicio, new SelectList(Model.listaserviciosdelegacion, "Id", "NombreServicio"))
+			@Html.ValidationMessageFor(model => model.IdServicio)
+		</div>
+		<div>
+			@Html.LabelFor(m => m.PrecioSinIva)
+		</div>
+		<div>
+			@Html.EditorFor(model => model.PrecioSinIva)
+			@Html.ValidationMessageFor(model => model.PrecioSinIva)
+		</div>
+		<input type="submit" value="Guardar" />
+	</fieldset>
+}
+<div id="myPartialViewDiv">
+	@{
+		Html.RenderPartial("Index", Model.serviciosDelegacionPrecios);
+	}
+</div>
+<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+	$(document).ready(function () {
+		$('#IdServicio').on("change", function () {
+			var country = $('#IdServicio').val();
+			var obj = { country: country };
+			AjaxCall('/ServiciosPrecios/Index/' + obj.country, JSON.stringify(obj), 'POST').done(function (response) {
+				if (response.length > 0) {
+	    			$('#myPartialViewDiv').html(response);
+					//var options = '';
+					//options += '<option value="Select">Select</option>';
+					//for (var i = 0; i < response.length; i++) {
+					//    options += '<option value="' + response[i] + '">' + response[i] + '</option>';
+					//}
+					//$('#stateDropDownList').append(options);
+
+				}
+			}).fail(function (error) {
+				alert(error.StatusText);
+			});
+		});
+	});
+
+	function AjaxCall(url, data, type) {
+		return $.ajax({
+			url: url,
+			type: type ? type : 'GET',
+			data: data,
+			contentType: 'application/json'
+		});
+	}
+</script>

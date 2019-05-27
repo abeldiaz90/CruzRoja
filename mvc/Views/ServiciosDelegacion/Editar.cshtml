@@ -35,13 +35,6 @@
 			@Html.EditorFor(model => model.NombreServicio)
 			@Html.ValidationMessageFor(model => model.NombreServicio)
 		</div>
-		<div>
-			@Html.LabelFor(model => model.PreciosinIVA)
-		</div>
-		<div>
-			@Html.EditorFor(model => model.PreciosinIVA)
-			@Html.ValidationMessageFor(model => model.PreciosinIVA)
-		</div>
 		<input type="submit" value="Guardar" class="btn btn-outline-success" />
 		@Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-outline-dark" })
 	</fieldset>

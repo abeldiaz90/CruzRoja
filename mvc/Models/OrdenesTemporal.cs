@@ -18,6 +18,10 @@ namespace mvc.Models
         [Display(Name = "Servicio:")]
         public int IdServicio { set; get; }
 
+        [Required(ErrorMessage = "Paciente")]
+        [Display(Name = "Paciente:")]
+        public int IdPaciente { set; get; }
+
         [Required(ErrorMessage = "Indique la cantidad")]
         public int cantidad { set; get; }
     }

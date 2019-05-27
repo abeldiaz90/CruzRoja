@@ -1,0 +1,47 @@
+﻿@model mvc.Models.Usuarios
+@{
+	ViewBag.Title = "Cruz Roja";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Alta de Usuarios</h2>
+@using (Html.BeginForm("Guardar", "Usuarios", FormMethod.Post, new { @id = "formulario", @class = "form" }))
+{
+	@Html.AntiForgeryToken()
+	@Html.ValidationSummary(true)
+<fieldset>
+	<div>
+		@Html.HiddenFor(m => m.Id, new { @Value = 0 })
+	</div>
+	<div>
+		@Html.LabelFor(m => m.IdDelegacion, new { @class = "text-form" })
+	</div>
+	<div>
+		@Html.DropDownListFor(model => model.IdDelegacion, new SelectList(Model.delegaciones, "Id", "Municipio"))
+		@Html.ValidationMessageFor(m => m.IdDelegacion)
+	</div>
+	<div>
+		@Html.LabelFor(m => m.Usuario, new { @class = "text-form" })
+	</div>
+	<div>
+		@Html.EditorFor(m => m.Usuario, new { @class = "text-form" })
+		@Html.ValidationMessageFor(m => m.Usuario)
+	</div>
+	<div>
+		@Html.LabelFor(m => m.Password, new { @class = "text-form" })
+	</div>
+	<div>
+		@Html.EditorFor(m => m.Password, new { @class = "text-form" })
+		@Html.ValidationMessageFor(m => m.Password)
+	</div>
+	<div>
+		@Html.LabelFor(m => m.Correo, new { @class = "text-form" })
+	</div>
+	<div>
+		@Html.EditorFor(m => m.Correo, new { @class = "text-form" })
+		@Html.ValidationMessageFor(m => m.Correo)
+	</div>
+	<input type="submit" id="Agregar" value="Agregar" />
+</fieldset>
+}
+

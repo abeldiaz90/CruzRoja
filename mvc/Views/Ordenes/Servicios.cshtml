@@ -1,7 +1,43 @@
 ﻿@model mvc.Models.Ordenes
 
-@using (Html.BeginForm("Agregar", "Ordenes", FormMethod.Post))
+@using (Html.BeginForm("Agregar", "Ordenes", FormMethod.Post, new { @class = "form", id = "Formulario" }))
 {
+	@Html.AntiForgeryToken();
+	@Html.ValidationSummary(true);
+	<div class="container">
+		<div class="row">
+			@Html.HiddenFor(model => model.Id)
+			<div class="col-sm">
+				@Html.LabelFor(model => model.Paciente.Nombre)
+				@Html.EditorFor(Model => Model.Paciente.Nombre)
+			</div>
+			<div class="col-sm">
+				@Html.LabelFor(model => model.Paciente.SegundoNombre)
+				@Html.EditorFor(Model => Model.Paciente.SegundoNombre)
+			</div>
+			<div class="col-sm">
+				@Html.LabelFor(model => model.Paciente.ApellidoPaterno)
+				@Html.EditorFor(Model => Model.Paciente.ApellidoPaterno)
+			</div>
+			<div class="col-sm">
+				@Html.LabelFor(model => model.Paciente.ApellidoMaterno)
+				@Html.EditorFor(Model => Model.Paciente.ApellidoMaterno)
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm">
+				@Html.LabelFor(model => model.Paciente.FechaNacimiento)
+				@Html.EditorFor(Model => Model.Paciente.FechaNacimiento)
+			</div>
+			<div class="col-sm">
+				@Html.LabelFor(model => model.Paciente.IdSexo)
+				@Html.EnumDropDownListFor(model => model.Paciente.Sexo)
+			</div>
+			<div>
+				<button type="button" class="btn btn-outline-info" data-toggle="modal" data-target=".bd-example-modal-lg">Buscar Pacientes</button>
+			</div>
+		</div>
+	</div>
 	<div class="container">
 		<div class="row">
 			<div class="col-sm">
@@ -16,8 +52,8 @@
 				@Html.EditorFor(model => model.ordentemporal.cantidad, new { @class = "text-form" })
 			</div>
 			<div class="col-sm">
-				<input type="submit"/>
-				<button type="button" id="Agregar" value="Agregar" class="btn btn-outline-secondary" >Agregar</button>
+				<input type="submit" id="Agregar" value="Agregar" class="btn btn-outline-secondary" />
+				<!--<button type="button" id="Agregar" value="Agregar" class="btn btn-outline-secondary" >Agregar</button>-->
 			</div>
 		</div>
 	</div>
@@ -27,37 +63,88 @@
 		Html.RenderPartial("OrdenesTemporal", Model.ordenestemporalvista);
 	}
 </div>
-<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 <script>
-	$(document).ready(function () {
-			$("#Agregar").click(function () {
-				var JsonModel = '@Html.Raw(Json.Encode(Model))';
-				console.log(JsonModel);
-			var ordentemporal = {
-			IdFolio : @Model.Id,
-			IdServicio : $("#ordentemporal_IdServicio").val(),
-			cantidad : $("#ordentemporal_cantidad").val()
-				};
-				console.log(ordentemporal);
-			var modelo = JSON.parse(JsonModel);
+	@*$(document).ready(function () {
+		$("#Formulario").submit(function () {
+				var ordentemporal = {
+				IdFolio: @Model.Id,
+				IdServicio: $("#ordentemporal_IdServicio").val(),
+					cantidad: $("#ordentemporal_cantidad").val(),
+				Nombre:$("#Paciente_Nombre").val()
+			};
 			$.ajax({
-				type: "POST",
 				url: '@Url.Action("Agregar")',
-				contentType: "application/json; charset:utf-8",
-				dataType: "json",    
-				//data: {'ordenes': modelo},     
-				data: {'ordenes': modelo,'ordenes.IdFolio':ordentemporal.IdFolio,'ordenes.IdServicio':ordentemporal.IdServicio,'ordenes.cantidad':ordentemporal.cantidad},                
-						success: function (data) {
+				type: "POST",
+					data: {'ordenes.Paciente.IdFolio': ordentemporal.Nombre, 'ordenes.ordentemporal.IdFolio': ordentemporal.IdFolio, 'ordenes.ordentemporal.IdServicio': ordentemporal.IdServicio, 'ordenes.ordentemporal.cantidad': ordentemporal.cantidad },
+				//data: $('#Formulario').serialize(),
+				//data: $.parseJSON($('#Formulario').serialize()),
+				//contentType: 'application/x-www-form-urlencoded',
+				//contentType: "application/json; charset=utf-8",
+				dataType: "html",
+				//var modelo = $.parseJSON(JsonModel);
+				success: function (e) {
+					console.log(e);
+					 if (e.result === 'success') {
+                     $("#myPartialViewDiv").html(data);
+                                }},
+				error: function (xhr, ajaxOptions, thrownError) {
+					//console.log(thrownError);
+						//$("#myPartialViewDiv").html(response);
+					alert(xhr.status);
+					alert(thrownError);
+					// help to get error details
+				}
+			});
+		});
+	});*@
+
+
+	@*$(document).ready(function () {
+		$("#Formulario").submit(function () {
+			$.ajax({
+				url: '@Url.Action("Agregar")',
+				type: "POST",
+				dataType: "html",
+				success: function () {
+					$("#myPartialViewDiv").html(Response);
+					alert("Partial View is Loaded.....");
+				},
+				error: function (xhr, ajaxOptions, thrownError) {
+						//$("#myPartialViewDiv").html(data);
+					alert(xhr.status);
+					alert(thrownError);
+					// help to get error details
+				}
+			});
+		});
+	});*@
+	@*$(document).ready(function () {
+		$("#Formulario").submit(function () {
+			var ordentemporal = {
+				IdFolio: @Model.Id,
+				IdServicio: $("#ordentemporal_IdServicio").val(),
+				cantidad: $("#ordentemporal_cantidad").val()
+			};
+			$.ajax({
+				url: '@Url.Action("Agregar")',
+				type: "GET",
+				async: true,
+                cache: false,
+                dataType: "html",
+				data: { 'ordenes.ordentemporal.IdFolio': ordentemporal.IdFolio, 'ordenes.ordentemporal.IdServicio': ordentemporal.IdServicio, 'ordenes.ordentemporal.cantidad': ordentemporal.cantidad },
+				success: function (data) {
 					$("#myPartialViewDiv").html(data);
-                },
-				error: function () {
-                    alert("Error while inserting data");
-                }
-            });
-            return false;
-        });
-    });
+					alert("Partial View is Loaded.....");
+				},
+				error: function (xhr, ajaxOptions, thrownError) {
+					alert("Error");
+					alert(xhr.status);
+					alert(thrownError);
+					// help to get error details
+				}
+			});
+		});
+	});*@
 
 </script>
-
 <!--@@Html.Partial("OrdenesTemporal",Model.ordenestemporalvista)-->

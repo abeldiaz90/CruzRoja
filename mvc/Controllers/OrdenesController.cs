@@ -31,18 +31,32 @@ namespace mvc.Controllers
                                orderby serviciosdelegacion.First()
                                select new OrdenesTemporalVista { ordenesTemporal = ot, serviciosDelegacion = se };
 
-
+            //or.Idpaciente = contexto.pacientes.ToList();
             or.pacientes = contexto.pacientes.ToList();
-            or.serviciosDelegacions = contexto.serviciosdelegacion.ToList().OrderBy(s => s.NombreServicio);
+            IEnumerable< ServiciosDelegacion> sd = contexto.serviciosdelegacion.ToList().OrderBy(s => s.NombreServicio);
+            List<ServiciosDelegacion> serviciosDelegacions = new List<ServiciosDelegacion>();
+            foreach (var i in sd)
+            {
+                ServiciosDelegacion s = new ServiciosDelegacion();
+                s.Id = i.Id;
+                s.NombreServicio = Seguridad.Decrypt(i.NombreServicio);
+                serviciosDelegacions.Add(s);
+            }
+            or.serviciosDelegacions = serviciosDelegacions.OrderBy(s=>s.NombreServicio);
             or.ordenestemporalvista = vistaestados.OrderBy(s => s.serviciosDelegacion.NombreServicio);
+            or.Idpaciente = contexto.ordenestemporal.FirstOrDefault(s => s.IdFolio == or.Id).Id;
+            or.Paciente = or.pacientes.FirstOrDefault(s => s.Id == or.Idpaciente);
             return View(or);
         }
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Agregar(Ordenes ordenes)
         {
             Contexto con = new Contexto();
+            var validarcliente = con.pacientes.FirstOrDefault(m => m.Nombre == ordenes.Paciente.Nombre & m.SegundoNombre == ordenes.Paciente.SegundoNombre & m.ApellidoPaterno == ordenes.Paciente.ApellidoPaterno & m.ApellidoMaterno == ordenes.Paciente.ApellidoMaterno).Id;
+            ordenes.ordentemporal.IdPaciente = validarcliente;
             con.ordenestemporal.Add(ordenes.ordentemporal);
             con.SaveChanges();
 
@@ -53,9 +67,15 @@ namespace mvc.Controllers
                                orderby serviciosdelegacion.First()
                                select new OrdenesTemporalVista { ordenesTemporal = ot, serviciosDelegacion = se };
 
-            ordenes.ordenestemporalvista = vistaestados.OrderBy(s => s.serviciosDelegacion.NombreServicio).OrderBy(s=>s.serviciosDelegacion.NombreServicio);
-            return PartialView("OrdenesTemporal", ordenes.ordenestemporalvista);
+            ordenes.ordenestemporalvista = vistaestados.OrderBy(s => s.serviciosDelegacion.NombreServicio).OrderBy(s => s.serviciosDelegacion.NombreServicio);
+            ordenes.serviciosDelegacions = con.serviciosdelegacion.ToList().OrderBy(s => s.NombreServicio);
+            //return Json(new { success = true, ordenes.ordenestemporalvista }, JsonRequestBehavior.AllowGet);
+            return RedirectToAction("Index");
+            //return PartialView(new { success = true, "a" }, ordenes.ordenestemporalvista);
+           // return PartialView("OrdenesTemporal", ordenes.ordenestemporalvista);
+            //return Json(ordenes.ordenestemporalvista, JsonRequestBehavior.AllowGet);
         }
+
         public async Task<ActionResult> Eliminar(int Id)
         {
             Contexto con = new Contexto();
@@ -80,7 +100,7 @@ namespace mvc.Controllers
                 {
                     con.pacientes.Add(ordenes.Paciente);
                     con.SaveChanges();
-                    ordenesmodelo.Idpaciente = con.pacientes.FirstOrDefault(m => m.Nombre == ordenes.Paciente.Nombre & m.SegundoNombre == ordenes.Paciente.SegundoNombre & m.ApellidoPaterno == ordenes.Paciente.ApellidoPaterno & m.ApellidoMaterno == ordenes.Paciente.ApellidoMaterno).Id;                 
+                    ordenesmodelo.Idpaciente = con.pacientes.FirstOrDefault(m => m.Nombre == ordenes.Paciente.Nombre & m.SegundoNombre == ordenes.Paciente.SegundoNombre & m.ApellidoPaterno == ordenes.Paciente.ApellidoPaterno & m.ApellidoMaterno == ordenes.Paciente.ApellidoMaterno).Id;
                 }
                 else
                 {
@@ -111,7 +131,7 @@ namespace mvc.Controllers
                     con.ordenesdetalles.Add(ordenesDetalles);
                 }
 
-            
+
                 con.ordenestemporal.RemoveRange(con.ordenestemporal.Where(x => x.IdFolio == ordenes.Id));
                 con.SaveChanges();
 

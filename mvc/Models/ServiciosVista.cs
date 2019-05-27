@@ -9,6 +9,7 @@ namespace mvc.Models
     {
         public Servicios servicios { set; get; }
         public ServiciosDelegacion serviciosdelegacion { set; get; }
-    
+        public ServiciosDelegacionPrecios serviciosdelegacionprecios { set; get; }
+
     }
 }

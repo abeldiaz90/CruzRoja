@@ -29,23 +29,71 @@
 </div>
 <h3>Ordenes de Servicio</h3>
 
-@using (Html.BeginForm("Cobrar", "Ordenes", FormMethod.Post))
+
+@using (Html.BeginForm("Agregar", "Ordenes", FormMethod.Post, new { @class = "form", id = "Formulario" }))
 {
 	@Html.AntiForgeryToken();
 	@Html.ValidationSummary(true);
-	<legend>Ingrese los datos del Estado</legend>
-	<fieldset>
-		@Html.Partial("Pacientes")
-		@Html.Partial("Servicios")
-		<input type="submit" value="Cobrar" class="btn btn-outline-success" />
-	</fieldset>
-	<!--<button type="button" class="btn btn-outline-info" data-toggle="modal" data-target=".bd-cobro-modal-lg">Cobrar</button>-->
-	<div class="modal fade bd-cobro-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-lg">
-			<div class="modal-content">
-
-
+	<div class="container">
+		<div class="row">
+			@Html.HiddenFor(model => model.Id)
+			<div class="col-sm">
+				@Html.LabelFor(model => model.Paciente.Nombre)
+				@Html.EditorFor(Model => Model.Paciente.Nombre)
+			</div>
+			<div class="col-sm">
+				@Html.LabelFor(model => model.Paciente.SegundoNombre)
+				@Html.EditorFor(Model => Model.Paciente.SegundoNombre)
+			</div>
+			<div class="col-sm">
+				@Html.LabelFor(model => model.Paciente.ApellidoPaterno)
+				@Html.EditorFor(Model => Model.Paciente.ApellidoPaterno)
+			</div>
+			<div class="col-sm">
+				@Html.LabelFor(model => model.Paciente.ApellidoMaterno)
+				@Html.EditorFor(Model => Model.Paciente.ApellidoMaterno)
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-sm">
+				@Html.LabelFor(model => model.Paciente.FechaNacimiento)
+				@Html.EditorFor(Model => Model.Paciente.FechaNacimiento)
+			</div>
+			<div class="col-sm">
+				Edad: @(DateTime.Now.Year-Model.Paciente.FechaNacimiento.Year)
+			
+			</div>
+			<div class="col-sm">
+				@Html.LabelFor(model => model.Paciente.IdSexo)
+				@Html.EnumDropDownListFor(model => model.Paciente.Sexo)
+			</div>
+			<div>
+				<button type="button" class="btn btn-outline-info" data-toggle="modal" data-target=".bd-example-modal-lg">Buscar Pacientes</button>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm">
+				@Html.HiddenFor(model => model.ordentemporal.IdFolio, new { @Value = Model.Id })
+			</div>
+			<div class="col-sm">
+				@Html.LabelFor(model => model.ordentemporal.IdServicio)
+				@Html.DropDownListFor(model => model.ordentemporal.IdServicio, new SelectList(Model.serviciosDelegacions, "Id", "NombreServicio"))
+			</div>
+			<div class="col-sm">
+				@Html.LabelFor(model => model.ordentemporal.cantidad)
+				@Html.EditorFor(model => model.ordentemporal.cantidad, new { @class = "text-form" })
+			</div>
+			<div class="col-sm">
+				<input type="submit" id="Agregar" value="Agregar" class="btn btn-outline-secondary" />
+				<!--<button type="button" id="Agregar" value="Agregar" class="btn btn-outline-secondary" >Agregar</button>-->
+			</div>
+		</div>
+	</div>
+	<div id="myPartialViewDiv">
+		@{
+			Html.RenderPartial("OrdenesTemporal", Model.ordenestemporalvista);
+		}
 	</div>
 }

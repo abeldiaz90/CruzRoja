@@ -30,10 +30,13 @@ namespace mvc.Models
         [Display(Name = "Tipo de servicio:")]
         public String NombreServicio { set; get; }
 
-        [Required(ErrorMessage = "Indique el Precio")]
-        [Display(Name = "Precio sin IVA:")]
-        [DataType(DataType.Currency)]
-        public decimal PreciosinIVA { set; get; }
+        public IEnumerable<ServiciosDelegacionPrecios> precios { set; get; }
+        public IEnumerable<ServiciosVista> serviciosdelegacionvista { set; get; }
+
+        //[Required(ErrorMessage = "Indique el Precio")]
+        //[Display(Name = "Precio sin IVA:")]
+        //[DataType(DataType.Currency)]
+        //public decimal PreciosinIVA { set; get; }
 
     }
 }
