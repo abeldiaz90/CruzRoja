@@ -33,7 +33,7 @@ namespace mvc.Controllers
 
             //or.Idpaciente = contexto.pacientes.ToList();
             or.pacientes = contexto.pacientes.ToList();
-            IEnumerable< ServiciosDelegacion> sd = contexto.serviciosdelegacion.ToList().OrderBy(s => s.NombreServicio);
+            IEnumerable<ServiciosDelegacion> sd = contexto.serviciosdelegacion.ToList().OrderBy(s => s.NombreServicio);
             List<ServiciosDelegacion> serviciosDelegacions = new List<ServiciosDelegacion>();
             foreach (var i in sd)
             {
@@ -42,7 +42,8 @@ namespace mvc.Controllers
                 s.NombreServicio = Seguridad.Decrypt(i.NombreServicio);
                 serviciosDelegacions.Add(s);
             }
-            or.serviciosDelegacions = serviciosDelegacions.OrderBy(s=>s.NombreServicio);
+            or.serviciosDelegacionPrecios = contexto.serviciosDelegacionPrecios.ToList();
+            or.serviciosDelegacions = serviciosDelegacions.OrderBy(s => s.NombreServicio);
             or.ordenestemporalvista = vistaestados.OrderBy(s => s.serviciosDelegacion.NombreServicio);
             or.Idpaciente = contexto.ordenestemporal.FirstOrDefault(s => s.IdFolio == or.Id).Id;
             or.Paciente = or.pacientes.FirstOrDefault(s => s.Id == or.Idpaciente);
@@ -72,7 +73,7 @@ namespace mvc.Controllers
             //return Json(new { success = true, ordenes.ordenestemporalvista }, JsonRequestBehavior.AllowGet);
             return RedirectToAction("Index");
             //return PartialView(new { success = true, "a" }, ordenes.ordenestemporalvista);
-           // return PartialView("OrdenesTemporal", ordenes.ordenestemporalvista);
+            // return PartialView("OrdenesTemporal", ordenes.ordenestemporalvista);
             //return Json(ordenes.ordenestemporalvista, JsonRequestBehavior.AllowGet);
         }
 
@@ -139,5 +140,6 @@ namespace mvc.Controllers
 
             return RedirectToAction("Index");
         }
+
     }
 }

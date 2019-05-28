@@ -18,12 +18,7 @@ namespace mvc.Models
         public int Idpaciente { set; get; }
       
         public Pacientes Paciente { set; get; }
-        /* [Display(Name = "Servicio:")]
-        [Required(ErrorMessage ="Seleccione una opcion:")]
-        public int IdServicio { set; get; }
-        [Required(ErrorMessage ="Cantidad:")]
-        [Display(Name ="Cantidad:")]
-       public int Cantidad { set; get; }*/
+
 
         [Display(Name ="Fecha y Hora:")]  
         [DataType(DataType.DateTime)]
@@ -34,5 +29,6 @@ namespace mvc.Models
         public IEnumerable<Pacientes> pacientes { set; get; }
         public IEnumerable<OrdenesTemporal> ordenestemporal { set; get; }
         public IEnumerable<OrdenesTemporalVista> ordenestemporalvista { set; get; }
+        public IEnumerable<ServiciosDelegacionPrecios> serviciosDelegacionPrecios { set; get; }
     }
 }

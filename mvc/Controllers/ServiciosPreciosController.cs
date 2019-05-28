@@ -53,6 +53,12 @@ namespace mvc.Controllers
             return View(sdp);
         }
 
+        public ActionResult ConsultaPrecios(Int32 IdServicio)
+        {
+            ServiciosDelegacionPrecios sp = new ServiciosDelegacionPrecios();
+            sp.serviciosDelegacionPrecios = con.serviciosDelegacionPrecios.ToList().Where(s => s.IdServicio == IdServicio);
+            return Json(sp.serviciosDelegacionPrecios, JsonRequestBehavior.AllowGet);
+        }
 
         public ActionResult Guardar(ServiciosDelegacionPrecios serviciosDelegacionPrecios)
         {

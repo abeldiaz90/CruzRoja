@@ -25,12 +25,12 @@
 				<td>
 					@modelo.ordenesTemporal.cantidad
 				</td>
-				<td>
+				@*<td>
 					@String.Format("{0:C}", @modelo.serviciosDelegacion.PreciosinIVA)
 				</td>
 				<td>
 					@String.Format("{0:C}", (modelo.serviciosDelegacion.PreciosinIVA * @modelo.ordenesTemporal.cantidad))
-				</td>
+				</td>*@
 				<td>
 					@Html.ActionLink("Editar", "Editar", new { @Id = modelo.ordenesTemporal.Id }, new { @class = "btn btn-outline-primary" })
 					@Html.ActionLink("Eliminar", "Eliminar", new { @Id = modelo.ordenesTemporal.Id }, new { @class = "btn btn-outline-danger" })
@@ -41,19 +41,19 @@
 			<td></td>
 			<td></td>
 			<td>Subtotal</td>
-			<td>@String.Format("{0:C}", Model.Sum(modelo => modelo.serviciosDelegacion.PreciosinIVA * modelo.ordenesTemporal.cantidad))</td>
+		@*	<td>@String.Format("{0:C}", Model.Sum(modelo => modelo.serviciosDelegacion.PreciosinIVA * modelo.ordenesTemporal.cantidad))</td>*@
 		</tr>
 		<tr>
 			<td></td>
 			<td></td>
 			<td>IVA</td>
-			<td>@String.Format("{0:C}", Model.Sum(modelo => modelo.serviciosDelegacion.PreciosinIVA * modelo.ordenesTemporal.cantidad) * decimal.Parse("0.16"))</td>
+			@*<td>@String.Format("{0:C}", Model.Sum(modelo => modelo.serviciosDelegacion.PreciosinIVA * modelo.ordenesTemporal.cantidad) * decimal.Parse("0.16"))</td>*@
 		</tr>
 		<tr>
 			<td></td>
 			<td></td>
 			<td>Total:</td>
-			<td><b style="color:white">@String.Format("{0:C}", (Model.Sum(modelo => modelo.serviciosDelegacion.PreciosinIVA * modelo.ordenesTemporal.cantidad) * decimal.Parse("0.16")) + Model.Sum(modelo => modelo.serviciosDelegacion.PreciosinIVA * modelo.ordenesTemporal.cantidad))</b></td>
+			@*<td><b style="color:white">@String.Format("{0:C}", (Model.Sum(modelo => modelo.serviciosDelegacion.PreciosinIVA * modelo.ordenesTemporal.cantidad) * decimal.Parse("0.16")) + Model.Sum(modelo => modelo.serviciosDelegacion.PreciosinIVA * modelo.ordenesTemporal.cantidad))</b></td>*@
 		</tr>
 	</thead>
 </table>
