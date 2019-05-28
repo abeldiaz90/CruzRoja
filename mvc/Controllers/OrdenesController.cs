@@ -42,11 +42,11 @@ namespace mvc.Controllers
                 s.NombreServicio = Seguridad.Decrypt(i.NombreServicio);
                 serviciosDelegacions.Add(s);
             }
-            or.serviciosDelegacionPrecios = contexto.serviciosDelegacionPrecios.ToList();
+            or.serviciosDelegacionPrecios = contexto.serviciosDelegacionPrecios.ToList().Where(s=>s.IdServicio==0);
             or.serviciosDelegacions = serviciosDelegacions.OrderBy(s => s.NombreServicio);
             or.ordenestemporalvista = vistaestados.OrderBy(s => s.serviciosDelegacion.NombreServicio);
-            or.Idpaciente = contexto.ordenestemporal.FirstOrDefault(s => s.IdFolio == or.Id).Id;
-            or.Paciente = or.pacientes.FirstOrDefault(s => s.Id == or.Idpaciente);
+            //or.Idpaciente = contexto.ordenestemporal.FirstOrDefault(s => s.IdFolio == or.Id).Id;
+            //or.Paciente = or.pacientes.FirstOrDefault(s => s.Id == or.Idpaciente);
             return View(or);
         }
 
@@ -57,7 +57,7 @@ namespace mvc.Controllers
         {
             Contexto con = new Contexto();
             var validarcliente = con.pacientes.FirstOrDefault(m => m.Nombre == ordenes.Paciente.Nombre & m.SegundoNombre == ordenes.Paciente.SegundoNombre & m.ApellidoPaterno == ordenes.Paciente.ApellidoPaterno & m.ApellidoMaterno == ordenes.Paciente.ApellidoMaterno).Id;
-            ordenes.ordentemporal.IdPaciente = validarcliente;
+            //ordenes.ordentemporal.IdPaciente = validarcliente;
             con.ordenestemporal.Add(ordenes.ordentemporal);
             con.SaveChanges();
 

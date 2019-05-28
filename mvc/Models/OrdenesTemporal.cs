@@ -22,9 +22,9 @@ namespace mvc.Models
         [Display(Name = "Precio:")]
         public int IdPrecio { set; get; }
 
-        [Required(ErrorMessage = "Paciente")]
-        [Display(Name = "Paciente:")]
-        public int IdPaciente { set; get; }
+        //[Required(ErrorMessage = "Paciente")]
+        //[Display(Name = "Paciente:")]
+        //public int IdPaciente { set; get; }
 
         [Required(ErrorMessage = "Indique la cantidad")]
         public int cantidad { set; get; }
