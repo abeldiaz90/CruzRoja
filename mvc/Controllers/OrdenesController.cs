@@ -26,10 +26,12 @@ namespace mvc.Controllers
 
             IEnumerable<ServiciosDelegacion> serviciosdelegacion = contexto.serviciosdelegacion.ToList();
             IEnumerable<OrdenesTemporal> ordenestemporal = contexto.ordenestemporal.Where(m => m.IdFolio == or.Id).ToList();
+            IEnumerable<ServiciosDelegacionPrecios> serviciosDelegacionPrecios = contexto.serviciosDelegacionPrecios.ToList();
             var vistaestados = from ot in ordenestemporal
                                join se in serviciosdelegacion on ot.IdServicio equals se.Id
+                               join pr in serviciosDelegacionPrecios on ot.IdPrecio equals pr.Id
                                orderby serviciosdelegacion.First()
-                               select new OrdenesTemporalVista { ordenesTemporal = ot, serviciosDelegacion = se };
+                               select new OrdenesTemporalVista { ordenesTemporal = ot, serviciosDelegacion = se, ServiciosDelegacionPrecios = pr };
 
             //or.Idpaciente = contexto.pacientes.ToList();
             or.pacientes = contexto.pacientes.ToList();
@@ -42,7 +44,7 @@ namespace mvc.Controllers
                 s.NombreServicio = Seguridad.Decrypt(i.NombreServicio);
                 serviciosDelegacions.Add(s);
             }
-            or.serviciosDelegacionPrecios = contexto.serviciosDelegacionPrecios.ToList().Where(s=>s.IdServicio==0);
+            or.serviciosDelegacionPrecios = contexto.serviciosDelegacionPrecios.ToList().Where(s => s.IdServicio == 0);
             or.serviciosDelegacions = serviciosDelegacions.OrderBy(s => s.NombreServicio);
             or.ordenestemporalvista = vistaestados.OrderBy(s => s.serviciosDelegacion.NombreServicio);
             //or.Idpaciente = contexto.ordenestemporal.FirstOrDefault(s => s.IdFolio == or.Id).Id;

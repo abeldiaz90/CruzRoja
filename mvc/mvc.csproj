@@ -327,6 +327,7 @@
     <Content Include="Views\ServiciosDelegacion\Precios.cshtml" />
     <Content Include="Views\ServiciosPrecios\Nuevo.cshtml" />
     <Content Include="Views\ServiciosPrecios\Editar.cshtml" />
+    <Content Include="Views\Ordenes\Resultados.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

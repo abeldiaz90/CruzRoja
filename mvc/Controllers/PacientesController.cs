@@ -62,8 +62,9 @@ namespace mvc.Controllers
         public ActionResult Buscar(Pacientes pa)
         {
             Contexto con = new Contexto();
-            Pacientes p = con.pacientes.FirstOrDefault(model => model.RFC == pa.RFC);
-            return View(p);
+            Pacientes p = con.pacientes.FirstOrDefault(model => model.Nombre.Contains(pa.Nombre) || model.SegundoNombre.Contains(pa.SegundoNombre) || model.ApellidoPaterno.Contains(pa.ApellidoPaterno)|| model.ApellidoPaterno.Contains(pa.ApellidoMaterno));
+            //return PartialView("Resultados", p);
+            return Json(p,JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

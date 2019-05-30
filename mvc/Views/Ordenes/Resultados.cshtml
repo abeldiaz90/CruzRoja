@@ -1,0 +1,51 @@
+﻿@model IEnumerable<mvc.Models.Pacientes>
+<table class="table">
+	<thead class="thead-dark">
+		<tr>
+			<th scope="col">
+				Primer Nombre
+			</th>
+			<th scope="col">
+				Segundo Nombre
+			</th>
+			<th scope="col">
+				Apellido Paterno
+			</th>
+			<th scope="col">
+				Apellido Materno
+			</th>
+			<th scope="col">
+				RFC
+			</th>
+			<th scope="col">
+				CURP
+			</th>
+		</tr>
+		@foreach (var m in Model)
+		{
+			<tr>
+				<td scope="row">
+					@m.Nombre
+				</td>
+				<td scope="row">
+					@m.SegundoNombre
+				</td>
+				<td scope="row">
+					@m.ApellidoPaterno
+				</td>
+				<td scope="row">
+					@m.ApellidoMaterno
+				</td>
+				<td scope="row">
+					@m.RFC
+				</td>
+				<td scope="row">
+					@m.CURP
+				</td>
+				<td scope="row">
+					@Html.ActionLink("Seleccionar", "Index", new { @Id = m.Id }, new { @class = "btn btn-outline-success" })
+				</td>
+			</tr>
+		}
+	</thead>
+</table>
