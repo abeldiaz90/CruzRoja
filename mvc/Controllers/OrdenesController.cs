@@ -12,6 +12,7 @@ namespace mvc.Controllers
     public class OrdenesController : Controller
     {
         // GET: Ordenes
+       // [Authorize]
         public ActionResult Index()
         {
             Ordenes or = new Ordenes();
@@ -55,28 +56,23 @@ namespace mvc.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+      //  [Authorize]
         public ActionResult Agregar(Ordenes ordenes)
         {
             Contexto con = new Contexto();
-            var validarcliente = con.pacientes.FirstOrDefault(m => m.Nombre == ordenes.Paciente.Nombre & m.SegundoNombre == ordenes.Paciente.SegundoNombre & m.ApellidoPaterno == ordenes.Paciente.ApellidoPaterno & m.ApellidoMaterno == ordenes.Paciente.ApellidoMaterno).Id;
-            //ordenes.ordentemporal.IdPaciente = validarcliente;
+            ordenes.ordentemporal.IdFolio = ordenes.Id;
             con.ordenestemporal.Add(ordenes.ordentemporal);
             con.SaveChanges();
 
             IEnumerable<ServiciosDelegacion> serviciosdelegacion = con.serviciosdelegacion.ToList();
-            IEnumerable<OrdenesTemporal> ordenestemporal = con.ordenestemporal.Where(m => m.IdFolio == ordenes.ordentemporal.IdFolio).ToList();
+            IEnumerable<OrdenesTemporal> ordenestemporal = con.ordenestemporal.Where(m => m.IdFolio == ordenes.Id).ToList();
+            IEnumerable<ServiciosDelegacionPrecios> serviciosdelegacionprecios = con.serviciosDelegacionPrecios.ToList();
             var vistaestados = from ot in ordenestemporal
                                join se in serviciosdelegacion on ot.IdServicio equals se.Id
-                               orderby serviciosdelegacion.First()
-                               select new OrdenesTemporalVista { ordenesTemporal = ot, serviciosDelegacion = se };
-
-            ordenes.ordenestemporalvista = vistaestados.OrderBy(s => s.serviciosDelegacion.NombreServicio).OrderBy(s => s.serviciosDelegacion.NombreServicio);
-            ordenes.serviciosDelegacions = con.serviciosdelegacion.ToList().OrderBy(s => s.NombreServicio);
-            //return Json(new { success = true, ordenes.ordenestemporalvista }, JsonRequestBehavior.AllowGet);
-            return RedirectToAction("Index");
-            //return PartialView(new { success = true, "a" }, ordenes.ordenestemporalvista);
-            // return PartialView("OrdenesTemporal", ordenes.ordenestemporalvista);
-            //return Json(ordenes.ordenestemporalvista, JsonRequestBehavior.AllowGet);
+                               join pr in serviciosdelegacionprecios on se.IdServicio equals pr.IdServicio
+                               orderby serviciosdelegacion
+                               select new OrdenesTemporalVista { ordenesTemporal = ot, serviciosDelegacion = se, ServiciosDelegacionPrecios = pr };
+            return PartialView("OrdenesTemporal", vistaestados);
         }
 
         public async Task<ActionResult> Eliminar(int Id)

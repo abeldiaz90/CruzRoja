@@ -55,10 +55,10 @@
 				@modelo.CURP
 			</td>
 			<th>
-				@modelo.FechaNacimiento
+				@modelo.FechaNacimiento.ToShortDateString()
 			</th>
 			<td>
-				@Html.ActionLink("Editar", "Editar", new { @Id = modelo.Id }, new {  @class = "btn btn-outline-primary" })
+				@Html.ActionLink("Editar", "Editar", new { @Id = @modelo.Id }, new {  @class = "btn btn-outline-primary" })
 			</td>
 		</tr>
 	}

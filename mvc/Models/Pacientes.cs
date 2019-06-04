@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Configuration;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace mvc.Models
 {
@@ -16,6 +17,7 @@ namespace mvc.Models
         public int Id { set; get; }
         [Required(ErrorMessage = "Escriba Nombre del Paciente")]
         [Display(Name = "Primer Nombre:")]
+   
         public String Nombre { set; get; }
         [Display(Name = "Segundo Nombre:")]
         public String SegundoNombre { set; get; }
@@ -26,30 +28,24 @@ namespace mvc.Models
 
         [Display(Name = "Apellido Materno:")]
         public String ApellidoMaterno { set; get; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Fecha de Nacimiento:")]
         [DataType(DataType.Date)]
         public DateTime FechaNacimiento { set; get; }
         [Display(Name = "RFC:")]
-        [StringLength(13, ErrorMessage = "Máximo {1} caracteres")]
+        //[StringLength(13, ErrorMessage = "Máximo {1} caracteres")]
         [StringValidator(MinLength = 13, MaxLength = 13)]
         public String RFC { set; get; }
 
         [Display(Name = "CURP:")]
-        [StringLength(18, ErrorMessage = "Curp Invalida")]
+        // [StringLength(18, ErrorMessage = "Curp Invalida")]
+        [StringValidator(MinLength = 18, MaxLength = 18)]
         public String CURP { set; get; }
 
 
-        [Display(Name = "Pacientes:")]
-        public IEnumerable<Pacientes> pacientes { set; get; }
-
-        [Display(Name = "Sexo:")]
-        [Required(ErrorMessage = "Indique sexo del paciente:")]
-        public int IdSexo { set; get; }
-
-        [Display(Name = "Seleccione el sexo")]
+        [Display(Name = "Seleccione el Sexo:")]
+        [UIHint("Enum")]
         public SexoLista Sexo { set; get; }
-
-    
         public enum SexoLista
         {
             [Display(Name = "Masculino")]
@@ -58,7 +54,7 @@ namespace mvc.Models
             Femenino
         };
 
-    
+        public IEnumerable<Pacientes> pacientes { set; get; }
 
     }
 }

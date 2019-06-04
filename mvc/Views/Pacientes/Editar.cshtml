@@ -18,60 +18,52 @@
 			@Html.LabelFor(model => model.Nombre, new { @class = "control-label col-md-2" })
 		</div>
 		<div>
-			@Html.EditorFor(model => model.Nombre, new { @class = "form-control" })
+			@Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @style = "text-transform:uppercase" } })
 			@Html.ValidationMessageFor(model => model.Nombre, string.Empty, new { htmlAttributes = new { @class = "text-danger" } })
 		</div>
 		<div>
 			@Html.LabelFor(model => model.SegundoNombre, new { @class = "control-label col-md-2" })
 		</div>
 		<div>
-			@Html.EditorFor(model => model.SegundoNombre, new { @class = "form-control" })
+			@Html.EditorFor(model => model.SegundoNombre, new { htmlAttributes = new { @style = "text-transform:uppercase" } })
 			@Html.ValidationMessageFor(model => model.SegundoNombre)
 		</div>
 		<div>
 			@Html.LabelFor(model => model.ApellidoPaterno, new { @class = "control-label col-md-2" })
 		</div>
 		<div>
-			@Html.EditorFor(model => model.ApellidoPaterno, new { @class = "form-control" })
+			@Html.EditorFor(model => model.ApellidoPaterno, new { htmlAttributes = new { @style = "text-transform:uppercase" } })
 			@Html.ValidationMessageFor(model => model.ApellidoPaterno)
 		</div>
 		<div>
 			@Html.LabelFor(model => model.ApellidoMaterno, new { @class = "control-label col-md-2" })
 		</div>
 		<div>
-			@Html.EditorFor(model => model.ApellidoMaterno, new { @class = "form-control" })
+			@Html.EditorFor(model => model.ApellidoMaterno, new { htmlAttributes = new { @style = "text-transform:uppercase" } })
 			@Html.ValidationMessageFor(model => model.ApellidoMaterno)
 		</div>
 		<div>
 			@Html.LabelFor(model => model.FechaNacimiento, new { @class = "control-label col-md-2" })
 		</div>
 		<div>
-			@Html.EditorFor(model => model.FechaNacimiento, new { @class = "form-control" })
+			@Html.EditorFor(model => model.FechaNacimiento)
 			@Html.ValidationMessageFor(model => model.FechaNacimiento)
-		</div>
-		<div>
-			@Html.LabelFor(model => model.RFC, new { @class = "control-label col-md-2" })
-		</div>
-		<div>
-			@Html.EditorFor(model => model.RFC, new { @class = "form-control", @style = "text-transform:uppercase" })
-			@Html.ValidationMessageFor(model => model.RFC)
-		</div>
-		<div>
-			@Html.LabelFor(model => model.IdSexo, new { @class = "control-label col-md-2" })
-		</div>
-		<div>
-			@Html.LabelFor(model => model.IdSexo)
-			@Html.EnumDropDownListFor(model => model.Sexo)
 		</div>
 		<div>
 			@Html.LabelFor(model => model.Sexo, new { @class = "control-label col-md-2" })
 		</div>
 		<div>
-			@Html.LabelFor(model => model.Sexo)
 			@Html.EnumDropDownListFor(model => model.Sexo)
 		</div>
 		<div>
-			@Html.LabelFor(model => model.CURP, new { @class = "control-label col-md-2" })
+			@Html.LabelFor(model => model.RFC, new { @class = "control-label col-md-2" })
+		</div>
+		<div>
+			@Html.EditorFor(model => model.RFC, new { htmlAttributes = new { @style = "text-transform:uppercase", @maxlength = "13" } })
+			@Html.ValidationMessageFor(model => model.RFC)
+		</div>
+		<div>
+			@Html.LabelFor(model => model.CURP, new { htmlAttributes = new { @style = "text-transform:uppercase", @maxlength = "18" } })
 		</div>
 		<div>
 			@Html.EditorFor(model => model.CURP, new { @class = "form-control" })

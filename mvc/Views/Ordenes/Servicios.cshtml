@@ -40,14 +40,14 @@
 	</div>
 	<div class="container">
 		<div class="row">
-			<div class="col-sm">
+			<div class="col-sm-4">
 				@Html.HiddenFor(model => model.ordentemporal.IdFolio, new { @Value = Model.Id })
 			</div>
-			<div class="col-sm">
+			<div class="col-sm-4">
 				@Html.LabelFor(model => model.ordentemporal.IdServicio)
 				@Html.DropDownListFor(model => model.ordentemporal.IdServicio, new SelectList(Model.serviciosDelegacions, "Id", "NombreServicio"))
 			</div>
-			<div class="col-sm">
+			<div class="col-sm-4">
 				@Html.LabelFor(model => model.ordentemporal.cantidad)
 				@Html.EditorFor(model => model.ordentemporal.cantidad, new { @class = "text-form" })
 			</div>

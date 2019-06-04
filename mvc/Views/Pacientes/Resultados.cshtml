@@ -1,0 +1,178 @@
+﻿@model IEnumerable<mvc.Models.Pacientes>
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+	<li class="nav-item">
+		<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+	</li>
+	<li class="nav-item">
+		<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+	</li>
+</ul>
+<div class="tab-content" id="myTabContent">
+	<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+		<table class="table">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">
+						Primer Nombre
+					</th>
+					<th scope="col">
+						Segundo Nombre
+					</th>
+					<th scope="col">
+						Apellido Paterno
+					</th>
+					<th scope="col">
+						Apellido Materno
+					</th>
+					<th scope="col">
+						RFC
+					</th>
+					<th scope="col">
+						CURP
+					</th>
+				</tr>
+				@foreach (var m in Model)
+				{
+					<tr>
+						<td scope="row">
+							@m.Nombre
+						</td>
+						<td scope="row">
+							@m.SegundoNombre
+						</td>
+						<td scope="row">
+							@m.ApellidoPaterno
+						</td>
+						<td scope="row">
+							@m.ApellidoMaterno
+						</td>
+						<td scope="row">
+							@m.RFC
+						</td>
+						<td scope="row">
+							@m.CURP
+						</td>
+						<td scope="row">
+							<button id="btnBuscarId_@m.Id" value="@m.Id" class="btn btn-outline-primary" onclick="BuscarPaciente(@m.Id)">Seleccionar</button>
+						</td>
+					</tr>
+				}
+			</thead>
+		</table>
+	</div>
+	<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+</div>
+<script src="~/Scripts/date.format.js"></script>
+<script>
+	$(document).ready(function () {
+		//$('#btnBuscarId_').on('click', function () {
+	});
+
+	function BuscarPaciente(ID) {
+		var Id = $('#btnBuscarId_' + ID).val();
+		var obj = { Id: Id };
+		AjaxCall('/Pacientes/BuscarId/', JSON.stringify(obj), 'POST').done(function (response) {
+			if (response.length > 0) {
+				console.log(response);
+				$('#Paciente_Nombre').val(response[0].Nombre);
+				$('#Paciente_SegundoNombre').val(response[0].SegundoNombre);
+				$('#Paciente_ApellidoPaterno').val(response[0].ApellidoPaterno);
+				$('#Paciente_ApellidoMaterno').val(response[0].ApellidoMaterno);
+
+				var regxformatdate = /-?\d+/;
+
+				//Fecha Actual
+				var fecha = Date.now();
+				var integerformatToday = regxformatdate.exec(fecha);
+				var dt2 = new Date(parseInt(integerformatToday));
+				var añoactual = dt2.getFullYear();
+				console.log(añoactual);
+				var mesactual = dt2.getMonth() + 1;
+				console.log(mesactual);
+				var diaactual = dt2.getDate();
+				console.log(diaactual);
+				var horaactual = dt2.getHours();
+				console.log(horaactual);
+
+
+
+				var dateString = response[0].FechaNacimiento.substr(6);
+				var currentTime = new Date(parseInt(dateString));
+				currentTime.setMinutes(currentTime.getMinutes() + 720);
+				var month = ("0" + (currentTime.getMonth() + 1)).slice(-2);
+				var day = ("0" + currentTime.getDate()).slice(-2);
+				var year = currentTime.getFullYear();
+				var date = year + '-' + month + '-' + day;
+			
+
+
+				//Fecha de Nacimiento
+				//var integerformat = regxformatdate.exec(response[0].FechaNacimiento);
+				//console.log(integerformat);
+				//var dt = new Date(parseInt(integerformat) + 86400);
+				//var año = dt.getFullYear();
+				//var mes = dt.getMonth();
+				//var dia = dt.getDate();
+
+
+				var Edad;
+
+				console.log(mesactual);
+				console.log(month);
+				console.log(diaactual);
+				console.log(day);
+				//calculo de la edad
+				if (mesactual >= month && diaactual >= day) {
+					Edad = añoactual - year;
+				} else if (mesactual >= month && diaactual < day) {
+					Edad = (añoactual - 1) - year;
+				} else {
+					Edad = (añoactual - 1) - year;
+				}
+
+				console.log(Edad);
+		
+
+				//formato de fecha de nacimiento
+				//if (mes < 10) {
+				//	mes = "0" + parseInt(dt.getMonth() + 1);
+
+				//} else {
+				//	mes = parseInt(dt.getMonth() + 1);
+				//}
+
+				//if (dia < 10) {
+				//	dia = "0" + parseInt(dt.getDate() + 1);
+				//	console.log("dia:" + dia);
+				//} else {
+				//	dia = parseInt(dt.getDate() + 1);
+				//}
+
+				var newdate = date;
+				$('#Paciente_FechaNacimiento').val(newdate);
+				$('#Edad').val(Edad);
+
+				CierraPopup();
+			} else { $('#myPartialViewDiv').html(''); }
+		}).fail(function (error) {
+			console.log(error)
+			$('#myPartialViewDiv').html('');
+			alert(error.StatusText);
+		});
+	};
+
+	function AjaxCall(url, data, type) {
+		return $.ajax({
+			url: url,
+			type: type ? type : 'GET',
+			data: data,
+			contentType: 'application/json'
+		});
+	}
+
+	function CierraPopup() {
+		$("#modal").hide();//ocultamos el modal
+		$('body').removeClass('modal-open');//eliminamos la clase del body para poder hacer scroll
+		$('.modal-backdrop').remove();//eliminamos el backdrop del modal
+	}
+</script>

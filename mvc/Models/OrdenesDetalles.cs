@@ -19,10 +19,10 @@ namespace mvc.Models
         [Display(Name = "Servicio")]
         public int IdServicio { set; get; }
 
-        [Display(Name = "Cantidad")]
+        [Display(Name = "Cantidad:")]
         public int cantidad { set; get; }
 
-        [Display(Name = "Cantidad")]
+        [Display(Name = "Precio sin IVA:")]
         public decimal precioSinIva { set; get; }
 
     }

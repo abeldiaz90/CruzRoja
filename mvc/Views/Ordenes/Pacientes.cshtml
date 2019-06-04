@@ -2,73 +2,74 @@
 @using (Html.BeginForm("Buscar", "Pacientes", FormMethod.Post))
 {
 	<legend>Datos del Paciente</legend>
-	<div class="container">
-		<div class="row">
-			@Html.HiddenFor(model => model.Id)
-			<div class="col-sm">
-				@Html.LabelFor(model => model.Paciente.Nombre)
-				@Html.EditorFor(Model => Model.Paciente.Nombre)
+	<fieldset>
+		<div class="container">
+			<div class="row">
+				@Html.HiddenFor(model => model.Id)
+				<div class="col-sm">
+					@Html.LabelFor(model => model.Paciente.Nombre)
+					@Html.EditorFor(Model => Model.Paciente.Nombre, new { htmlAttributes = new { @style = "text-transform:uppercase" } })
+				</div>
+				<div class="col-sm">
+					@Html.LabelFor(model => model.Paciente.SegundoNombre)
+					@Html.EditorFor(Model => Model.Paciente.SegundoNombre, new { htmlAttributes = new { @style = "text-transform:uppercase" } })
+				</div>
+				<div class="col-sm">
+					@Html.LabelFor(model => model.Paciente.ApellidoPaterno)
+					@Html.EditorFor(Model => Model.Paciente.ApellidoPaterno, new { htmlAttributes = new { @style = "text-transform:uppercase" } })
+				</div>
+				<div class="col-sm">
+					@Html.LabelFor(model => model.Paciente.ApellidoMaterno)
+					@Html.EditorFor(Model => Model.Paciente.ApellidoMaterno, new { htmlAttributes = new { @style = "text-transform:uppercase" } })
+				</div>
 			</div>
-			<div class="col-sm">
-				@Html.LabelFor(model => model.Paciente.SegundoNombre)
-				@Html.EditorFor(Model => Model.Paciente.SegundoNombre)
-			</div>
-			<div class="col-sm">
-				@Html.LabelFor(model => model.Paciente.ApellidoPaterno)
-				@Html.EditorFor(Model => Model.Paciente.ApellidoPaterno)
-			</div>
-			<div class="col-sm">
-				@Html.LabelFor(model => model.Paciente.ApellidoMaterno)
-				@Html.EditorFor(Model => Model.Paciente.ApellidoMaterno)
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm">
-				@Html.LabelFor(model => model.Paciente.FechaNacimiento)
-				@Html.EditorFor(Model => Model.Paciente.FechaNacimiento)
-			</div>
-			<div class="col-sm">
-				@Html.LabelFor(model => model.Paciente.IdSexo)
-				@Html.EnumDropDownListFor(model => model.Paciente.Sexo)
-			</div>
-			<div>
-				<button type="button" class="btn btn-outline-info" data-toggle="modal" data-target=".bd-example-modal-lg" id="btnBuscarPaciente">Buscar Pacientes</button>
-			</div>
-		</div>
-	</div>
-
-		<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
-					<div id="myPartialViewDiv">
-						@{
-							Html.RenderPartial("Resultados", Model.pacientes);
-						}
+			<div class="row">
+				<div class="col-sm">
+					@Html.LabelFor(model => model.Paciente.FechaNacimiento)
+					<div class="datepicker" data-date-format="yyyy-MM-dd">
+						@Html.EditorFor(Model => Model.Paciente.FechaNacimiento, "{0:yyyy-MM-dd}")
 					</div>
+				</div>
+				<div class="col-sm">
+					@Html.LabelFor(model => model.Paciente.Sexo)
+					@Html.EnumDropDownListFor(model => model.Paciente.Sexo)
+				</div>
+				<div class="col-sm">
+					<label id="_edad">Edad:</label>
+					<input type="text" id="Edad" class="form-control"/>		
+				</div>
+				<div class="col-sm">
+					<button type="button" class="btn btn-outline-dark" id="btnLimpiar">Limpiar</button>
+					<button type="button" class="btn btn-outline-info" data-toggle="modal" data-target=".bd-example-modal-lg" id="btnBuscarPaciente">Buscar Pacientes</button>
 				</div>
 			</div>
 		</div>
+	</fieldset>
 }
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="modal">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div id="myPartialViewDiv">
+				@{
+					Html.RenderPartial("../Pacientes/Resultados", Model.pacientes);
+				}
+			</div>
+		</div>
+	</div>
+</div>
 <script>
 	$(document).ready(function () {
 		$('#btnBuscarPaciente').on('click', function () {
-			var Nombre = $('#Paciente_Nombre').val();
-			var SegundoNombre = $('#Paciente_SegundoNombre').val();
-			var ApellidoPaterno = $('#Paciente_ApellidoPaterno').val();
-			var ApellidoMaterno = $('#Paciente_ApellidoMaterno').val();
+			var Nombre = $('#Paciente_Nombre').val().toUpperCase();
+			var SegundoNombre = $('#Paciente_SegundoNombre').val().toUpperCase();
+			var ApellidoPaterno = $('#Paciente_ApellidoPaterno').val().toUpperCase();
+			var ApellidoMaterno = $('#Paciente_ApellidoMaterno').val().toUpperCase();
 			var obj = { Nombre: Nombre, SegundoNombre: SegundoNombre, ApellidoPaterno: ApellidoPaterno, ApellidoMaterno: ApellidoMaterno };
-			AjaxCall('/Pacientes/Buscar/' , JSON.stringify(obj), 'POST').done(function (response) {
+			AjaxCall('/Pacientes/Buscar/', JSON.stringify(obj), 'POST').done(function (response) {
 				if (response.length > 0) {
-					//var options = '';
-					//options += '<option value="Select">Seleccione el Precio</option>';
-					//for (var i = 0; i < response.length; i++) {
-					//	options += '<option value="' + response[i].Id + '">' + '$ ' + response[i].PrecioSinIva + '.00' + '</option>';
-					//}
-					alert(response);
+					//LimpiarContenidoPopup();
+					$('#myPartialViewDiv').html('');
 					$('#myPartialViewDiv').html(response);
-
-					//$('#ordentemporal_IdPrecio').append(options);
-
 				} else { $('#myPartialViewDiv').html(''); }
 			}).fail(function (error) {
 				console.log(error)
@@ -76,14 +77,27 @@
 				alert(error.StatusText);
 			});
 		});
-	});
 
-	function AjaxCall(url, data, type) {
-		return $.ajax({
-			url: url,
-			type: type ? type : 'GET',
-			data: data,
-			contentType: 'application/json'
+		$('#btnLimpiar').on('click', function () {
+			$('#Paciente_Nombre').val('');
+			$('#Paciente_SegundoNombre').val('');
+			$('#Paciente_ApellidoPaterno').val('');
+			$('#Paciente_ApellidoMaterno').val('');
+			$('#Paciente_FechaNacimiento').val('');
 		});
+
+		function AjaxCall(url, data, type) {
+			return $.ajax({
+				url: url,
+				type: type ? type : 'GET',
+				data: data,
+				contentType: 'application/json'
+			});
+		}
+
+		function LimpiarContenidoPopup() {
+		$('body').removeClass('modal-open');//eliminamos la clase del body para poder hacer scroll
+		$('.modal-backdrop').remove();//eliminamos el backdrop del modal
 	}
+	});
 </script>
