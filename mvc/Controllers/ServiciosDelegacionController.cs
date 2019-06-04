@@ -113,6 +113,7 @@ namespace mvc.Controllers
             }
             serviciosDelegacion.delegaciones = lista;
             serviciosDelegacion.servicios = listaserviciosdelegacion;
+            serviciosDelegacion.NombreServicio = Seguridad.Decrypt(serviciosDelegacion.NombreServicio);
             return View(serviciosDelegacion);
         }
 

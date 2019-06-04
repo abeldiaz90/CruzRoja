@@ -39,17 +39,22 @@ namespace mvc.Controllers
         public ActionResult Editar(int id)
         {
             ServiciosDelegacionPrecios sdp = con.serviciosDelegacionPrecios.FirstOrDefault(s => s.Id == id);
-            IEnumerable<ServiciosDelegacion> serviciosDelegacions = con.serviciosdelegacion.ToList().OrderBy(s => s.NombreServicio);
-            List<ServiciosDelegacion> listaservicios = new List<ServiciosDelegacion>();
-            foreach (var i in serviciosDelegacions)
+            try
             {
-                ServiciosDelegacion serviciosdelegaciones = new ServiciosDelegacion();
-                serviciosdelegaciones.Id = i.Id;
-                serviciosdelegaciones.NombreServicio = Seguridad.Decrypt(i.NombreServicio);
-                listaservicios.Add(serviciosdelegaciones);
+               
+                IEnumerable<ServiciosDelegacion> serviciosDelegacions = con.serviciosdelegacion.ToList().OrderBy(s => s.NombreServicio);
+                List<ServiciosDelegacion> listaservicios = new List<ServiciosDelegacion>();
+                foreach (var i in serviciosDelegacions)
+                {
+                    ServiciosDelegacion serviciosdelegaciones = new ServiciosDelegacion();
+                    serviciosdelegaciones.Id = i.Id;
+                    serviciosdelegaciones.NombreServicio = Seguridad.Decrypt(i.NombreServicio);
+                    listaservicios.Add(serviciosdelegaciones);
+                }
+                sdp.serviciosDelegacionPrecios = con.serviciosDelegacionPrecios.ToList().Where(s => s.IdServicio == id);
+                sdp.listaserviciosdelegacion = listaservicios.OrderBy(s => s.NombreServicio);
             }
-            sdp.serviciosDelegacionPrecios = con.serviciosDelegacionPrecios.ToList().Where(s => s.IdServicio == 0);
-            sdp.listaserviciosdelegacion = listaservicios.OrderBy(s => s.NombreServicio);
+            catch (Exception Ex) { Ex.ToString(); }
             return View(sdp);
         }
 

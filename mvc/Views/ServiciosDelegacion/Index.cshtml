@@ -27,7 +27,7 @@
 						@modelo.serviciosdelegacion.NombreServicio
 					</td>
 					<td scope="row">
-						@Html.ActionLink("Editar", "../ServiciosPrecios/Editar", new { @Id = modelo.serviciosdelegacion.Id }, new { @class = "btn btn-outline-primary" })
+						@Html.ActionLink("Editar", "../ServiciosDelegacion/Editar", new { @Id = modelo.serviciosdelegacion.Id }, new { @class = "btn btn-outline-primary" })
 					</td>
 					<td scope="row">
 						<button type="button" id="btnConsultaPrecio_@modelo.serviciosdelegacion.Id" value="@modelo.serviciosdelegacion.Id" onclick="Datos(@modelo.serviciosdelegacion.Id)" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModalCenter">
