@@ -33,23 +33,23 @@
 				@Html.LabelFor(model => model.Paciente.IdSexo)
 				@Html.EnumDropDownListFor(model => model.Paciente.Sexo)
 			</div>
-			<div>
+			<div class="col-sm">
 				<button type="button" class="btn btn-outline-info" data-toggle="modal" data-target=".bd-example-modal-lg">Buscar Pacientes</button>
 			</div>
 		</div>
 	</div>
 	<div class="container">
 		<div class="row">
-			<div class="col-sm-4">
+			<div class="col-sm">
 				@Html.HiddenFor(model => model.ordentemporal.IdFolio, new { @Value = Model.Id })
 			</div>
-			<div class="col-sm-4">
+			<div class="col-sm">
 				@Html.LabelFor(model => model.ordentemporal.IdServicio)
 				@Html.DropDownListFor(model => model.ordentemporal.IdServicio, new SelectList(Model.serviciosDelegacions, "Id", "NombreServicio"))
 			</div>
-			<div class="col-sm-4">
+			<div class="col-sm">
 				@Html.LabelFor(model => model.ordentemporal.cantidad)
-				@Html.EditorFor(model => model.ordentemporal.cantidad, new { @class = "text-form" })
+				@Html.EditorFor(model => model.ordentemporal.cantidad, new { @class = "form-control" })
 			</div>
 			<div class="col-sm">
 				<input type="submit" id="Agregar" value="Agregar" class="btn btn-outline-secondary" />

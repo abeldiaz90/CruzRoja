@@ -103,25 +103,13 @@
 				var day = ("0" + currentTime.getDate()).slice(-2);
 				var year = currentTime.getFullYear();
 				var date = year + '-' + month + '-' + day;
-			
-
-
-				//Fecha de Nacimiento
-				//var integerformat = regxformatdate.exec(response[0].FechaNacimiento);
-				//console.log(integerformat);
-				//var dt = new Date(parseInt(integerformat) + 86400);
-				//var año = dt.getFullYear();
-				//var mes = dt.getMonth();
-				//var dia = dt.getDate();
-
-
 				var Edad;
 
 				console.log(mesactual);
 				console.log(month);
 				console.log(diaactual);
 				console.log(day);
-				//calculo de la edad
+			
 				if (mesactual >= month && diaactual >= day) {
 					Edad = añoactual - year;
 				} else if (mesactual >= month && diaactual < day) {
@@ -130,23 +118,6 @@
 					Edad = (añoactual - 1) - year;
 				}
 
-				console.log(Edad);
-		
-
-				//formato de fecha de nacimiento
-				//if (mes < 10) {
-				//	mes = "0" + parseInt(dt.getMonth() + 1);
-
-				//} else {
-				//	mes = parseInt(dt.getMonth() + 1);
-				//}
-
-				//if (dia < 10) {
-				//	dia = "0" + parseInt(dt.getDate() + 1);
-				//	console.log("dia:" + dia);
-				//} else {
-				//	dia = parseInt(dt.getDate() + 1);
-				//}
 
 				var newdate = date;
 				$('#Paciente_FechaNacimiento').val(newdate);
