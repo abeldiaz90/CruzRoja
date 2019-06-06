@@ -50,11 +50,7 @@
 			<div class="col-sm">
 				@Html.LabelFor(model => model.ordentemporal.cantidad)
 				@Html.EditorFor(model => model.ordentemporal.cantidad, new { @class = "form-control" })
-			</div>
-			<div class="col-sm">
-				<input type="submit" id="Agregar" value="Agregar" class="btn btn-outline-secondary" />
-				<!--<button type="button" id="Agregar" value="Agregar" class="btn btn-outline-secondary" >Agregar</button>-->
-			</div>
+			</div>	
 		</div>
 	</div>
 }
@@ -63,88 +59,4 @@
 		Html.RenderPartial("OrdenesTemporal", Model.ordenestemporalvista);
 	}
 </div>
-<script>
-	@*$(document).ready(function () {
-		$("#Formulario").submit(function () {
-				var ordentemporal = {
-				IdFolio: @Model.Id,
-				IdServicio: $("#ordentemporal_IdServicio").val(),
-					cantidad: $("#ordentemporal_cantidad").val(),
-				Nombre:$("#Paciente_Nombre").val()
-			};
-			$.ajax({
-				url: '@Url.Action("Agregar")',
-				type: "POST",
-					data: {'ordenes.Paciente.IdFolio': ordentemporal.Nombre, 'ordenes.ordentemporal.IdFolio': ordentemporal.IdFolio, 'ordenes.ordentemporal.IdServicio': ordentemporal.IdServicio, 'ordenes.ordentemporal.cantidad': ordentemporal.cantidad },
-				//data: $('#Formulario').serialize(),
-				//data: $.parseJSON($('#Formulario').serialize()),
-				//contentType: 'application/x-www-form-urlencoded',
-				//contentType: "application/json; charset=utf-8",
-				dataType: "html",
-				//var modelo = $.parseJSON(JsonModel);
-				success: function (e) {
-					console.log(e);
-					 if (e.result === 'success') {
-                     $("#myPartialViewDiv").html(data);
-                                }},
-				error: function (xhr, ajaxOptions, thrownError) {
-					//console.log(thrownError);
-						//$("#myPartialViewDiv").html(response);
-					alert(xhr.status);
-					alert(thrownError);
-					// help to get error details
-				}
-			});
-		});
-	});*@
 
-
-	@*$(document).ready(function () {
-		$("#Formulario").submit(function () {
-			$.ajax({
-				url: '@Url.Action("Agregar")',
-				type: "POST",
-				dataType: "html",
-				success: function () {
-					$("#myPartialViewDiv").html(Response);
-					alert("Partial View is Loaded.....");
-				},
-				error: function (xhr, ajaxOptions, thrownError) {
-						//$("#myPartialViewDiv").html(data);
-					alert(xhr.status);
-					alert(thrownError);
-					// help to get error details
-				}
-			});
-		});
-	});*@
-	@*$(document).ready(function () {
-		$("#Formulario").submit(function () {
-			var ordentemporal = {
-				IdFolio: @Model.Id,
-				IdServicio: $("#ordentemporal_IdServicio").val(),
-				cantidad: $("#ordentemporal_cantidad").val()
-			};
-			$.ajax({
-				url: '@Url.Action("Agregar")',
-				type: "GET",
-				async: true,
-                cache: false,
-                dataType: "html",
-				data: { 'ordenes.ordentemporal.IdFolio': ordentemporal.IdFolio, 'ordenes.ordentemporal.IdServicio': ordentemporal.IdServicio, 'ordenes.ordentemporal.cantidad': ordentemporal.cantidad },
-				success: function (data) {
-					$("#myPartialViewDiv").html(data);
-					alert("Partial View is Loaded.....");
-				},
-				error: function (xhr, ajaxOptions, thrownError) {
-					alert("Error");
-					alert(xhr.status);
-					alert(thrownError);
-					// help to get error details
-				}
-			});
-		});
-	});*@
-
-</script>
-<!--@@Html.Partial("OrdenesTemporal",Model.ordenestemporalvista)-->

@@ -57,7 +57,7 @@ namespace mvc.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
       //  [Authorize]
-        public ActionResult Agregar(Ordenes ordenes)
+        public PartialViewResult Agregar(Ordenes ordenes)
         {
             Contexto con = new Contexto();
             ordenes.ordentemporal.IdFolio = ordenes.Id;
@@ -66,12 +66,13 @@ namespace mvc.Controllers
 
             IEnumerable<ServiciosDelegacion> serviciosdelegacion = con.serviciosdelegacion.ToList();
             IEnumerable<OrdenesTemporal> ordenestemporal = con.ordenestemporal.Where(m => m.IdFolio == ordenes.Id).ToList();
-            IEnumerable<ServiciosDelegacionPrecios> serviciosdelegacionprecios = con.serviciosDelegacionPrecios.ToList();
+            IEnumerable<ServiciosDelegacionPrecios> serviciosDelegacionPrecios = con.serviciosDelegacionPrecios.ToList();
             var vistaestados = from ot in ordenestemporal
                                join se in serviciosdelegacion on ot.IdServicio equals se.Id
-                               join pr in serviciosdelegacionprecios on se.IdServicio equals pr.IdServicio
-                               orderby serviciosdelegacion
+                               join pr in serviciosDelegacionPrecios on ot.IdPrecio equals pr.Id
+                               orderby serviciosdelegacion.First()
                                select new OrdenesTemporalVista { ordenesTemporal = ot, serviciosDelegacion = se, ServiciosDelegacionPrecios = pr };
+
             return PartialView("OrdenesTemporal", vistaestados);
         }
 
