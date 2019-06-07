@@ -1,21 +1,21 @@
 ﻿@using mvc.Models;
 @model IEnumerable<mvc.Models.ServiciosDelegacionPrecios>
 
-	<table>
-		<tr>
-			<th>
-				Precio: 
-			</th>
-		</tr>
-		@foreach (var i in Model)
-		{
+<table>
 	<tr>
-		<td>
-			@i.PrecioSinIva
-		</td>
-		<td>
-			@Html.ActionLink("Editar", "Editar", new { @Id = i.Id }, new { @class = "btn btn-outline-primary" })
-		</td>
+		<th>
+			Precio:
+		</th>
 	</tr>
-		}
-	</table>
+	@foreach (var i in Model)
+	{
+		<tr>
+			<td>
+				@i.PrecioSinIva
+			</td>
+			<td>
+				@Html.ActionLink("Editar", "Editar", new { @Id = i.Id }, new { @class = "btn btn-outline-primary" })
+			</td>
+		</tr>
+	}
+</table>

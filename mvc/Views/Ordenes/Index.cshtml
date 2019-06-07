@@ -87,25 +87,35 @@
 			});
 		});
 
-		$('#Formulario').on('submit', function () {
-			var Id = $('#ordentemporal_IdServicio').val();
-			var obj = { IdServicio: Id };
-			AjaxCall('/ServiciosPrecios/ConsultaPrecios/' + obj.IdServicio, JSON.stringify(obj), 'POST').done(function (response) {
-				if (response.length > 0) {
-		
-					$('#myPartialViewDiv').html('');
-					$('#myPartialViewDiv').append(response);
+		//$('#Formulario').on('submit', function () {
+		//	var Id = $('#ordentemporal_IdServicio').val();
+		//	var obj = { IdServicio: Id };
+		//	AjaxCall('/ServiciosPrecios/ConsultaPrecios/' + obj.IdServicio, JSON.stringify(obj), 'POST').done(function (response) {
+		//		if (response.length > 0) {
 
-				} else { $('#myPartialViewDiv').html(''); }
-			}).fail(function (error) {
-				$('#myPartialViewDiv').html('');
-				alert(error.StatusText);
-			});
-		});
+		//			$('#myPartialViewDiv').html('');
+		//			$('#myPartialViewDiv').append(response);
+
+		//		} else { $('#myPartialViewDiv').html(''); }
+		//	}).fail(function (error) {
+		//		$('#myPartialViewDiv').html('');
+		//		alert(error.StatusText);
+		//	});
+		//});
 
 		$('#btnEnviar').on("click", function () {
-	
-			AjaxCall('/Ordenes/Agregar/' + JSON.stringify(@Html.Raw(Model)), 'POST').done(function (response) {
+			   var JsonModel = '@Html.Raw(Json.Encode(@Model))';
+               var model = JSON.parse(JsonModel); // will give json
+			@*var data = {
+				Id:@Model.Id,
+				IdFolio:@Model.Id,
+				IdServicio: $('#ordentemporal_IdServicio').val(),
+				IdPrecio: $('#ordentemporal_IdPrecio').val(),
+				cantidad: $('#ordentemporal_cantidad').val()
+			}*@
+
+			AjaxCall('/Ordenes/Agregar/', JSON.stringify({ 'ordenes':JsonModel }), 'POST').done(function (response) {
+			//AjaxCall('/Ordenes/Agregar/' + JSON.stringify({ 'Ordenes.Id': data.Id,'ordentemporal.IdFolio':data.IdFolio,'ordentemporal.IdServicio':data.IdServicio, 'ordentemporal.IdPrecio':data.IdPrecio,'ordentemporal.cantidad':data.cantidad}), 'POST').done(function (response) {
 				if (response.length > 0) {
 					console.log(response);
 					$('#myPartialViewDiv').html('');
