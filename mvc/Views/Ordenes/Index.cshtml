@@ -54,17 +54,17 @@
 				</div>
 			</div>
 		</div>
+		<div class="col-sm">
+			<button id="btnEnviar" type="button" />Agregar
+		</div>
 	</fieldset>
-	<div class="col-sm">
-		<button id="btnEnviar" type="button" />Agregar
-	</div>
-
-	<div id="myPartialViewDiv">
-		@{
-			Html.RenderPartial("OrdenesTemporal", Model.ordenestemporalvista);
-		}
-	</div>
 }
+
+<div id="Pedido">
+	@{
+		Html.RenderPartial("OrdenesTemporal", Model.ordenestemporalvista);
+	}
+</div>
 <script>
 	$(document).ready(function () {
 		$('#ordentemporal_IdServicio').on('change', function () {
@@ -104,28 +104,28 @@
 		//});
 
 		$('#btnEnviar').on("click", function () {
-			   var JsonModel = '@Html.Raw(Json.Encode(@Model))';
-               var model = JSON.parse(JsonModel); // will give json
-			@*var data = {
+			var url = "@Url.Action("Agregar","Ordenes")";
+			var JsonModel = '@Html.Raw(Json.Encode(@Model))';
+			console.log(JsonModel);
+				var data = {
 				Id:@Model.Id,
 				IdFolio:@Model.Id,
 				IdServicio: $('#ordentemporal_IdServicio').val(),
 				IdPrecio: $('#ordentemporal_IdPrecio').val(),
 				cantidad: $('#ordentemporal_cantidad').val()
-			}*@
+			}
+			console.log(data);
 
-			AjaxCall('/Ordenes/Agregar/', JSON.stringify({ 'ordenes':JsonModel }), 'POST').done(function (response) {
-			//AjaxCall('/Ordenes/Agregar/' + JSON.stringify({ 'Ordenes.Id': data.Id,'ordentemporal.IdFolio':data.IdFolio,'ordentemporal.IdServicio':data.IdServicio, 'ordentemporal.IdPrecio':data.IdPrecio,'ordentemporal.cantidad':data.cantidad}), 'POST').done(function (response) {
-				if (response.length > 0) {
-					console.log(response);
-					$('#myPartialViewDiv').html('');
-					$('#myPartialViewDiv').append(response);
+$.ajax({
+	type: "POST",
+	data: JSON.stringify({ 'Id': data.Id, 'ordentemporal.IdFolio': data.IdFolio, 'ordentemporal.IdServicio': data.IdServicio, 'ordentemporal.IdPrecio': data.IdPrecio, 'ordentemporal.cantidad': data.cantidad }),
+    url: url,
+    contentType: "application/json"
+}).done(function (res) {
+	console.log(res);
+    $("#Pedido").html(res);
+});
 
-				} else { $('#myPartialViewDiv').html(''); }
-			}).fail(function (error) {
-				$('#myPartialViewDiv').html('');
-				alert(error.StatusText);
-			});
 		});
 	});
 

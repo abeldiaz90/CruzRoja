@@ -54,10 +54,8 @@ namespace mvc.Controllers
         }
 
 
-        //[HttpPost]
-        [ValidateAntiForgeryToken]
-      //  [Authorize]
-        public ActionResult Agregar(Ordenes ordenes)
+
+        public PartialViewResult Agregar(Ordenes ordenes)
         {
             Contexto con = new Contexto();
             ordenes.ordentemporal.IdFolio = ordenes.Id;
@@ -73,8 +71,8 @@ namespace mvc.Controllers
                                orderby serviciosdelegacion.First()
                                select new OrdenesTemporalVista { ordenesTemporal = ot, serviciosDelegacion = se, ServiciosDelegacionPrecios = pr };
 
-           return Json(vistaestados, JsonRequestBehavior.AllowGet);
-           // return PartialView("OrdenesTemporal", vistaestados);
+          // return Json(vistaestados, JsonRequestBehavior.AllowGet);
+          return PartialView("OrdenesTemporal", vistaestados);
         }
 
         public async Task<ActionResult> Eliminar(int Id)
