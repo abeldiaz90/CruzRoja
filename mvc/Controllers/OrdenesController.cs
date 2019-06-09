@@ -12,7 +12,7 @@ namespace mvc.Controllers
     public class OrdenesController : Controller
     {
         // GET: Ordenes
-       // [Authorize]
+        // [Authorize]
         public ActionResult Index()
         {
             Ordenes or = new Ordenes();
@@ -48,8 +48,6 @@ namespace mvc.Controllers
             or.serviciosDelegacionPrecios = contexto.serviciosDelegacionPrecios.ToList().Where(s => s.IdServicio == 0);
             or.serviciosDelegacions = serviciosDelegacions.OrderBy(s => s.NombreServicio);
             or.ordenestemporalvista = vistaestados.OrderBy(s => s.serviciosDelegacion.NombreServicio);
-            //or.Idpaciente = contexto.ordenestemporal.FirstOrDefault(s => s.IdFolio == or.Id).Id;
-            //or.Paciente = or.pacientes.FirstOrDefault(s => s.Id == or.Idpaciente);
             return View(or);
         }
 
@@ -70,18 +68,25 @@ namespace mvc.Controllers
                                join pr in serviciosDelegacionPrecios on ot.IdPrecio equals pr.Id
                                orderby serviciosdelegacion.First()
                                select new OrdenesTemporalVista { ordenesTemporal = ot, serviciosDelegacion = se, ServiciosDelegacionPrecios = pr };
-
-          // return Json(vistaestados, JsonRequestBehavior.AllowGet);
-          return PartialView("OrdenesTemporal", vistaestados);
+            return PartialView("OrdenesTemporal", vistaestados);
         }
 
-        public async Task<ActionResult> Eliminar(int Id)
+        public PartialViewResult Eliminar(int Id, int IdFolio)
         {
             Contexto con = new Contexto();
-            OrdenesTemporal ot = con.ordenestemporal.FirstOrDefault(s => s.Id == Id);
-            con.ordenestemporal.Remove(ot);
+            OrdenesTemporal ordenesTemporal = con.ordenestemporal.FirstOrDefault(s => s.Id == Id);
+            con.ordenestemporal.Remove(ordenesTemporal);
             con.SaveChanges();
-            return RedirectToAction("Index");
+
+            IEnumerable<ServiciosDelegacion> serviciosdelegacion = con.serviciosdelegacion.ToList();
+            IEnumerable<OrdenesTemporal> ordenestemporal = con.ordenestemporal.Where(m => m.IdFolio == IdFolio).ToList();
+            IEnumerable<ServiciosDelegacionPrecios> serviciosDelegacionPrecios = con.serviciosDelegacionPrecios.ToList();
+            var vistaestados = from ot in ordenestemporal
+                               join se in serviciosdelegacion on ot.IdServicio equals se.Id
+                               join pr in serviciosDelegacionPrecios on ot.IdPrecio equals pr.Id
+                               orderby serviciosdelegacion.First()
+                               select new OrdenesTemporalVista { ordenesTemporal = ot, serviciosDelegacion = se, ServiciosDelegacionPrecios = pr };
+            return PartialView("OrdenesTemporal", vistaestados);
         }
 
 

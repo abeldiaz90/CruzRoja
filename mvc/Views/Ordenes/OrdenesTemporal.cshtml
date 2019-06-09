@@ -34,7 +34,7 @@
 				</td>
 				<td>
 					@Html.ActionLink("Editar", "Editar", new { @Id = modelo.ordenesTemporal.Id }, new { @class = "btn btn-outline-primary" })
-					@Html.ActionLink("Eliminar", "Eliminar", new { @Id = modelo.ordenesTemporal.Id }, new { @class = "btn btn-outline-danger" })
+					<button id="btnEliminar_@modelo.ordenesTemporal.Id" type="button" value="@modelo.ordenesTemporal.Id" onclick="Eliminar(@modelo.ordenesTemporal.Id,@modelo.ordenesTemporal.IdFolio)" class="btn btn-outline-warning">Eliminar</button>
 				</td>
 			</tr>
 		}

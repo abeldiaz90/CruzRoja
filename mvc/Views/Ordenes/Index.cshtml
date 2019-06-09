@@ -36,27 +36,28 @@
 	@Html.ValidationSummary(true);
 	<fieldset>
 		<div class="container">
-			<div clss="row align-items-start">
-				<div class="col-sm-6">
-					@Html.HiddenFor(m => m.Id)
-				</div>
-				<div class="col-sm-6">
+			<div class="col-sm-3">
+				@Html.HiddenFor(m => m.Id)
+			</div>
+			<div clss="row">
+				<div class="col-sm-3">
 					@Html.LabelFor(m => m.ordentemporal.IdServicio)
 					@Html.DropDownListFor(m => m.ordentemporal.IdServicio, new SelectList(Model.serviciosDelegacions, "Id", "NombreServicio"), "---Seleccione un Servicio---")
 				</div>
-				<div class="col-sm-6">
+				<div class="col-sm-3">
 					@Html.LabelFor(m => m.ordentemporal.IdPrecio)
 					@Html.DropDownListFor(m => m.ordentemporal.IdPrecio, new SelectList(Model.serviciosDelegacionPrecios, "Id", "PrecioSinIva"))
 				</div>
-				<div class="col-sm-6">
+				<div class="col-sm-3">
 					@Html.LabelFor(m => m.ordentemporal.cantidad)
 					@Html.EditorFor(m => m.ordentemporal.cantidad)
 				</div>
+				<div class="col-sm">
+					<button id="btnEnviar" type="button" />Agregar
+				</div>
 			</div>
 		</div>
-		<div class="col-sm">
-			<button id="btnEnviar" type="button" />Agregar
-		</div>
+
 	</fieldset>
 }
 
@@ -87,21 +88,19 @@
 			});
 		});
 
-		//$('#Formulario').on('submit', function () {
-		//	var Id = $('#ordentemporal_IdServicio').val();
-		//	var obj = { IdServicio: Id };
-		//	AjaxCall('/ServiciosPrecios/ConsultaPrecios/' + obj.IdServicio, JSON.stringify(obj), 'POST').done(function (response) {
-		//		if (response.length > 0) {
-
-		//			$('#myPartialViewDiv').html('');
-		//			$('#myPartialViewDiv').append(response);
-
-		//		} else { $('#myPartialViewDiv').html(''); }
-		//	}).fail(function (error) {
-		//		$('#myPartialViewDiv').html('');
-		//		alert(error.StatusText);
-		//	});
-		//});
+		@*$('#btnEliminar').on("click", function () {
+	        var Id = $('#btnEliminar_'+@modelo.ordenesTemporal.Id).val();
+			var obj = { IdServicio: Id };
+			AjaxCall('/Ordenes/Eliminar/' + obj.IdServicio, JSON.stringify(obj), 'POST').done(function (response) {
+				if (response.length > 0) {
+					$("#Pedido").html('');
+					$("#Pedido").html(response);
+				} else { $('#Pedido').html(''); }
+			}).fail(function (error) {
+				$('#Pedido').html('');
+				alert(error.StatusText);
+			});
+		});*@
 
 		$('#btnEnviar').on("click", function () {
 			var url = "@Url.Action("Agregar","Ordenes")";
@@ -114,24 +113,19 @@
 				IdPrecio: $('#ordentemporal_IdPrecio').val(),
 				cantidad: $('#ordentemporal_cantidad').val()
 			}
-			console.log(data);
-
-$.ajax({
-	type: "POST",
-	data: JSON.stringify({ 'Id': data.Id, 'ordentemporal.IdFolio': data.IdFolio, 'ordentemporal.IdServicio': data.IdServicio, 'ordentemporal.IdPrecio': data.IdPrecio, 'ordentemporal.cantidad': data.cantidad }),
-    url: url,
-    contentType: "application/json"
-}).done(function (res) {
-	console.log(res);
-    $("#Pedido").html(res);
-});
-
+			$.ajax({
+				type: "POST",
+				data: JSON.stringify({ 'Id': data.Id, 'ordentemporal.IdFolio': data.IdFolio, 'ordentemporal.IdServicio': data.IdServicio, 'ordentemporal.IdPrecio': data.IdPrecio, 'ordentemporal.cantidad': data.cantidad }),
+				url: url,
+				contentType: "application/json"
+			}).done(function (res) {
+				console.log(res);
+				$("#Pedido").html(res);
+			});
 		});
-	});
 
 
-
-	function AjaxCall(url, data, type) {
+		function AjaxCall(url, data, type) {
 		return $.ajax({
 			url: url,
 			type: type ? type : 'GET',
@@ -139,4 +133,19 @@ $.ajax({
 			contentType: 'application/json'
 		});
 	}
+	});
+
+	function Eliminar(Id,IdFolio)
+		{
+			var obj = { IdServicio: Id, IdFolio:IdFolio};
+			AjaxCall('/Ordenes/Eliminar/' + obj.IdServicio, JSON.stringify(obj), 'POST').done(function (response) {
+				if (response.length > 0) {
+					$("#Pedido").html('');
+					$("#Pedido").html(response);
+				} else { $('#Pedido').html(''); }
+			}).fail(function (error) {
+				$('#Pedido').html('');
+				alert(error.StatusText);
+			});
+		}
 </script>
