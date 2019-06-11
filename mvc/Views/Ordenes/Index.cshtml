@@ -40,19 +40,19 @@
 				@Html.HiddenFor(m => m.Id)
 			</div>
 			<div clss="row">
-				<div class="col-sm-3">
+				<div class="col">
 					@Html.LabelFor(m => m.ordentemporal.IdServicio)
 					@Html.DropDownListFor(m => m.ordentemporal.IdServicio, new SelectList(Model.serviciosDelegacions, "Id", "NombreServicio"), "---Seleccione un Servicio---")
 				</div>
-				<div class="col-sm-3">
+				<div class="col">
 					@Html.LabelFor(m => m.ordentemporal.IdPrecio)
-					@Html.DropDownListFor(m => m.ordentemporal.IdPrecio, new SelectList(Model.serviciosDelegacionPrecios, "Id", "PrecioSinIva"))
+					@Html.DropDownListFor(m => m.ordentemporal.IdPrecio, new SelectList(Model.serviciosDelegacionPrecios, "Id", "PrecioSinIva","---Seleccione el Precio---"))
 				</div>
-				<div class="col-sm-3">
+				<div class="col">
 					@Html.LabelFor(m => m.ordentemporal.cantidad)
 					@Html.EditorFor(m => m.ordentemporal.cantidad)
 				</div>
-				<div class="col-sm">
+				<div class="col">
 					<button id="btnEnviar" type="button" />Agregar
 				</div>
 			</div>
@@ -88,20 +88,6 @@
 			});
 		});
 
-		@*$('#btnEliminar').on("click", function () {
-	        var Id = $('#btnEliminar_'+@modelo.ordenesTemporal.Id).val();
-			var obj = { IdServicio: Id };
-			AjaxCall('/Ordenes/Eliminar/' + obj.IdServicio, JSON.stringify(obj), 'POST').done(function (response) {
-				if (response.length > 0) {
-					$("#Pedido").html('');
-					$("#Pedido").html(response);
-				} else { $('#Pedido').html(''); }
-			}).fail(function (error) {
-				$('#Pedido').html('');
-				alert(error.StatusText);
-			});
-		});*@
-
 		$('#btnEnviar').on("click", function () {
 			var url = "@Url.Action("Agregar","Ordenes")";
 			var JsonModel = '@Html.Raw(Json.Encode(@Model))';
@@ -135,8 +121,10 @@
 	}
 	});
 
-	function Eliminar(Id,IdFolio)
-		{
+	function Eliminar(Id,IdFolio,Servicio)
+	{
+			var r = confirm('¿ Desea Eliminar el Servicio '+Servicio +' ?');
+			if (r == true) {
 			var obj = { IdServicio: Id, IdFolio:IdFolio};
 			AjaxCall('/Ordenes/Eliminar/' + obj.IdServicio, JSON.stringify(obj), 'POST').done(function (response) {
 				if (response.length > 0) {
@@ -147,5 +135,25 @@
 				$('#Pedido').html('');
 				alert(error.StatusText);
 			});
-		}
+			} else {
+			  txt = "You pressed Cancel!";
+			}
+
+	}
+
+	function Editar(Id)
+	{
+		var obj = { IdServicio: Id};
+		AjaxCall('/Ordenes/Editar/' + obj.IdServicio, JSON.stringify(obj), 'POST').done(function (response) {
+					$('#ordentemporal_IdServicio').val(response.IdServicio),
+						//$('#ordentemporal_IdPrecio').val(response.IdPrecio),
+						$('#ordentemporal_cantidad').val(response.cantidad);
+			}).fail(function (error) {
+				$('#Pedido').html('');
+				alert(error.StatusText);
+			});
+	}
+
+
+
 </script>

@@ -50,9 +50,6 @@ namespace mvc.Controllers
             or.ordenestemporalvista = vistaestados.OrderBy(s => s.serviciosDelegacion.NombreServicio);
             return View(or);
         }
-
-
-
         public PartialViewResult Agregar(Ordenes ordenes)
         {
             Contexto con = new Contexto();
@@ -70,7 +67,6 @@ namespace mvc.Controllers
                                select new OrdenesTemporalVista { ordenesTemporal = ot, serviciosDelegacion = se, ServiciosDelegacionPrecios = pr };
             return PartialView("OrdenesTemporal", vistaestados);
         }
-
         public PartialViewResult Eliminar(int Id, int IdFolio)
         {
             Contexto con = new Contexto();
@@ -89,6 +85,13 @@ namespace mvc.Controllers
             return PartialView("OrdenesTemporal", vistaestados);
         }
 
+     
+        public ActionResult Editar(int Id)
+        {
+            Contexto con = new Contexto();
+            OrdenesTemporal ordenesTemporal = con.ordenestemporal.FirstOrDefault(s => s.Id == Id);
+            return Json(ordenesTemporal, JsonRequestBehavior.AllowGet);
+        }
 
         [HttpPost]
         public async Task<ActionResult> Cobrar(Ordenes ordenes)

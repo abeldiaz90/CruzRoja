@@ -1,60 +1,62 @@
 ﻿@model IEnumerable<mvc.Models.OrdenesTemporalVista>
 @using mvc.Models;
 
-<table class="table table-sm table-dark">
-	<thead>
-		<tr>
-			<th>
-				Servicio
-			</th>
-			<th>
-				Cantidad
-			</th>
-			<th>
-				Precio
-			</th>
-			<th>
-				SubTotal
-			</th>
-		</tr>
-		@foreach (var modelo in Model)
-		{
+<div class="table-responsive">
+	<table class="table table-striped">
+		<thead>
 			<tr>
-				<td>
-					@Seguridad.Decrypt(modelo.serviciosDelegacion.NombreServicio)
-				</td>
-				<td>
-					@modelo.ordenesTemporal.cantidad
-				</td>
-				<td>
-					@String.Format("{0:C}", @modelo.ServiciosDelegacionPrecios.PrecioSinIva)
-				</td>
-				<td>
-					@String.Format("{0:C}", (modelo.ServiciosDelegacionPrecios.PrecioSinIva * @modelo.ordenesTemporal.cantidad))
-				</td>
-				<td>
-					@Html.ActionLink("Editar", "Editar", new { @Id = modelo.ordenesTemporal.Id }, new { @class = "btn btn-outline-primary" })
-					<button id="btnEliminar_@modelo.ordenesTemporal.Id" type="button" value="@modelo.ordenesTemporal.Id" onclick="Eliminar(@modelo.ordenesTemporal.Id,@modelo.ordenesTemporal.IdFolio)" class="btn btn-outline-warning">Eliminar</button>
-				</td>
+				<th>
+					Servicio
+				</th>
+				<th>
+					Cantidad
+				</th>
+				<th>
+					Precio
+				</th>
+				<th>
+					SubTotal
+				</th>
 			</tr>
-		}
-		<tr>
-			<td></td>
-			<td></td>
-			<td>Subtotal</td>
-			<td>@String.Format("{0:C}", Model.Sum(modelo => modelo.ServiciosDelegacionPrecios.PrecioSinIva * modelo.ordenesTemporal.cantidad))</td>
-		</tr>
-		<tr>
-			<td></td>
-			<td></td>
-			<td>IVA</td>
-			<td>@String.Format("{0:C}", Model.Sum(modelo => modelo.ServiciosDelegacionPrecios.PrecioSinIva * modelo.ordenesTemporal.cantidad) * decimal.Parse("0.16"))</td>
-		</tr>
-		<tr>
-			<td></td>
-			<td></td>
-			<td>Total:</td>
-			<td><b style="color:white">@String.Format("{0:C}", (Model.Sum(modelo => modelo.ServiciosDelegacionPrecios.PrecioSinIva * modelo.ordenesTemporal.cantidad) * decimal.Parse("0.16")) + Model.Sum(modelo => modelo.ServiciosDelegacionPrecios.PrecioSinIva * modelo.ordenesTemporal.cantidad))</b></td>
-		</tr>
-	</thead>
-</table>
+			@foreach (var modelo in Model)
+			{
+				<tr>
+					<td>
+						@Seguridad.Decrypt(modelo.serviciosDelegacion.NombreServicio)
+					</td>
+					<td>
+						@modelo.ordenesTemporal.cantidad
+					</td>
+					<td>
+						@String.Format("{0:C}", @modelo.ServiciosDelegacionPrecios.PrecioSinIva)
+					</td>
+					<td>
+						@String.Format("{0:C}", (modelo.ServiciosDelegacionPrecios.PrecioSinIva * @modelo.ordenesTemporal.cantidad))
+					</td>
+					<td>
+						<button id="btnEditar_@modelo.ordenesTemporal.Id" type="button" value="@modelo.ordenesTemporal.Id" onclick='Editar(@modelo.ordenesTemporal.Id,@modelo.ordenesTemporal.IdFolio,"@Seguridad.Decrypt(modelo.serviciosDelegacion.NombreServicio)")' class="btn btn-outline-warning">Editar</button>
+						<button id="btnEliminar_@modelo.ordenesTemporal.Id" type="button" value="@modelo.ordenesTemporal.Id" onclick='Eliminar(@modelo.ordenesTemporal.Id,@modelo.ordenesTemporal.IdFolio,"@Seguridad.Decrypt(modelo.serviciosDelegacion.NombreServicio)")' class="btn btn-outline-warning">Eliminar</button>
+					</td>
+				</tr>
+			}
+			<tr>
+				<td></td>
+				<td></td>
+				<td>Subtotal</td>
+				<td>@String.Format("{0:C}", Model.Sum(modelo => modelo.ServiciosDelegacionPrecios.PrecioSinIva * modelo.ordenesTemporal.cantidad))</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td>IVA</td>
+				<td>@String.Format("{0:C}", Model.Sum(modelo => modelo.ServiciosDelegacionPrecios.PrecioSinIva * modelo.ordenesTemporal.cantidad) * decimal.Parse("0.16"))</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td></td>
+				<td>Total:</td>
+				<td><b>@String.Format("{0:C}", Model.Sum(modelo => modelo.ServiciosDelegacionPrecios.PrecioSinIva * modelo.ordenesTemporal.cantidad) + Model.Sum(modelo => modelo.ServiciosDelegacionPrecios.PrecioSinIva * modelo.ordenesTemporal.cantidad) * decimal.Parse("0.16"))</b></td>
+			</tr>
+		</thead>
+	</table>
+</div>

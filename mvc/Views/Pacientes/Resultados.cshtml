@@ -9,58 +9,61 @@
 </ul>
 <div class="tab-content" id="myTabContent">
 	<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-		<table class="table">
-			<thead class="thead-dark">
-				<tr>
-					<th scope="col">
-						Primer Nombre
-					</th>
-					<th scope="col">
-						Segundo Nombre
-					</th>
-					<th scope="col">
-						Apellido Paterno
-					</th>
-					<th scope="col">
-						Apellido Materno
-					</th>
-					<th scope="col">
-						RFC
-					</th>
-					<th scope="col">
-						CURP
-					</th>
-				</tr>
-				@foreach (var m in Model)
-				{
+		<div class="table-responsive">
+			<table class="table">
+				<thead class="thead-dark">
 					<tr>
-						<td scope="row">
-							@m.Nombre
-						</td>
-						<td scope="row">
-							@m.SegundoNombre
-						</td>
-						<td scope="row">
-							@m.ApellidoPaterno
-						</td>
-						<td scope="row">
-							@m.ApellidoMaterno
-						</td>
-						<td scope="row">
-							@m.RFC
-						</td>
-						<td scope="row">
-							@m.CURP
-						</td>
-						<td scope="row">
-							<button id="btnBuscarId_@m.Id" value="@m.Id" class="btn btn-outline-primary" onclick="BuscarPaciente(@m.Id)">Seleccionar</button>
-						</td>
+						<th scope="col">
+							Primer Nombre
+						</th>
+						<th scope="col">
+							Segundo Nombre
+						</th>
+						<th scope="col">
+							Apellido Paterno
+						</th>
+						<th scope="col">
+							Apellido Materno
+						</th>
+						<th scope="col">
+							RFC
+						</th>
+						<th scope="col">
+							CURP
+						</th>
 					</tr>
-				}
-			</thead>
-		</table>
+					@foreach (var m in Model)
+					{
+						<tr>
+							<td scope="row">
+								@m.Nombre
+							</td>
+							<td scope="row">
+								@m.SegundoNombre
+							</td>
+							<td scope="row">
+								@m.ApellidoPaterno
+							</td>
+							<td scope="row">
+								@m.ApellidoMaterno
+							</td>
+							<td scope="row">
+								@m.RFC
+							</td>
+							<td scope="row">
+								@m.CURP
+							</td>
+							<td scope="row">
+								<button id="btnBuscarId_@m.Id" value="@m.Id" class="btn btn-outline-primary" onclick="BuscarPaciente(@m.Id)">Seleccionar</button>
+							</td>
+						</tr>
+					}
+				</thead>
+			</table>
+
+		</div>
+		<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
 	</div>
-	<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
 </div>
 <script src="~/Scripts/date.format.js"></script>
 <script>
@@ -109,7 +112,7 @@
 				console.log(month);
 				console.log(diaactual);
 				console.log(day);
-			
+
 				if (mesactual >= month && diaactual >= day) {
 					Edad = añoactual - year;
 				} else if (mesactual >= month && diaactual < day) {
