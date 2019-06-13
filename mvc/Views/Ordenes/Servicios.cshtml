@@ -38,19 +38,28 @@
 			</div>
 		</div>
 
-		<div class="row">
+		@*<div class="input-group">
+			<div class="input-group-prepend">
+				<span class="input-group-text" id="">Ordenes</span>
+			</div>
+			@Html.DropDownListFor(model => model.ordentemporal.IdServicio, new SelectList(Model.serviciosDelegacions, "Id", "NombreServicio"))
+			@Html.EditorFor(model => model.ordentemporal.cantidad, new { @class = "form-control" })
+		</div>*@
+
+
+		@*<div class="row">
 			<div class="col-sm">
 				@Html.HiddenFor(model => model.ordentemporal.IdFolio, new { @Value = Model.Id })
 			</div>
 			<div class="col-sm">
 				@Html.LabelFor(model => model.ordentemporal.IdServicio)
-				@Html.DropDownListFor(model => model.ordentemporal.IdServicio, new SelectList(Model.serviciosDelegacions, "Id", "NombreServicio"))
+
 			</div>
 			<div class="col-sm">
 				@Html.LabelFor(model => model.ordentemporal.cantidad)
-				@Html.EditorFor(model => model.ordentemporal.cantidad, new { @class = "form-control" })
-			</div>	
-		</div>
+				
+			</div>
+		</div>*@
 	</div>
 }
 <div id="myPartialViewDiv">

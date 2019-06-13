@@ -70,7 +70,6 @@
 	$(document).ready(function () {
 		//$('#btnBuscarId_').on('click', function () {
 	});
-
 	function BuscarPaciente(ID) {
 		var Id = $('#btnBuscarId_' + ID).val();
 		var obj = { Id: Id };
@@ -121,7 +120,6 @@
 					Edad = (añoactual - 1) - year;
 				}
 
-
 				var newdate = date;
 				$('#Paciente_FechaNacimiento').val(newdate);
 				$('#Edad').val(Edad);
@@ -134,7 +132,6 @@
 			alert(error.StatusText);
 		});
 	};
-
 	function AjaxCall(url, data, type) {
 		return $.ajax({
 			url: url,
@@ -143,7 +140,6 @@
 			contentType: 'application/json'
 		});
 	}
-
 	function CierraPopup() {
 		$("#modal").hide();//ocultamos el modal
 		$('body').removeClass('modal-open');//eliminamos la clase del body para poder hacer scroll

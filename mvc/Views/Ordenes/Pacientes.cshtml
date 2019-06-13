@@ -3,44 +3,46 @@
 {
 	<legend>Datos del Paciente</legend>
 	<fieldset>
-		<div class="container">
-			<div class="row">
-				@Html.HiddenFor(model => model.Id)
-				<div class="col-sm">
-					@Html.LabelFor(model => model.Paciente.Nombre)
-					@Html.EditorFor(Model => Model.Paciente.Nombre, new { htmlAttributes = new { @style = "text-transform:uppercase" } })
-				</div>
-				<div class="col-sm">
-					@Html.LabelFor(model => model.Paciente.SegundoNombre)
-					@Html.EditorFor(Model => Model.Paciente.SegundoNombre, new { htmlAttributes = new { @style = "text-transform:uppercase" } })
-				</div>
-				<div class="col-sm">
-					@Html.LabelFor(model => model.Paciente.ApellidoPaterno)
-					@Html.EditorFor(Model => Model.Paciente.ApellidoPaterno, new { htmlAttributes = new { @style = "text-transform:uppercase" } })
-				</div>
-				<div class="col-sm">
-					@Html.LabelFor(model => model.Paciente.ApellidoMaterno)
-					@Html.EditorFor(Model => Model.Paciente.ApellidoMaterno, new { htmlAttributes = new { @style = "text-transform:uppercase" } })
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-sm">
-					@Html.LabelFor(model => model.Paciente.FechaNacimiento)
-					<div class="datepicker" data-date-format="yyyy-MM-dd">
-						@Html.EditorFor(Model => Model.Paciente.FechaNacimiento, "{0:yyyy-MM-dd}")
+		<div class="jumbotron jumbotron-fluid">
+			<div class="container">
+				<div class="row">
+					@Html.HiddenFor(model => model.Id)
+					<div class="col-sm">
+						@*@Html.LabelFor(model => model.Paciente.Nombre)*@
+						@Html.EditorFor(Model => Model.Paciente.Nombre, new { htmlAttributes = new { @style = "text-transform:uppercase;" ,placeholder="PRIMER NOMBRE" } })
+					</div>
+					<div class="col-sm">
+						@*@Html.LabelFor(model => model.Paciente.SegundoNombre)*@
+						@Html.EditorFor(Model => Model.Paciente.SegundoNombre, new { htmlAttributes = new { @style = "text-transform:uppercase",placeholder="SEGUNDO NOMBRE" } })
+					</div>
+					<div class="col-sm">
+						@*@Html.LabelFor(model => model.Paciente.ApellidoPaterno)*@
+						@Html.EditorFor(Model => Model.Paciente.ApellidoPaterno, new { htmlAttributes = new { @style = "text-transform:uppercase" ,placeholder="APELLIDO PATERNO"} })
+					</div>
+					<div class="col-sm">
+						@*@Html.LabelFor(model => model.Paciente.ApellidoMaterno)*@
+						@Html.EditorFor(Model => Model.Paciente.ApellidoMaterno, new { htmlAttributes = new { @style = "text-transform:uppercase" ,placeholder="APELLIDO MATERNO"} })
 					</div>
 				</div>
-				<div class="col-sm">
-					@Html.LabelFor(model => model.Paciente.Sexo)
-					@Html.EnumDropDownListFor(model => model.Paciente.Sexo)
-				</div>
-				<div class="col-sm">
-					<label id="_edad">Edad:</label>
-					<input type="text" id="Edad" class="form-control"/>		
-				</div>
-				<div class="col-sm">
-					<button type="button" class="btn btn-outline-dark" id="btnLimpiar">Limpiar</button>
-					<button type="button" class="btn btn-outline-info" data-toggle="modal" data-target=".bd-example-modal-lg" id="btnBuscarPaciente">Buscar Pacientes</button>
+				<div class="row">
+					<div class="col-sm">
+						@*@Html.LabelFor(model => model.Paciente.FechaNacimiento)*@
+						<div class="datepicker" data-date-format="yyyy-MM-dd">
+							@Html.EditorFor(Model => Model.Paciente.FechaNacimiento, "{0:yyyy-MM-dd}")
+						</div>
+					</div>
+					<div class="col-sm">
+						@*@Html.LabelFor(model => model.Paciente.Sexo)*@
+						@Html.EnumDropDownListFor(model => model.Paciente.Sexo,"---Seleccione el sexo---")
+					</div>
+					<div class="col-sm">
+						@*<label id="_edad">Edad:</label>*@
+						<input type="text" id="Edad" class="form-control" />
+					</div>
+					<div class="col-sm">
+						<button type="button" class="btn btn-outline-dark" id="btnLimpiar">Limpiar</button>
+						<button type="button" class="btn btn-outline-info" data-toggle="modal" data-target=".bd-example-modal-lg" id="btnBuscarPaciente">Buscar Pacientes</button>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -97,8 +99,8 @@
 		}
 
 		function LimpiarContenidoPopup() {
-		$('body').removeClass('modal-open');//eliminamos la clase del body para poder hacer scroll
-		$('.modal-backdrop').remove();//eliminamos el backdrop del modal
-	}
+			$('body').removeClass('modal-open');//eliminamos la clase del body para poder hacer scroll
+			$('.modal-backdrop').remove();//eliminamos el backdrop del modal
+		}
 	});
 </script>
