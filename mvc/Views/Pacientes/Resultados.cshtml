@@ -80,7 +80,10 @@
 				$('#Paciente_SegundoNombre').val(response[0].SegundoNombre);
 				$('#Paciente_ApellidoPaterno').val(response[0].ApellidoPaterno);
 				$('#Paciente_ApellidoMaterno').val(response[0].ApellidoMaterno);
-
+				$("#Paciente_Nombre").addClass("form-control is-valid");
+				$("#Paciente_SegundoNombre").addClass("form-control is-valid");
+				$("#Paciente_ApellidoPaterno").addClass("form-control is-valid");
+				$("#Paciente_ApellidoMaterno").addClass("form-control is-valid");
 				var regxformatdate = /-?\d+/;
 
 				//Fecha Actual

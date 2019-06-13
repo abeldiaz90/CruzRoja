@@ -8,35 +8,35 @@
 				<div class="row">
 					@Html.HiddenFor(model => model.Id)
 					<div class="col-sm">
-						@*@Html.LabelFor(model => model.Paciente.Nombre)*@
-						@Html.EditorFor(Model => Model.Paciente.Nombre, new { htmlAttributes = new { @style = "text-transform:uppercase;" ,placeholder="PRIMER NOMBRE" } })
+						@Html.LabelFor(model => model.Paciente.Nombre)
+						@Html.EditorFor(Model => Model.Paciente.Nombre, new { htmlAttributes = new { @style = "text-transform:uppercase" } })
 					</div>
 					<div class="col-sm">
-						@*@Html.LabelFor(model => model.Paciente.SegundoNombre)*@
-						@Html.EditorFor(Model => Model.Paciente.SegundoNombre, new { htmlAttributes = new { @style = "text-transform:uppercase",placeholder="SEGUNDO NOMBRE" } })
+						@Html.LabelFor(model => model.Paciente.SegundoNombre)
+						@Html.EditorFor(Model => Model.Paciente.SegundoNombre, new { htmlAttributes = new { @style = "text-transform:uppercase" } })
 					</div>
 					<div class="col-sm">
-						@*@Html.LabelFor(model => model.Paciente.ApellidoPaterno)*@
-						@Html.EditorFor(Model => Model.Paciente.ApellidoPaterno, new { htmlAttributes = new { @style = "text-transform:uppercase" ,placeholder="APELLIDO PATERNO"} })
+						@Html.LabelFor(model => model.Paciente.ApellidoPaterno)
+						@Html.EditorFor(Model => Model.Paciente.ApellidoPaterno, new { htmlAttributes = new { @style = "text-transform:uppercase" } })
 					</div>
 					<div class="col-sm">
-						@*@Html.LabelFor(model => model.Paciente.ApellidoMaterno)*@
-						@Html.EditorFor(Model => Model.Paciente.ApellidoMaterno, new { htmlAttributes = new { @style = "text-transform:uppercase" ,placeholder="APELLIDO MATERNO"} })
+						@Html.LabelFor(model => model.Paciente.ApellidoMaterno)
+						@Html.EditorFor(Model => Model.Paciente.ApellidoMaterno, new { htmlAttributes = new { @style = "text-transform:uppercase" } })
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-sm">
-						@*@Html.LabelFor(model => model.Paciente.FechaNacimiento)*@
+						@Html.LabelFor(model => model.Paciente.FechaNacimiento)
 						<div class="datepicker" data-date-format="yyyy-MM-dd">
 							@Html.EditorFor(Model => Model.Paciente.FechaNacimiento, "{0:yyyy-MM-dd}")
 						</div>
 					</div>
 					<div class="col-sm">
-						@*@Html.LabelFor(model => model.Paciente.Sexo)*@
-						@Html.EnumDropDownListFor(model => model.Paciente.Sexo,"---Seleccione el sexo---")
+						@Html.LabelFor(model => model.Paciente.Sexo)
+						@Html.EnumDropDownListFor(model => model.Paciente.Sexo, "---Seleccione el sexo---")
 					</div>
 					<div class="col-sm">
-						@*<label id="_edad">Edad:</label>*@
+						<label id="_edad">Edad:</label>
 						<input type="text" id="Edad" class="form-control" />
 					</div>
 					<div class="col-sm">
@@ -86,9 +86,34 @@
 			$('#Paciente_ApellidoPaterno').val('');
 			$('#Paciente_ApellidoMaterno').val('');
 			$('#Paciente_FechaNacimiento').val('');
+			$("#Paciente_Nombre").removeClass("form-control is-valid");
+			$("#Paciente_SegundoNombre").removeClass("form-control is-valid");
+			$("#Paciente_ApellidoPaterno").removeClass("form-control is-valid");
+			$("#Paciente_ApellidoMaterno").removeClass("form-control is-valid");
 			$('#Edad').val('');
 		});
 
+		$("#Paciente_Nombre").change(function () {
+			$("#Paciente_Nombre").removeClass("form-control is-invalid");
+			$("#Paciente_Nombre").addClass("form-control is-valid");
+		});
+		$("#Paciente_SegundoNombre").change(function () {
+			$("#Paciente_SegundoNombre").removeClass("form-control is-invalid");
+			$("#Paciente_SegundoNombre").addClass("form-control is-valid");
+		});
+		$("#Paciente_ApellidoPaterno").change(function () {
+			$("#Paciente_ApellidoPaterno").removeClass("form-control is-invalid");
+			$("#Paciente_ApellidoPaterno").addClass("form-control is-valid");
+		});
+		$("#Paciente_ApellidoMaterno").change(function () {
+			$("#Paciente_ApellidoMaterno").removeClass("form-control is-invalid");
+			$("#Paciente_ApellidoMaterno").addClass("form-control is-valid");
+		});
+
+			$("#Paciente_FechaNacimiento").change(function () {
+			$("#Paciente_FechaNacimiento").removeClass("form-control is-invalid");
+			$("#Paciente_FechaNacimiento").addClass("form-control is-valid");
+		});
 		function AjaxCall(url, data, type) {
 			return $.ajax({
 				url: url,

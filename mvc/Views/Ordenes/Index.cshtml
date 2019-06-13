@@ -34,24 +34,24 @@
 {
 	@Html.AntiForgeryToken();
 	@Html.ValidationSummary(true);
-<fieldset>
-	<div class="container">
-		<div class="col-sm-3">
-			@Html.HiddenFor(m => m.Id)
-		</div>
-		<div class="input-group">
-			<div class="input-group-prepend">
-				<span class="input-group-text" id="">DETALLE DE LA ORDEN</span>
-				@Html.DropDownListFor(m => m.ordentemporal.IdServicio, new SelectList(Model.serviciosDelegacions, "Id", "NombreServicio"), "---Seleccione un Servicio---")
-				@Html.DropDownListFor(m => m.ordentemporal.IdPrecio, new SelectList(Model.serviciosDelegacionPrecios, "Id", "PrecioSinIva", "---Seleccione el Precio---"))
-				@Html.EditorFor(model => model.ordentemporal.cantidad, new { @class = "form-control" })
-				<button id="btnEnviar" type="button">Agregar</button>
+	<fieldset>
+		<div class="container">
+			<div class="col-sm-3">
+				@Html.HiddenFor(m => m.Id)
 			</div>
-			
+			<div class="input-group">
+				<div class="input-group-prepend">
+					<span class="input-group-text" id="">DETALLE DE LA ORDEN</span>
+					@Html.DropDownListFor(m => m.ordentemporal.IdServicio, new SelectList(Model.serviciosDelegacions, "Id", "NombreServicio"), "---Seleccione un Servicio---")
+					@Html.DropDownListFor(m => m.ordentemporal.IdPrecio, new SelectList(Model.serviciosDelegacionPrecios, "Id", "PrecioSinIva", "---Seleccione el Precio---"))
+					@Html.EditorFor(model => model.ordentemporal.cantidad, new { @class = "form-control" })
+					<button id="btnEnviar" type="button">Agregar</button>
+				</div>
+
+			</div>
 		</div>
-	</div>
-	
-</fieldset>
+
+	</fieldset>
 }
 
 <div id="Pedido">
@@ -82,93 +82,106 @@
 		});
 
 		$('#btnEnviar').on("click", function () {
-			var url = "@Url.Action("Agregar","Ordenes")";
-			var JsonModel = '@Html.Raw(Json.Encode(@Model))';
-			console.log(JsonModel);
+			if ($('#ordentemporal_cantidad').val() == "") {
+				alert("Capture la Cantidad");
+				$('#ordentemporal_cantidad').focus();
+			    $("#ordentemporal_cantidad").addClass("form-control is-invalid");
+			} else {
+				var url = "@Url.Action("Agregar","Ordenes")";
+				var JsonModel = '@Html.Raw(Json.Encode(@Model))';
+
+				console.log(JsonModel);
 				var data = {
-				Id:@Model.Id,
-				IdFolio:@Model.Id,
-				IdServicio: $('#ordentemporal_IdServicio').val(),
-				IdPrecio: $('#ordentemporal_IdPrecio').val(),
-				cantidad: $('#ordentemporal_cantidad').val()
+					Id:@Model.Id,
+					IdFolio:@Model.Id,
+					IdServicio: $('#ordentemporal_IdServicio').val(),
+					IdPrecio: $('#ordentemporal_IdPrecio').val(),
+					cantidad: $('#ordentemporal_cantidad').val()
+				}
+
+				$.ajax({
+					type: "POST",
+					data: JSON.stringify({ 'Id': data.Id, 'ordentemporal.IdFolio': data.IdFolio, 'ordentemporal.IdServicio': data.IdServicio, 'ordentemporal.IdPrecio': data.IdPrecio, 'ordentemporal.cantidad': data.cantidad }),
+					url: url,
+					contentType: "application/json"
+				}).done(function (res) {
+					console.log(res);
+					$("#Pedido").html(res);
+					$('#ordentemporal_cantidad').val("");
+					$("#ordentemporal_cantidad").removeClass();
+				});
 			}
-			$.ajax({
-				type: "POST",
-				data: JSON.stringify({ 'Id': data.Id, 'ordentemporal.IdFolio': data.IdFolio, 'ordentemporal.IdServicio': data.IdServicio, 'ordentemporal.IdPrecio': data.IdPrecio, 'ordentemporal.cantidad': data.cantidad }),
-				url: url,
-				contentType: "application/json"
-			}).done(function (res) {
-				console.log(res);
-				$("#Pedido").html(res);
-			});
+		});
+
+		$("#ordentemporal_cantidad").change(function () {
+			$("#ordentemporal_cantidad").removeClass("form-control is-invalid");
+			$("#ordentemporal_cantidad").addClass("form-control is-valid");			
 		});
 
 
-		function AjaxCall(url, data, type) {
-		return $.ajax({
-			url: url,
-			type: type ? type : 'GET',
-			data: data,
-			contentType: 'application/json'
-		});
-	}
+
 	});
 
-	function Eliminar(Id,IdFolio,Servicio)
-	{
-			var r = confirm('¿ Desea Eliminar el Servicio '+Servicio +' ?');
-			if (r == true) {
-			var obj = { IdServicio: Id, IdFolio:IdFolio};
-			AjaxCall('/Ordenes/Eliminar/' + obj.IdServicio, JSON.stringify(obj), 'POST').done(function (response) {
-				if (response.length > 0) {
-					$("#Pedido").html('');
-					$("#Pedido").html(response);
-				} else { $('#Pedido').html(''); }
-			}).fail(function (error) {
-				$('#Pedido').html('');
-				alert(error.StatusText);
+	function AjaxCall(url, data, type) {
+			return $.ajax({
+				url: url,
+				type: type ? type : 'GET',
+				data: data,
+				contentType: 'application/json'
 			});
+		}
+
+		function Eliminar(Id, IdFolio, Servicio) {
+			var r = confirm('¿ Desea Eliminar el Servicio ' + Servicio + ' ?');
+			if (r == true) {
+				var obj = { IdServicio: Id, IdFolio: IdFolio };
+				AjaxCall('/Ordenes/Eliminar/' + obj.IdServicio, JSON.stringify(obj), 'POST').done(function (response) {
+					if (response.length > 0) {
+						$("#Pedido").html('');
+						$("#Pedido").html(response);
+					} else { $('#Pedido').html(''); }
+				}).fail(function (error) {
+					$('#Pedido').html('');
+					alert(error.StatusText);
+				});
 			} else {
-			  txt = "You pressed Cancel!";
+				txt = "You pressed Cancel!";
 			}
 
-	}
+		}
 
-	function Editar(Id)
-	{
-		var obj = { IdServicio: Id};
-		AjaxCall('/Ordenes/Editar/' + obj.IdServicio, JSON.stringify(obj), 'POST').done(function (response) {
-			ConsultarPrecios(response.IdServicio,response.IdPrecio);
-			console.log(response.IdPrecio);
-			$('#ordentemporal_IdServicio').val(response.IdServicio),				
-			//$('#ordentemporal_IdPrecio').val(response.IdPrecio),
-			$('#ordentemporal_cantidad').val(response.cantidad);
+		function Editar(Id) {
+			var obj = { IdServicio: Id };
+			AjaxCall('/Ordenes/Editar/' + obj.IdServicio, JSON.stringify(obj), 'POST').done(function (response) {
+				ConsultarPrecios(response.IdServicio, response.IdPrecio);
+				console.log(response.IdPrecio);
+				$('#ordentemporal_IdServicio').val(response.IdServicio),
+					//$('#ordentemporal_IdPrecio').val(response.IdPrecio),
+					$('#ordentemporal_cantidad').val(response.cantidad);
 			}).fail(function (error) {
 				$('#Pedido').html('');
 				alert(error.StatusText);
 			});
-	}
+		}
 
-	function ConsultarPrecios(_IdServicio,_IdPrecio) {
-		var obj = { IdServicio: _IdServicio };
-		AjaxCall('/ServiciosPrecios/ConsultaPrecios/' + obj.IdServicio, JSON.stringify(obj), 'POST').done(function (response) {
-			if (response.length > 0) {
-				var options = '';
-				options += '<option value="Select">Seleccione el Precio</option>';
-				for (var i = 0; i < response.length; i++) {
-					options += '<option value="' + response[i].Id + '">' + '$ ' + response[i].PrecioSinIva + '.00' + '</option>';
-				}
+		function ConsultarPrecios(_IdServicio, _IdPrecio) {
+			var obj = { IdServicio: _IdServicio };
+			AjaxCall('/ServiciosPrecios/ConsultaPrecios/' + obj.IdServicio, JSON.stringify(obj), 'POST').done(function (response) {
+				if (response.length > 0) {
+					var options = '';
+					options += '<option value="Select">Seleccione el Precio</option>';
+					for (var i = 0; i < response.length; i++) {
+						options += '<option value="' + response[i].Id + '">' + '$ ' + response[i].PrecioSinIva + '.00' + '</option>';
+					}
+					$('#ordentemporal_IdPrecio').html('');
+					$('#ordentemporal_IdPrecio').append(options);
+					$('#ordentemporal_IdPrecio').val(_IdPrecio);
+
+				} else { $('#ordentemporal_IdPrecio').html(''); }
+			}).fail(function (error) {
 				$('#ordentemporal_IdPrecio').html('');
-				$('#ordentemporal_IdPrecio').append(options);
-				$('#ordentemporal_IdPrecio').val(_IdPrecio);
+				alert(error.StatusText);
+			});
 
-			} else { $('#ordentemporal_IdPrecio').html(''); }
-		}).fail(function (error) {
-			$('#ordentemporal_IdPrecio').html('');
-			alert(error.StatusText);
-		})
-	
-	};
-
-
+		};
 </script>
