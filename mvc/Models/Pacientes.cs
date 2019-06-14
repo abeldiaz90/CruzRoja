@@ -43,7 +43,7 @@ namespace mvc.Models
         public String CURP { set; get; }
 
 
-        [Display(Name = "Seleccione el Sexo:")]
+        [Display(Name = "Sexo:")]
         [UIHint("Enum")]
         public SexoLista Sexo { set; get; }
         public enum SexoLista

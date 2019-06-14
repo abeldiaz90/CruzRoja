@@ -80,10 +80,12 @@
 				$('#Paciente_SegundoNombre').val(response[0].SegundoNombre);
 				$('#Paciente_ApellidoPaterno').val(response[0].ApellidoPaterno);
 				$('#Paciente_ApellidoMaterno').val(response[0].ApellidoMaterno);
+				$('#Paciente_Sexo').val(response[0].Sexo);
 				$("#Paciente_Nombre").addClass("form-control is-valid");
 				$("#Paciente_SegundoNombre").addClass("form-control is-valid");
 				$("#Paciente_ApellidoPaterno").addClass("form-control is-valid");
 				$("#Paciente_ApellidoMaterno").addClass("form-control is-valid");
+				$("#Paciente_Sexo").addClass("form-control is-valid");
 				var regxformatdate = /-?\d+/;
 
 				//Fecha Actual
@@ -125,8 +127,9 @@
 
 				var newdate = date;
 				$('#Paciente_FechaNacimiento').val(newdate);
+				$("#Paciente_FechaNacimiento").addClass("form-control is-valid");
 				$('#Edad').val(Edad);
-
+				$("#Edad").addClass("form-control is-valid");
 				CierraPopup();
 			} else { $('#myPartialViewDiv').html(''); }
 		}).fail(function (error) {

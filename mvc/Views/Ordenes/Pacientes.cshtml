@@ -9,39 +9,43 @@
 					@Html.HiddenFor(model => model.Id)
 					<div class="col-sm">
 						@Html.LabelFor(model => model.Paciente.Nombre)
-						@Html.EditorFor(Model => Model.Paciente.Nombre, new { htmlAttributes = new { @style = "text-transform:uppercase" } })
+						@Html.EditorFor(Model => Model.Paciente.Nombre, new { htmlAttributes = new { @style = "text-transform:uppercase", @class = "form-control" } })
 					</div>
 					<div class="col-sm">
 						@Html.LabelFor(model => model.Paciente.SegundoNombre)
-						@Html.EditorFor(Model => Model.Paciente.SegundoNombre, new { htmlAttributes = new { @style = "text-transform:uppercase" } })
+						@Html.EditorFor(Model => Model.Paciente.SegundoNombre, new { htmlAttributes = new { @style = "text-transform:uppercase", @class = "form-control" } })
 					</div>
 					<div class="col-sm">
 						@Html.LabelFor(model => model.Paciente.ApellidoPaterno)
-						@Html.EditorFor(Model => Model.Paciente.ApellidoPaterno, new { htmlAttributes = new { @style = "text-transform:uppercase" } })
+						@Html.EditorFor(Model => Model.Paciente.ApellidoPaterno, new { htmlAttributes = new { @style = "text-transform:uppercase", @class = "form-control" } })
 					</div>
 					<div class="col-sm">
 						@Html.LabelFor(model => model.Paciente.ApellidoMaterno)
-						@Html.EditorFor(Model => Model.Paciente.ApellidoMaterno, new { htmlAttributes = new { @style = "text-transform:uppercase" } })
+						@Html.EditorFor(Model => Model.Paciente.ApellidoMaterno, new { htmlAttributes = new { @style = "text-transform:uppercase", @class = "form-control" } })
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4">
+						@Html.LabelFor(model => model.Paciente.FechaNacimiento)
+						<div class="datepicker" data-date-format="yyyy-MM-dd">
+							@Html.EditorFor(Model => Model.Paciente.FechaNacimiento, "{0:yyyy-MM-dd}", new { htmlAttributes = new { @class = "form-control" } })
+						</div>
+					</div>
+					<div class="col-md-4">
+						@Html.LabelFor(model => model.Paciente.Sexo, new { htmlAttributes = new { @class = "control-label" } })
+						<p></p>
+						@Html.EnumDropDownListFor(model => model.Paciente.Sexo, "---Seleccione el sexo---", new { htmlAttributes = new { @class = "form-control" } })
+					</div>
+					<div class="col-md-4">
+						<label id="_edad">Edad:</label>
+						<input type="text" id="Edad" class="form-control" />
 					</div>
 				</div>
 				<div class="row">
 					<div class="col-sm">
-						@Html.LabelFor(model => model.Paciente.FechaNacimiento)
-						<div class="datepicker" data-date-format="yyyy-MM-dd">
-							@Html.EditorFor(Model => Model.Paciente.FechaNacimiento, "{0:yyyy-MM-dd}")
-						</div>
-					</div>
-					<div class="col-sm">
-						@Html.LabelFor(model => model.Paciente.Sexo)
-						@Html.EnumDropDownListFor(model => model.Paciente.Sexo, "---Seleccione el sexo---")
-					</div>
-					<div class="col-sm">
-						<label id="_edad">Edad:</label>
-						<input type="text" id="Edad" class="form-control" />
-					</div>
-					<div class="col-sm">
-						<button type="button" class="btn btn-outline-dark" id="btnLimpiar">Limpiar</button>
 						<button type="button" class="btn btn-outline-info" data-toggle="modal" data-target=".bd-example-modal-lg" id="btnBuscarPaciente">Buscar Pacientes</button>
+						<button type="button" class="btn btn-outline-dark" id="btnLimpiar">Limpiar</button>
+						<button type="button" class="btn btn-outline-danger" id="btnCancelarOrden">Cancelar Orden</button>
 					</div>
 				</div>
 			</div>
@@ -86,11 +90,21 @@
 			$('#Paciente_ApellidoPaterno').val('');
 			$('#Paciente_ApellidoMaterno').val('');
 			$('#Paciente_FechaNacimiento').val('');
+			$('#Edad').val('');
 			$("#Paciente_Nombre").removeClass("form-control is-valid");
 			$("#Paciente_SegundoNombre").removeClass("form-control is-valid");
 			$("#Paciente_ApellidoPaterno").removeClass("form-control is-valid");
 			$("#Paciente_ApellidoMaterno").removeClass("form-control is-valid");
-			$('#Edad').val('');
+			$("#Paciente_FechaNacimiento").removeClass("form-control is-valid");
+			$("#Paciente_Sexo").removeClass("form-control is-valid");
+			$("#Edad").removeClass("form-control is-valid");
+			$("#Paciente_Nombre").addClass("form-control");
+			$("#Paciente_SegundoNombre").addClass("form-control");
+			$("#Paciente_ApellidoPaterno").addClass("form-control");
+			$("#Paciente_ApellidoMaterno").addClass("form-control");
+			$("#Paciente_FechaNacimiento").addClass("form-control");
+			$("#Paciente_Sexo").addClass("form-control");
+			$("#Edad").addClass("form-control");		
 		});
 
 		$("#Paciente_Nombre").change(function () {
@@ -110,9 +124,14 @@
 			$("#Paciente_ApellidoMaterno").addClass("form-control is-valid");
 		});
 
-			$("#Paciente_FechaNacimiento").change(function () {
+		$("#Paciente_FechaNacimiento").change(function () {
 			$("#Paciente_FechaNacimiento").removeClass("form-control is-invalid");
 			$("#Paciente_FechaNacimiento").addClass("form-control is-valid");
+		});
+
+		$("#Paciente_Sexo").change(function () {
+			$("#Paciente_Sexo").removeClass("form-control is-invalid");
+			$("#Paciente_Sexo").addClass("form-control is-valid");
 		});
 		function AjaxCall(url, data, type) {
 			return $.ajax({

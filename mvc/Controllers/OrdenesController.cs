@@ -83,14 +83,30 @@ namespace mvc.Controllers
                                orderby serviciosdelegacion.First()
                                select new OrdenesTemporalVista { ordenesTemporal = ot, serviciosDelegacion = se, ServiciosDelegacionPrecios = pr };
             return PartialView("OrdenesTemporal", vistaestados);
-        }
-
-     
+        }     
         public ActionResult Editar(int Id)
         {
             Contexto con = new Contexto();
             OrdenesTemporal ordenesTemporal = con.ordenestemporal.FirstOrDefault(s => s.Id == Id);
             return Json(ordenesTemporal, JsonRequestBehavior.AllowGet);
+        }
+
+        public PartialViewResult Cancelar(int Id)
+        {
+            Contexto con = new Contexto();
+            List<OrdenesTemporal> ordenesTemporal = con.ordenestemporal.Where(s => s.IdFolio == Id).ToList();
+            con.ordenestemporal.RemoveRange(ordenesTemporal);
+            con.SaveChanges();
+
+            IEnumerable<ServiciosDelegacion> serviciosdelegacion = con.serviciosdelegacion.ToList();
+            IEnumerable<OrdenesTemporal> ordenestemporal = con.ordenestemporal.Where(m => m.IdFolio == Id).ToList();
+            IEnumerable<ServiciosDelegacionPrecios> serviciosDelegacionPrecios = con.serviciosDelegacionPrecios.ToList();
+            var vistaestados = from ot in ordenestemporal
+                               join se in serviciosdelegacion on ot.IdServicio equals se.Id
+                               join pr in serviciosDelegacionPrecios on ot.IdPrecio equals pr.Id
+                               orderby serviciosdelegacion.First()
+                               select new OrdenesTemporalVista { ordenesTemporal = ot, serviciosDelegacion = se, ServiciosDelegacionPrecios = pr };
+            return PartialView("OrdenesTemporal", vistaestados);
         }
 
         [HttpPost]
