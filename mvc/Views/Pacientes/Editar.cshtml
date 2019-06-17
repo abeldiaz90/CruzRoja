@@ -69,6 +69,20 @@
 			@Html.EditorFor(model => model.CURP, new { @class = "form-control" })
 			@Html.ValidationMessageFor(model => model.CURP)
 		</div>
+		<div>
+			@Html.LabelFor(model => model.Email)
+		</div>
+		<div>
+			@Html.EditorFor(model => model.Email, new { @class = "form-control" })
+			@Html.ValidationMessageFor(model => model.Email)
+		</div>
+		<div>
+			@Html.LabelFor(model => model.Telefono)
+		</div>
+		<div>
+			@Html.EditorFor(model => model.Telefono, new { @class = "form-control" })
+			@Html.ValidationMessageFor(model => model.Telefono)
+		</div>
 		<input type="submit" value="Guardar" class="btn btn-outline-success" />
 		@Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-outline-dark" })
 

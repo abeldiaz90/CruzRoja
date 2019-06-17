@@ -11,64 +11,88 @@
 
 	<legend>Pacientes</legend>
 	<fieldset>
-		<div>
-			@Html.HiddenFor(model => model.Id, new { @Value = "0" })
-		</div>
-		<div>
-			@Html.LabelFor(model => model.Nombre, new { @class = "control-label col-md-2" })
-		</div>
-		<div>
-			@Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @style = "text-transform:uppercase" } })
-			@Html.ValidationMessageFor(model => model.Nombre)
-		</div>
-		<div>
-			@Html.LabelFor(model => model.SegundoNombre, new { @class = "control-label col-md-2" })
-		</div>
-		<div>
-			@Html.EditorFor(model => model.SegundoNombre, new { htmlAttributes = new { @style = "text-transform:uppercase" } })
-			@Html.ValidationMessageFor(model => model.SegundoNombre)
-		</div>
-		<div>
-			@Html.LabelFor(model => model.ApellidoPaterno, new { @class = "control-label col-md-2" })
-		</div>
-		<div>
-			@Html.EditorFor(model => model.ApellidoPaterno, new { htmlAttributes = new { @style = "text-transform:uppercase" } })
-			@Html.ValidationMessageFor(model => model.ApellidoPaterno)
-		</div>
-		<div>
-			@Html.LabelFor(model => model.ApellidoMaterno, new { @class = "control-label col-md-2" })
-		</div>
-		<div>
-			@Html.EditorFor(model => model.ApellidoMaterno, new { htmlAttributes = new { @style = "text-transform:uppercase" } })
-			@Html.ValidationMessageFor(model => model.ApellidoMaterno)
-		</div>
-		<div>
-			@Html.LabelFor(model => model.FechaNacimiento, new { @class = "control-label col-md-2" })
-		</div>
-		<div>
-			@Html.EditorFor(model => model.FechaNacimiento)
-			@Html.ValidationMessageFor(model => model.FechaNacimiento)
-		</div>
-		<div>
-			@Html.LabelFor(model => model.Sexo, new { @class = "control-label col-md-2" })
-		</div>
-		<div>
-			@Html.LabelFor(model => model.Sexo)
-			@Html.EnumDropDownListFor(model => model.Sexo)
-		</div>
-		<div>
-			@Html.LabelFor(model => model.RFC, new { @class = "control-label col-md-2" })
-		</div>
-		<div>
-			@Html.EditorFor(model => model.RFC, new { htmlAttributes = new { @style = "text-transform:uppercase", @maxlength = "13" } })
-			@Html.ValidationMessageFor(model => model.RFC)
-		</div>
-		<div>
-			@Html.LabelFor(model => model.CURP, new { @class = "control-label col-md-2" })
-		</div>
-		<div>
-			@Html.EditorFor(model => model.CURP, new { htmlAttributes = new { @style = "text-transform:uppercase", @maxlength = "18" } })
-			@Html.ValidationMessageFor(model => model.CURP)
+		<div class="container">
+			<div>
+				@Html.HiddenFor(model => model.Id, new { @Value = "0" })
+			</div>
+			<div class="row">
+				<div class="col-sm-3 col-lg-3">
+					<div>
+						@Html.LabelFor(model => model.Nombre, new { htmlAttributes = new { @class = "control-label" } })
+					</div>
+					@Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @style = "text-transform:uppercase", @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.Nombre, "", new { htmlAttributes = new { @class = "text-danger" } })
+				</div>
+				<div class="col-sm-3 col-lg-3">
+					<div>
+						@Html.LabelFor(model => model.SegundoNombre, new { htmlAttributes = new { @class = "control-label" } })
+					</div>
+					@Html.EditorFor(model => model.SegundoNombre, new { htmlAttributes = new { @style = "text-transform:uppercase", @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.SegundoNombre)
+				</div>
+				<div class="col-sm-3 col-lg-3">
+					<div>
+						@Html.LabelFor(model => model.ApellidoPaterno, new { htmlAttributes = new { @class = "control-label" } })
+					</div>
+					@Html.EditorFor(model => model.ApellidoPaterno, new { htmlAttributes = new { @style = "text-transform:uppercase", @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.ApellidoPaterno)
+				</div>
+				<div class="col-sm-3 col-lg-3">
+					<div>
+						@Html.LabelFor(model => model.ApellidoMaterno, new { htmlAttributes = new { @class = "control-label" } })
+					</div>
+					@Html.EditorFor(model => model.ApellidoMaterno, new { htmlAttributes = new { @style = "text-transform:uppercase", @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.ApellidoMaterno)
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-3 col-lg-3">
+					<div>
+						@Html.LabelFor(model => model.FechaNacimiento, new { htmlAttributes = new { @class = "control-label" } })
+					</div>
+					@Html.EditorFor(model => model.FechaNacimiento, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.FechaNacimiento)
+				</div>
+				<div class="col-sm-3 col-lg-3">
+					<div>
+						@Html.LabelFor(model => model.Sexo, new { htmlAttributes = new { @class = "control-label" } })
+					</div>
+					@Html.EnumDropDownListFor(model => model.Sexo, new { htmlAttributes = new { @class = "form-control" } })
+				</div>
+				<div class="col-sm-3 col-lg-3">
+					<div>
+						@Html.LabelFor(model => model.RFC, new { htmlAttributes = new { @class = "control-label" } })
+					</div>
+
+					@Html.EditorFor(model => model.RFC, new { htmlAttributes = new { @style = "text-transform:uppercase", @maxlength = "13", @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.RFC)
+				</div>
+				<div class="col-sm-3 col-lg-3">
+					<div>
+						@Html.LabelFor(model => model.CURP, new { htmlAttributes = new { @class = "control-label" } })
+					</div>
+
+					@Html.EditorFor(model => model.CURP, new { htmlAttributes = new { @style = "text-transform:uppercase", @maxlength = "18", @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.CURP)
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-sm-3 col-lg-3">
+					<div>
+						@Html.LabelFor(model => model.Email, new { htmlAttributes = new { @class = "control-label" } })
+					</div>
+
+					@Html.EditorFor(model => model.Email, new { htmlAttributes = new { @style = "text-transform:uppercase", @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.Email)
+				</div>
+				<div class="col-sm-3 col-lg-3">
+					<div>
+						@Html.LabelFor(model => model.Telefono, new { htmlAttributes = new { @class = "control-label" } })
+					</div>
+					@Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @style = "text-transform:uppercase", @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.Telefono)
+				</div>
+			</div>
 		</div>
 		<input type="submit" value="Guardar" class="btn btn-outline-success" />
 		@Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-outline-dark" })
@@ -76,5 +100,11 @@
 	</fieldset>
 
 }
+
+<script>
+	$(document).ready(function () {
+		$("#Sexo").addClass("form-control");
+	});
+</script>
 
 

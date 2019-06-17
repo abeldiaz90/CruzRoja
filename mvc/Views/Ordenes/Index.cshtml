@@ -44,7 +44,7 @@
 					<span class="input-group-text" id="">DETALLE DE LA ORDEN</span>
 					@Html.DropDownListFor(m => m.ordentemporal.IdServicio, new SelectList(Model.serviciosDelegacions, "Id", "NombreServicio"), "---Seleccione un Servicio---")
 					@Html.DropDownListFor(m => m.ordentemporal.IdPrecio, new SelectList(Model.serviciosDelegacionPrecios, "Id", "PrecioSinIva", "---Seleccione el Precio---"))
-					@Html.EditorFor(model => model.ordentemporal.cantidad, new { @class = "form-control" })
+					@Html.EditorFor(model => model.ordentemporal.cantidad, new { htmlAttributes = new { @class = "form-control" } })
 					<button id="btnEnviar" type="button">Agregar</button>
 				</div>
 
@@ -59,8 +59,59 @@
 		Html.RenderPartial("OrdenesTemporal", Model.ordenestemporalvista);
 	}
 </div>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" onclick="Cobro()">
+	Cobrar
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Cobro</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="container">
+					<div class="row">
+						@using (Html.BeginForm("Cobrar", "Ordenes", FormMethod.Post))
+						{
+							@Html.AntiForgeryToken()
+							@Html.ValidationSummary(true)
+							<fieldset>
+								<div class="container">
+									<div class="row">
+										@Html.LabelFor(s => s.Total)
+										@Html.EditorFor(s => s.Total, new { htmlAttributes = new { @class = "form-control" } })
+									</div>
+									<div class="row">
+										@Html.LabelFor(s => s.PagaCon)
+										@Html.EditorFor(s => s.PagaCon, new { htmlAttributes = new { @class = "form-control currency" } })
+									</div>
+									<div class="row">
+										@Html.LabelFor(s => s.cambio)
+										@Html.EditorFor(s => s.cambio, new { htmlAttributes = new { @class = "form-control" } })
+									</div>
+								</div>
+
+							</fieldset>
+						}
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Cobrar y Generar Orden</button>
+			</div>
+		</div>
+	</div>
+</div>
 <script>
 	$(document).ready(function () {
+		$("#Paciente_Sexo").addClass("form-control");
         $('#ordentemporal_IdServicio').on('change', function () {
             var Id = $('#ordentemporal_IdServicio').val();
             var obj = { IdServicio: Id };
@@ -80,81 +131,179 @@
                 alert(error.StatusText);
             });
         });
-
-    $('#btnEnviar').on("click", function () {
+        $('#btnEnviar').on("click", function () {
 			if ($('#ordentemporal_cantidad').val() == "") {
-        alert("Capture la Cantidad");
-    $('#ordentemporal_cantidad').focus();
-    $("#ordentemporal_cantidad").addClass("form-control is-invalid");
+              alert("Capture la Cantidad");
+              $('#ordentemporal_cantidad').focus();
+              $("#ordentemporal_cantidad").addClass("form-control is-invalid");
 			} else {
 				var url = '@Url.Action("Agregar","Ordenes")';
-    var JsonModel = '@Html.Raw(Json.Encode(@Model))';
-
-    console.log(JsonModel);
+                var JsonModel = '@Html.Raw(Json.Encode(@Model))';
 				var data = {
-        Id: @Model.Id,
-    IdFolio:@Model.Id,
-    IdServicio: $('#ordentemporal_IdServicio').val(),
-    IdPrecio: $('#ordentemporal_IdPrecio').val(),
-    cantidad: $('#ordentemporal_cantidad').val()
-}
+                   Id: @Model.Id,
+                   IdFolio:@Model.Id,
+                   IdServicio: $('#ordentemporal_IdServicio').val(),
+                   IdPrecio: $('#ordentemporal_IdPrecio').val(),
+					cantidad: $('#ordentemporal_cantidad').val()
+				}
 
-				$.ajax({
-        type: "POST",
-					data: JSON.stringify({'Id': data.Id, 'ordentemporal.IdFolio': data.IdFolio, 'ordentemporal.IdServicio': data.IdServicio, 'ordentemporal.IdPrecio': data.IdPrecio, 'ordentemporal.cantidad': data.cantidad }),
-    url: url,
-    contentType: "application/json"
+		$.ajax({
+                type: "POST",
+				data: JSON.stringify({'Id': data.Id, 'ordentemporal.IdFolio': data.IdFolio, 'ordentemporal.IdServicio': data.IdServicio, 'ordentemporal.IdPrecio': data.IdPrecio, 'ordentemporal.cantidad': data.cantidad }),
+                url: url,
+                contentType: "application/json"
 				}).done(function (res) {
-        console.log(res);
-    $("#Pedido").html(res);
-    $('#ordentemporal_cantidad').val("");
-    $("#ordentemporal_cantidad").removeClass();
-});
-}
-});
-
-
+                   $("#Pedido").html(res);
+                   $('#ordentemporal_cantidad').val("");
+                   $("#ordentemporal_cantidad").removeClass();
+             });
+          }
+       });
 		$('#btnCancelarOrden').on("click", function () {
 			var conf = confirm("¿Desea Cancelar la Ordén?");
-    if (conf)
+			if (conf)
 			{
-      //  Limpiar();
-    var url = '@Url.Action("Cancelar","Ordenes")';
-    var JsonModel = '@Html.Raw(Json.Encode(@Model))'
-}
+				var url = '@Url.Action("Cancelar","Ordenes")';
+				var JsonModel = '@Html.Raw(Json.Encode(@Model))'
+		    }
 
-     var data = {
-		 Id: @Model.Id
-		 }
+			var data = {
+				Id: @Model.Id
+			 }
 
-				$.ajax({
-        type: "POST",
-					data: JSON.stringify({'Id': data.Id }),
-    url: url,
-    contentType: "application/json"
+			$.ajax({
+              type: "POST",
+		      data: JSON.stringify({'Id': data.Id }),
+              url: url,
+              contentType: "application/json"
 				}).done(function (res) {
-    $("#Pedido").html(res);
-    $('#ordentemporal_cantidad').val("");
-    $("#ordentemporal_cantidad").removeClass();
+       $("#Pedido").html(res);
+       $('#ordentemporal_cantidad').val("");
+	   $("#ordentemporal_cantidad").removeClass();
+	   $('#ordentemporal_IdServicio').val("");
+	   $('#ordentemporal_IdPrecio').val("");
+	   Limipar();
+    });
 });
-});
-
 		$("#ordentemporal_cantidad").change(function () {
         $("#ordentemporal_cantidad").removeClass("form-control is-invalid");
-    $("#ordentemporal_cantidad").addClass("form-control is-valid");
-});
-});
+        $("#ordentemporal_cantidad").addClass("form-control is-valid");
+		});
 
-	function AjaxCall(url, data, type) {
-			return $.ajax({
+		$("input[data-type='currency']").on({
+			keyup: function () {
+				formatCurrency($(this));
+			},
+			blur: function () {
+				formatCurrency($(this), "blur");
+			}
+		});
+
+		$("#PagaCon").change(function () {
+			const formatter = new Intl.NumberFormat('es-MX', {
+				style: 'currency',
+				currency: 'MXN',
+				minimumFractionDigits: 2
+			});
+
+			$("#PagaCon").val(formatter.format($("#PagaCon").val()));
+
+
+			var n1 = $("#Total").val();
+			var n2 = $("#PagaCon").val();
+			var regp = /[^0-9.-]+/g;
+
+			if (parseFloat(n2.replace(regp, '')) >= parseFloat(n1.replace(regp, ''))) {
+				var cambio = parseFloat(n2.replace(regp, '')) - parseFloat(n1.replace(regp, ''));
+				$("#cambio").val(formatter.format(cambio));
+			} else {
+				alert("La cantidad que ingreso a Pagar no cubre el monto de la orden");
+				$("#cambio").val('');
+				$("#PagaCon").val('');
+				$("#PagaCon").focus();
+
+			}
+	});
+
+});
+		function formatNumber(n) {
+			// format number 1000000 to 1,234,567
+			return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+		}
+		function formatCurrency(input, blur) {
+			// appends $ to value, validates decimal side
+			// and puts cursor back in right position.
+
+			// get input value
+			var input_val = input.val();
+
+			// don't validate empty input
+			if (input_val === "") { return; }
+
+			// original length
+			var original_len = input_val.length;
+
+			// initial caret position
+			var caret_pos = input.prop("selectionStart");
+
+			// check for decimal
+			if (input_val.indexOf(".") >= 0) {
+
+				// get position of first decimal
+				// this prevents multiple decimals from
+				// being entered
+				var decimal_pos = input_val.indexOf(".");
+
+				// split number by decimal point
+				var left_side = input_val.substring(0, decimal_pos);
+				var right_side = input_val.substring(decimal_pos);
+
+				// add commas to left side of number
+				left_side = formatNumber(left_side);
+
+				// validate right side
+				right_side = formatNumber(right_side);
+
+				// On blur make sure 2 numbers after decimal
+				if (blur === "blur") {
+					right_side += "00";
+				}
+
+				// Limit decimal to only 2 digits
+				right_side = right_side.substring(0, 2);
+
+				// join number by .
+				input_val = "$" + left_side + "." + right_side;
+
+			} else {
+				// no decimal entered
+				// add commas to number
+				// remove all non-digits
+				input_val = formatNumber(input_val);
+				input_val = "$" + input_val;
+
+				// final formatting
+				if (blur === "blur") {
+					input_val += ".00";
+				}
+			}
+
+			// send updated string to input
+			input.val(input_val);
+
+			// put caret back in the right position
+			var updated_len = input_val.length;
+			caret_pos = updated_len - original_len + caret_pos;
+			input[0].setSelectionRange(caret_pos, caret_pos);
+		}
+	    function AjaxCall(url, data, type) {
+		return $.ajax({
         url: url,
     type: type ? type : 'GET',
     data: data,
     contentType: 'application/json'
-});
-}
-
-	function Eliminar(Id, IdFolio, Servicio) {
+});}
+	    function Eliminar(Id, IdFolio, Servicio) {
 		var r = confirm('¿ Desea Eliminar el Servicio ' + Servicio + ' ?');
 		if (r == true) {
 			var obj = { IdServicio: Id, IdFolio: IdFolio };
@@ -172,12 +321,11 @@
 		}
 
 	}
-
-		function Editar(Id) {
+	    function Editar(Id) {
 			var obj = {IdServicio: Id };
 			AjaxCall('/Ordenes/Editar/' + obj.IdServicio, JSON.stringify(obj), 'POST').done(function (response) {
-        ConsultarPrecios(response.IdServicio, response.IdPrecio);
-    console.log(response.IdPrecio);
+            ConsultarPrecios(response.IdServicio, response.IdPrecio);
+            console.log(response.IdPrecio);
     $('#ordentemporal_IdServicio').val(response.IdServicio),
         //$('#ordentemporal_IdPrecio').val(response.IdPrecio),
         $('#ordentemporal_cantidad').val(response.cantidad);
@@ -186,8 +334,7 @@
     alert(error.StatusText);
 });
 }
-
-		function ConsultarPrecios(_IdServicio, _IdPrecio) {
+     	function ConsultarPrecios(_IdServicio, _IdPrecio) {
 			var obj = {IdServicio: _IdServicio };
 			AjaxCall('/ServiciosPrecios/ConsultaPrecios/' + obj.IdServicio, JSON.stringify(obj), 'POST').done(function (response) {
 				if (response.length > 0) {
@@ -206,5 +353,32 @@
     alert(error.StatusText);
 });
 
-};
+	};
+	    function Limipar()
+	{
+			$('#Paciente_Nombre').val('');
+			$('#Paciente_SegundoNombre').val('');
+			$('#Paciente_ApellidoPaterno').val('');
+			$('#Paciente_ApellidoMaterno').val('');
+			$('#Paciente_FechaNacimiento').val('');
+			$('#Edad').val('');
+			$("#Paciente_Nombre").removeClass("form-control is-valid");
+			$("#Paciente_SegundoNombre").removeClass("form-control is-valid");
+			$("#Paciente_ApellidoPaterno").removeClass("form-control is-valid");
+			$("#Paciente_ApellidoMaterno").removeClass("form-control is-valid");
+			$("#Paciente_FechaNacimiento").removeClass("form-control is-valid");
+			$("#Paciente_Sexo").removeClass("form-control is-valid");
+			$("#Edad").removeClass("form-control is-valid");
+			$("#Paciente_Nombre").addClass("form-control");
+			$("#Paciente_SegundoNombre").addClass("form-control");
+			$("#Paciente_ApellidoPaterno").addClass("form-control");
+			$("#Paciente_ApellidoMaterno").addClass("form-control");
+			$("#Paciente_FechaNacimiento").addClass("form-control");
+			$("#Paciente_Sexo").addClass("form-control");
+			$("#Edad").addClass("form-control");
+		}
+        function Cobro() {
+			$("#Total").val(document.getElementById("totalOrden").innerText);
+			$("#Total").attr("disabled", "disabled"); 
+	}
 </script>

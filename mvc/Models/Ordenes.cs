@@ -19,6 +19,22 @@ namespace mvc.Models
       
         public Pacientes Paciente { set; get; }
 
+        [Required(ErrorMessage ="El total es Requerido")]
+        [Display(Name ="Total:")]
+        [DataType(DataType.Currency)]
+        public decimal Total { set; get; }
+
+        [Required(ErrorMessage = "Ingrese la Cantidad")]
+        [Display(Name = "Paga con:")]
+        [DataType(DataType.Currency)]
+        [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
+        public decimal PagaCon { set; get; }
+
+       
+        [Display(Name = "Cambio:")]
+        [DataType(DataType.Currency)]
+        public decimal cambio { set; get; }
+
 
         [Display(Name ="Fecha y Hora:")]  
         [DataType(DataType.DateTime)]

@@ -27,11 +27,16 @@ namespace mvc.Controllers
             usuarios.Usuario = Seguridad.Encrypt(usuarios.Usuario);
             usuarios.Password = Seguridad.Encrypt(usuarios.Password);
             Usuarios us = con.usuarios.FirstOrDefault(s => s.Usuario == usuarios.Usuario && s.Password == usuarios.Password);
+            String Resultado = "";
 
             if (us == null)
-                return RedirectToAction("Index", "Account");
+            {
+                Resultado = "Fallido";
+            }
+            else { Resultado = "Exitoso"; }
+            //return RedirectToAction("Index", "Account");
 
-            return RedirectToAction("~/Ordenes/Index");
+            return Json(Resultado, JsonRequestBehavior.AllowGet);
         }
     }
 }

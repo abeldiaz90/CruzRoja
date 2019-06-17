@@ -31,6 +31,12 @@
 						<th scope="col">
 							CURP
 						</th>
+						<th scope="col">
+							CORREO
+						</th>
+						<th scope="col">
+							TELEFÓNO
+						</th>
 					</tr>
 					@foreach (var m in Model)
 					{
@@ -54,13 +60,18 @@
 								@m.CURP
 							</td>
 							<td scope="row">
+								@m.Email
+							</td>
+							<td scope="row">
+								@m.Telefono
+							</td>
+							<td scope="row">
 								<button id="btnBuscarId_@m.Id" value="@m.Id" class="btn btn-outline-primary" onclick="BuscarPaciente(@m.Id)">Seleccionar</button>
 							</td>
 						</tr>
 					}
 				</thead>
 			</table>
-
 		</div>
 		<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
 	</div>
@@ -68,7 +79,6 @@
 <script src="~/Scripts/date.format.js"></script>
 <script>
 	$(document).ready(function () {
-		//$('#btnBuscarId_').on('click', function () {
 	});
 	function BuscarPaciente(ID) {
 		var Id = $('#btnBuscarId_' + ID).val();
@@ -81,11 +91,15 @@
 				$('#Paciente_ApellidoPaterno').val(response[0].ApellidoPaterno);
 				$('#Paciente_ApellidoMaterno').val(response[0].ApellidoMaterno);
 				$('#Paciente_Sexo').val(response[0].Sexo);
+				$('#Paciente_Email').val(response[0].Email);
+				$('#Paciente_Telefono').val(response[0].Telefono);
 				$("#Paciente_Nombre").addClass("form-control is-valid");
 				$("#Paciente_SegundoNombre").addClass("form-control is-valid");
 				$("#Paciente_ApellidoPaterno").addClass("form-control is-valid");
 				$("#Paciente_ApellidoMaterno").addClass("form-control is-valid");
 				$("#Paciente_Sexo").addClass("form-control is-valid");
+				$("#Paciente_Email").addClass("form-control is-valid");
+				$("#Paciente_Telefono").addClass("form-control is-valid");
 				var regxformatdate = /-?\d+/;
 
 				//Fecha Actual

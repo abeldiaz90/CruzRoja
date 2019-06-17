@@ -5,8 +5,8 @@
 	<fieldset>
 		<div class="jumbotron jumbotron-fluid">
 			<div class="container">
+				@Html.HiddenFor(model => model.Id)
 				<div class="row">
-					@Html.HiddenFor(model => model.Id)
 					<div class="col-sm">
 						@Html.LabelFor(model => model.Paciente.Nombre)
 						@Html.EditorFor(Model => Model.Paciente.Nombre, new { htmlAttributes = new { @style = "text-transform:uppercase", @class = "form-control" } })
@@ -25,28 +25,39 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-4">
+					<div class="col-sm">
+						@Html.LabelFor(model => model.Paciente.Email)
+						@Html.EditorFor(Model => Model.Paciente.Email, new { htmlAttributes = new { @class = "form-control" } })
+					</div>
+					<div class="col-sm">
+						@Html.LabelFor(model => model.Paciente.Telefono)
+						@Html.EditorFor(Model => Model.Paciente.Telefono, new { htmlAttributes = new { @class = "form-control" } })
+					</div>
+					<div class="col-sm">
 						@Html.LabelFor(model => model.Paciente.FechaNacimiento)
 						<div class="datepicker" data-date-format="yyyy-MM-dd">
 							@Html.EditorFor(Model => Model.Paciente.FechaNacimiento, "{0:yyyy-MM-dd}", new { htmlAttributes = new { @class = "form-control" } })
 						</div>
 					</div>
-					<div class="col-md-4">
+					<div class="col-sm">
 						@Html.LabelFor(model => model.Paciente.Sexo, new { htmlAttributes = new { @class = "control-label" } })
-						<p></p>
 						@Html.EnumDropDownListFor(model => model.Paciente.Sexo, "---Seleccione el sexo---", new { htmlAttributes = new { @class = "form-control" } })
 					</div>
-					<div class="col-md-4">
+				</div>
+				<div class="row">
+					<div class="col-sm col-lg-3">
 						<label id="_edad">Edad:</label>
 						<input type="text" id="Edad" class="form-control" />
 					</div>
 				</div>
-				<div class="row">
-					<div class="col-sm">
-						<button type="button" class="btn btn-outline-info" data-toggle="modal" data-target=".bd-example-modal-lg" id="btnBuscarPaciente">Buscar Pacientes</button>
-						<button type="button" class="btn btn-outline-dark" id="btnLimpiar">Limpiar</button>
-						<button type="button" class="btn btn-outline-danger" id="btnCancelarOrden">Cancelar Orden</button>
-					</div>
+			
+			</div>
+			<div class="row">
+				<div class="col-sm">
+					<button type="button" class="btn btn-outline-primary" id="btnAgregarPaciente">Agregar Paciente</button>
+					<button type="button" class="btn btn-outline-info" data-toggle="modal" data-target=".bd-example-modal-lg" id="btnBuscarPaciente">Buscar Pacientes</button>
+					<button type="button" class="btn btn-outline-dark" id="btnLimpiar">Limpiar</button>
+					<button type="button" class="btn btn-outline-danger" id="btnCancelarOrden">Cancelar Orden</button>
 				</div>
 			</div>
 		</div>
@@ -65,6 +76,12 @@
 </div>
 <script>
 	$(document).ready(function () {
+
+		$('#btnAgregarPaciente').on('click', function () {
+			window.open("../Pacientes/Nuevo", "_blank");
+		});
+
+
 		$('#btnBuscarPaciente').on('click', function () {
 			var Nombre = $('#Paciente_Nombre').val().toUpperCase();
 			var SegundoNombre = $('#Paciente_SegundoNombre').val().toUpperCase();
@@ -91,12 +108,16 @@
 			$('#Paciente_ApellidoMaterno').val('');
 			$('#Paciente_FechaNacimiento').val('');
 			$('#Edad').val('');
+			$('#Paciente_Email').val('');
+			$('#Paciente_Telefono').val('');
 			$("#Paciente_Nombre").removeClass("form-control is-valid");
 			$("#Paciente_SegundoNombre").removeClass("form-control is-valid");
 			$("#Paciente_ApellidoPaterno").removeClass("form-control is-valid");
 			$("#Paciente_ApellidoMaterno").removeClass("form-control is-valid");
 			$("#Paciente_FechaNacimiento").removeClass("form-control is-valid");
 			$("#Paciente_Sexo").removeClass("form-control is-valid");
+			$("#Paciente_Email").removeClass("form-control is-valid");
+			$("#Paciente_Telefono").removeClass("form-control is-valid");
 			$("#Edad").removeClass("form-control is-valid");
 			$("#Paciente_Nombre").addClass("form-control");
 			$("#Paciente_SegundoNombre").addClass("form-control");
@@ -104,7 +125,9 @@
 			$("#Paciente_ApellidoMaterno").addClass("form-control");
 			$("#Paciente_FechaNacimiento").addClass("form-control");
 			$("#Paciente_Sexo").addClass("form-control");
-			$("#Edad").addClass("form-control");		
+			$("#Paciente_Email").addClass("form-control");
+			$("#Paciente_Telefono").addClass("form-control");
+			$("#Edad").addClass("form-control");
 		});
 
 		$("#Paciente_Nombre").change(function () {
@@ -132,6 +155,16 @@
 		$("#Paciente_Sexo").change(function () {
 			$("#Paciente_Sexo").removeClass("form-control is-invalid");
 			$("#Paciente_Sexo").addClass("form-control is-valid");
+		});
+
+		$("#Paciente_Email").change(function () {
+			$("#Paciente_Email").removeClass("form-control is-invalid");
+			$("#Paciente_Email").addClass("form-control is-valid");
+		});
+
+		$("#Paciente_Telefono").change(function () {
+			$("#Paciente_Telefono").removeClass("form-control is-invalid");
+			$("#Paciente_Telefono").addClass("form-control is-valid");
 		});
 		function AjaxCall(url, data, type) {
 			return $.ajax({

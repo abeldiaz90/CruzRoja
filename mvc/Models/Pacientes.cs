@@ -43,6 +43,16 @@ namespace mvc.Models
         public String CURP { set; get; }
 
 
+        [Display(Name = "Correo Electrónico:")]
+        [DataType(DataType.EmailAddress,ErrorMessage ="Correo Invalido")]
+        public String Email { set; get; }
+
+        [Display(Name = "Teléfono:")]
+        [DataType(DataType.PhoneNumber,ErrorMessage ="Telefono Invalido")]
+        [Phone]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$",ErrorMessage = "Telefono Invalido")]
+        public String Telefono { set; get; }
+
         [Display(Name = "Sexo:")]
         [UIHint("Enum")]
         public SexoLista Sexo { set; get; }

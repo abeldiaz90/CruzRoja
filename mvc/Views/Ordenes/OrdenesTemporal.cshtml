@@ -55,8 +55,9 @@
 				<td></td>
 				<td></td>
 				<td>Total:</td>
-				<td><b>@String.Format("{0:C}", Model.Sum(modelo => modelo.ServiciosDelegacionPrecios.PrecioSinIva * modelo.ordenesTemporal.cantidad) + Model.Sum(modelo => modelo.ServiciosDelegacionPrecios.PrecioSinIva * modelo.ordenesTemporal.cantidad) * decimal.Parse("0.16"))</b></td>
+				<td><label id="totalOrden">@String.Format("{0:C}", Model.Sum(modelo => modelo.ServiciosDelegacionPrecios.PrecioSinIva * modelo.ordenesTemporal.cantidad) + Model.Sum(modelo => modelo.ServiciosDelegacionPrecios.PrecioSinIva * modelo.ordenesTemporal.cantidad) * decimal.Parse("0.16"))</label></td>
 			</tr>
 		</thead>
 	</table>
 </div>
+
