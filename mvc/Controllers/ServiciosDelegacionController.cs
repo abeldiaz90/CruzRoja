@@ -36,6 +36,7 @@ namespace mvc.Controllers
                 s.precios = i.precios;
                 s.servicios = i.servicios;
                 s.serviciosdelegacionvista = i.serviciosdelegacionvista;
+                s.AplicaIVA = i.AplicaIVA;
                 serviciosdelegacion.Add(s);
             }
 
@@ -108,12 +109,13 @@ namespace mvc.Controllers
             {
                 Servicios ser = new Servicios();
                 ser.Id = i.Id;
-                ser.NombreServicio = Seguridad.Decrypt(i.NombreServicio);
+                ser.NombreServicio = Seguridad.Decrypt(i.NombreServicio);               
                 listaserviciosdelegacion.Add(ser);
             }
             serviciosDelegacion.delegaciones = lista;
             serviciosDelegacion.servicios = listaserviciosdelegacion;
             serviciosDelegacion.NombreServicio = Seguridad.Decrypt(serviciosDelegacion.NombreServicio);
+            serviciosDelegacion.AplicaIVA = serviciosDelegacion.AplicaIVA;
             return View(serviciosDelegacion);
         }
 

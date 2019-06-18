@@ -16,25 +16,31 @@
 				<th scope="col">
 					Nombre del Servicio
 				</th>
+				<th scope="col">
+					Aplica IVA
+				</th>
 			</tr>
 			@foreach (var modelo in Model.serviciosdelegacionvista)
 			{
-				<tr>
-					<td scope="row">
-						@modelo.servicios.NombreServicio
-					</td>
-					<td scope="row">
-						@modelo.serviciosdelegacion.NombreServicio
-					</td>
-					<td scope="row">
-						@Html.ActionLink("Editar", "../ServiciosDelegacion/Editar", new { @Id = modelo.serviciosdelegacion.Id }, new { @class = "btn btn-outline-primary" })
-					</td>
-					<td scope="row">
-						<button type="button" id="btnConsultaPrecio_@modelo.serviciosdelegacion.Id" value="@modelo.serviciosdelegacion.Id" onclick="Datos(@modelo.serviciosdelegacion.Id)" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModalCenter">
-							Precios
-						</button>
-					</td>
-				</tr>
+		<tr>
+			<td scope="row">
+				@modelo.servicios.NombreServicio
+			</td>
+			<td scope="row">
+				@modelo.serviciosdelegacion.NombreServicio
+			</td>
+			<td scope="row">
+				@modelo.serviciosdelegacion.AplicaIVA
+			</td>
+			<td scope="row">
+				@Html.ActionLink("Editar", "../ServiciosDelegacion/Editar", new { @Id = modelo.serviciosdelegacion.Id }, new { @class = "btn btn-outline-primary" })
+			</td>
+			<td scope="row">
+				<button type="button" id="btnConsultaPrecio_@modelo.serviciosdelegacion.Id" value="@modelo.serviciosdelegacion.Id" onclick="Datos(@modelo.serviciosdelegacion.Id)" class="btn btn-outline-primary" data-toggle="modal" data-target="#exampleModalCenter">
+					Precios
+				</button>
+			</td>
+		</tr>
 			}
 		</thead>
 	</table>

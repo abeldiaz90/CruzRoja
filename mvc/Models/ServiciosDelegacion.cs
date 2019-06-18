@@ -30,6 +30,10 @@ namespace mvc.Models
         [Display(Name = "Tipo de servicio:")]
         public String NombreServicio { set; get; }
 
+
+        [Display(Name = "Aplica IVA")]
+        public Boolean AplicaIVA { set; get; }
+
         public IEnumerable<ServiciosDelegacionPrecios> precios { set; get; }
         public IEnumerable<ServiciosVista> serviciosdelegacionvista { set; get; }
 
