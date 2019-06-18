@@ -17,6 +17,12 @@
 				<th scope="col">
 					SUBTOTAL
 				</th>
+				<th scope="col">
+					IVA
+				</th>
+				<th scope="col">
+					TOTAL
+				</th>
 			</tr>
 			@foreach (var modelo in Model)
 			{
@@ -28,10 +34,16 @@
 						@modelo.ordenesTemporal.cantidad
 					</td>
 					<td>
-						@String.Format("{0:C}", @modelo.ServiciosDelegacionPrecios.PrecioSinIva)
+						@String.Format("{0:C}", modelo.ServiciosDelegacionPrecios.PrecioSinIva)
 					</td>
 					<td>
-						@String.Format("{0:C}", (modelo.ServiciosDelegacionPrecios.PrecioSinIva * @modelo.ordenesTemporal.cantidad))
+						@String.Format("{0:C}", modelo.ordenesTemporal.subtotal)
+					</td>
+					<td>
+						@String.Format("{0:C}", @modelo.ordenesTemporal.IVA)
+					</td>
+					<td>
+						@String.Format("{0:C}", @modelo.ordenesTemporal.Total)
 					</td>
 					<td>
 						<button id="btnEditar_@modelo.ordenesTemporal.Id" type="button" value="@modelo.ordenesTemporal.Id" onclick='Editar(@modelo.ordenesTemporal.Id,@modelo.ordenesTemporal.IdFolio,"@Seguridad.Decrypt(modelo.serviciosDelegacion.NombreServicio)")' class="btn btn-outline-warning">Editar</button>

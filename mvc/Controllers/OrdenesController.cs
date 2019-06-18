@@ -13,10 +13,10 @@ namespace mvc.Controllers
     {
         // GET: Ordenes
         // [Authorize]
+        Contexto contexto = new Contexto();
         public ActionResult Index()
         {
             Ordenes or = new Ordenes();
-            Contexto contexto = new Contexto();
             int maxId = 0;
             try
             {
@@ -25,17 +25,6 @@ namespace mvc.Controllers
             }
             catch (Exception ex) { or.Id = 1; }
 
-            IEnumerable<ServiciosDelegacion> serviciosdelegacion = contexto.serviciosdelegacion.ToList();
-            IEnumerable<OrdenesTemporal> ordenestemporal = contexto.ordenestemporal.Where(m => m.IdFolio == or.Id).ToList();
-            IEnumerable<ServiciosDelegacionPrecios> serviciosDelegacionPrecios = contexto.serviciosDelegacionPrecios.ToList();
-            var vistaestados = from ot in ordenestemporal
-                               join se in serviciosdelegacion on ot.IdServicio equals se.Id
-                               join pr in serviciosDelegacionPrecios on ot.IdPrecio equals pr.Id
-                               orderby serviciosdelegacion.First()
-                               select new OrdenesTemporalVista { ordenesTemporal = ot, serviciosDelegacion = se, ServiciosDelegacionPrecios = pr };
-
-            //or.Idpaciente = contexto.pacientes.ToList();
-            or.pacientes = contexto.pacientes.ToList();
             IEnumerable<ServiciosDelegacion> sd = contexto.serviciosdelegacion.ToList().OrderBy(s => s.NombreServicio);
             List<ServiciosDelegacion> serviciosDelegacions = new List<ServiciosDelegacion>();
             foreach (var i in sd)
@@ -45,26 +34,60 @@ namespace mvc.Controllers
                 s.NombreServicio = Seguridad.Decrypt(i.NombreServicio);
                 serviciosDelegacions.Add(s);
             }
+            or.pacientes = contexto.pacientes.ToList();
             or.serviciosDelegacionPrecios = contexto.serviciosDelegacionPrecios.ToList().Where(s => s.IdServicio == 0);
             or.serviciosDelegacions = serviciosDelegacions.OrderBy(s => s.NombreServicio);
-            or.ordenestemporalvista = vistaestados.OrderBy(s => s.serviciosDelegacion.NombreServicio);
+            or.ordenestemporalvista = OrdenDetalle(or.Id);
             return View(or);
         }
+
+        public IEnumerable<OrdenesTemporalVista> OrdenDetalle(Int32 Id)
+        {
+            IEnumerable<ServiciosDelegacion> serviciosdelegacion = contexto.serviciosdelegacion.ToList();
+            IEnumerable<OrdenesTemporal> ordenestemporal = contexto.ordenestemporal.Where(m => m.IdFolio == Id).ToList();
+            IEnumerable<ServiciosDelegacionPrecios> serviciosDelegacionPrecios = contexto.serviciosDelegacionPrecios.ToList();
+            var vistaestados = from ot in ordenestemporal
+                               join se in serviciosdelegacion on ot.IdServicio equals se.Id
+                               join pr in serviciosDelegacionPrecios on ot.IdPrecio equals pr.Id
+                               orderby serviciosdelegacion.First()
+                               select new OrdenesTemporalVista { ordenesTemporal = ot, serviciosDelegacion = se, ServiciosDelegacionPrecios = pr };
+            List<OrdenesTemporalVista> l = new List<OrdenesTemporalVista>();
+
+            decimal Total = 0;
+            foreach (var i in vistaestados)
+            {
+                OrdenesTemporalVista otv = new OrdenesTemporalVista();
+                if (i.serviciosDelegacion.AplicaIVA)
+                {
+                    decimal subtotal = (i.ordenesTemporal.cantidad) * (i.ServiciosDelegacionPrecios.PrecioSinIva);
+                    i.ordenesTemporal.subtotal = subtotal;
+                    i.ordenesTemporal.IVA = ((subtotal) * decimal.Parse(("0.16")));
+                    Total = ((subtotal) * decimal.Parse(("0.16"))) + subtotal;
+                    i.ordenesTemporal.Total = Total;
+                }
+                else
+                {
+                    decimal subtotal = (i.ordenesTemporal.cantidad) * (i.ServiciosDelegacionPrecios.PrecioSinIva);
+                    i.ordenesTemporal.subtotal = subtotal;
+                    i.ordenesTemporal.IVA = 0;
+                    Total = subtotal;
+                    i.ordenesTemporal.Total = Total;
+                }
+                otv = i;
+                l.Add(otv);
+            }
+
+            return l;
+        }
+
+
         public PartialViewResult Agregar(Ordenes ordenes)
         {
             Contexto con = new Contexto();
             ordenes.ordentemporal.IdFolio = ordenes.Id;
             con.ordenestemporal.Add(ordenes.ordentemporal);
             con.SaveChanges();
-
-            IEnumerable<ServiciosDelegacion> serviciosdelegacion = con.serviciosdelegacion.ToList();
-            IEnumerable<OrdenesTemporal> ordenestemporal = con.ordenestemporal.Where(m => m.IdFolio == ordenes.Id).ToList();
-            IEnumerable<ServiciosDelegacionPrecios> serviciosDelegacionPrecios = con.serviciosDelegacionPrecios.ToList();
-            var vistaestados = from ot in ordenestemporal
-                               join se in serviciosdelegacion on ot.IdServicio equals se.Id
-                               join pr in serviciosDelegacionPrecios on ot.IdPrecio equals pr.Id
-                               orderby serviciosdelegacion.First()
-                               select new OrdenesTemporalVista { ordenesTemporal = ot, serviciosDelegacion = se, ServiciosDelegacionPrecios = pr };
+            IEnumerable<OrdenesTemporalVista> vistaestados = OrdenDetalle(ordenes.Id);
             return PartialView("OrdenesTemporal", vistaestados);
         }
         public PartialViewResult Eliminar(int Id, int IdFolio)
@@ -77,13 +100,9 @@ namespace mvc.Controllers
             IEnumerable<ServiciosDelegacion> serviciosdelegacion = con.serviciosdelegacion.ToList();
             IEnumerable<OrdenesTemporal> ordenestemporal = con.ordenestemporal.Where(m => m.IdFolio == IdFolio).ToList();
             IEnumerable<ServiciosDelegacionPrecios> serviciosDelegacionPrecios = con.serviciosDelegacionPrecios.ToList();
-            var vistaestados = from ot in ordenestemporal
-                               join se in serviciosdelegacion on ot.IdServicio equals se.Id
-                               join pr in serviciosDelegacionPrecios on ot.IdPrecio equals pr.Id
-                               orderby serviciosdelegacion.First()
-                               select new OrdenesTemporalVista { ordenesTemporal = ot, serviciosDelegacion = se, ServiciosDelegacionPrecios = pr };
+            IEnumerable<OrdenesTemporalVista> vistaestados = OrdenDetalle(IdFolio);
             return PartialView("OrdenesTemporal", vistaestados);
-        }     
+        }
         public ActionResult Editar(int Id)
         {
             Contexto con = new Contexto();
@@ -101,11 +120,7 @@ namespace mvc.Controllers
             IEnumerable<ServiciosDelegacion> serviciosdelegacion = con.serviciosdelegacion.ToList();
             IEnumerable<OrdenesTemporal> ordenestemporal = con.ordenestemporal.Where(m => m.IdFolio == Id).ToList();
             IEnumerable<ServiciosDelegacionPrecios> serviciosDelegacionPrecios = con.serviciosDelegacionPrecios.ToList();
-            var vistaestados = from ot in ordenestemporal
-                               join se in serviciosdelegacion on ot.IdServicio equals se.Id
-                               join pr in serviciosDelegacionPrecios on ot.IdPrecio equals pr.Id
-                               orderby serviciosdelegacion.First()
-                               select new OrdenesTemporalVista { ordenesTemporal = ot, serviciosDelegacion = se, ServiciosDelegacionPrecios = pr };
+            IEnumerable<OrdenesTemporalVista> vistaestados = OrdenDetalle(Id);
             return PartialView("OrdenesTemporal", vistaestados);
         }
 
