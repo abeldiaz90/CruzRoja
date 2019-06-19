@@ -85,7 +85,6 @@
 				Usuario: $("#Usuario").val(),
 				Password: $("#Password").val()
 			}
-
 			$.ajax({
               type: "POST",
 				data: JSON.stringify({
@@ -94,7 +93,7 @@
               contentType: "application/json"
 			}).done(function (res) {
 				console.log(res);
-					if (res == "Exitoso") {
+					if (res) {
 					window.location.href = '../Ordenes/Index';
 					} else { alert("Password invalido");}
     }).fail(function (error) {

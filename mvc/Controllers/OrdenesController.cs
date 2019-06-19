@@ -16,7 +16,11 @@ namespace mvc.Controllers
         Contexto contexto = new Contexto();
         public ActionResult Index()
         {
-            Ordenes or = new Ordenes();
+            if (User.Identity.IsAuthenticated)
+            {
+                dynamic s = 1;
+            }
+                Ordenes or = new Ordenes();
             int maxId = 0;
             try
             {
@@ -41,6 +45,7 @@ namespace mvc.Controllers
             return View(or);
         }
 
+        [Authorize]
         public IEnumerable<OrdenesTemporalVista> OrdenDetalle(Int32 Id)
         {
             IEnumerable<ServiciosDelegacion> serviciosdelegacion = contexto.serviciosdelegacion.ToList();
@@ -80,7 +85,7 @@ namespace mvc.Controllers
             return l;
         }
 
-
+        [Authorize]
         public PartialViewResult Agregar(Ordenes ordenes)
         {
             Contexto con = new Contexto();
@@ -90,6 +95,7 @@ namespace mvc.Controllers
             IEnumerable<OrdenesTemporalVista> vistaestados = OrdenDetalle(ordenes.Id);
             return PartialView("OrdenesTemporal", vistaestados);
         }
+        [Authorize]
         public PartialViewResult Eliminar(int Id, int IdFolio)
         {
             Contexto con = new Contexto();
@@ -103,6 +109,7 @@ namespace mvc.Controllers
             IEnumerable<OrdenesTemporalVista> vistaestados = OrdenDetalle(IdFolio);
             return PartialView("OrdenesTemporal", vistaestados);
         }
+        [Authorize]
         public ActionResult Editar(int Id)
         {
             Contexto con = new Contexto();
@@ -110,6 +117,7 @@ namespace mvc.Controllers
             return Json(ordenesTemporal, JsonRequestBehavior.AllowGet);
         }
 
+        [Authorize]
         public PartialViewResult Cancelar(int Id)
         {
             Contexto con = new Contexto();
@@ -125,6 +133,7 @@ namespace mvc.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult> Cobrar(Ordenes ordenes)
         {
             Contexto con = new Contexto();
