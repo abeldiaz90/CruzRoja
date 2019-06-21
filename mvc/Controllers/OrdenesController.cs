@@ -14,7 +14,7 @@ namespace mvc.Controllers
         // GET: Ordenes
         
         Contexto contexto = new Contexto();
-       // [Authorize]
+       [Authorize(Roles ="secretaria")]
         public ActionResult Index()
         {
             if (!User.Identity.IsAuthenticated)

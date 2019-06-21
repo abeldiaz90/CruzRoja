@@ -46,8 +46,13 @@ namespace mvc.Controllers
             }
             else
             {
-                FormsAuthentication.SetAuthCookie(usuarios.Usuario, false);
-                // var login = HttpContext.(CookieAuthenticationDefaults.CookiePrefix, principal);
+                //FormsAuthentication.SetAuthCookie(usuarios.Usuario, false);  
+                var authTicket = new FormsAuthenticationTicket(1,usuarios.Usuario,DateTime.Now, DateTime.Now.AddMinutes(20),false, "secretaria;Admin");
+
+                string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
+
+                var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+                HttpContext.Response.Cookies.Add(authCookie);
                 Resultado = true;
             }
             return Json(Resultado, JsonRequestBehavior.AllowGet);

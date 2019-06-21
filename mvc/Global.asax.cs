@@ -9,6 +9,7 @@ using System.Web.SessionState;
 using System.Web.Http;
 using System.Data.Entity;
 using mvc.Models;
+using System.Security.Principal;
 
 namespace mvc
 {
@@ -27,6 +28,29 @@ namespace mvc
         protected void Application_Error(object sender, EventArgs e)
         {
             Exception ex = Server.GetLastError();
+        }
+
+        protected void Application_AuthenticateRequest(Object sender, EventArgs e)
+        {
+            HttpCookie authCookie = Context.Request.Cookies[FormsAuthentication.FormsCookieName];
+            if (authCookie == null || authCookie.Value == "")
+                return;
+
+            FormsAuthenticationTicket authTicket;
+            try
+            {
+                authTicket = FormsAuthentication.Decrypt(authCookie.Value);
+            }
+            catch
+            {
+                return;
+            }
+
+            // retrieve roles from UserData
+            string[] roles = authTicket.UserData.Split(';');
+
+            if (Context.User != null)
+                Context.User = new GenericPrincipal(Context.User.Identity, roles);
         }
     }
 }
