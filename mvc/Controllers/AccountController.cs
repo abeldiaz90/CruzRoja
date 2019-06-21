@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -8,6 +9,7 @@ using System.Web.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Microsoft.Owin.Security.Cookies;
 using mvc.Models;
 using Newtonsoft.Json;
 
@@ -34,16 +36,19 @@ namespace mvc.Controllers
             }
             usuarios.Usuario = Seguridad.Encrypt(usuarios.Usuario);
             usuarios.Password = Seguridad.Encrypt(usuarios.Password);
-           
+
             Usuarios us = con.usuarios.FirstOrDefault(s => s.Usuario == usuarios.Usuario && s.Password == usuarios.Password);
-            Boolean Resultado;            
-           
+            Boolean Resultado;
+
             if (us == null)
             {
                 Resultado = false;
             }
-            else { Resultado = true;
-                
+            else
+            {
+                FormsAuthentication.SetAuthCookie(usuarios.Usuario, false);
+                // var login = HttpContext.(CookieAuthenticationDefaults.CookiePrefix, principal);
+                Resultado = true;
             }
             return Json(Resultado, JsonRequestBehavior.AllowGet);
         }

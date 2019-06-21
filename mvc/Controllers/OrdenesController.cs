@@ -12,13 +12,14 @@ namespace mvc.Controllers
     public class OrdenesController : Controller
     {
         // GET: Ordenes
-        // [Authorize]
+        
         Contexto contexto = new Contexto();
+       // [Authorize]
         public ActionResult Index()
         {
-            if (User.Identity.IsAuthenticated)
+            if (!User.Identity.IsAuthenticated)
             {
-                dynamic s = 1;
+                return RedirectToAction("~/Account/Index");
             }
                 Ordenes or = new Ordenes();
             int maxId = 0;
