@@ -76,29 +76,35 @@
 			</div>
 			<div class="modal-body">
 				<div class="container">
+					<div>
+						@Html.LabelFor(s => s.formapago)
+						@Html.EnumDropDownListFor(s => s.formapago)
+					</div>
 					<div class="row">
-						@using (Html.BeginForm("Cobrar", "Ordenes", FormMethod.Post))
-						{
-							@Html.AntiForgeryToken()
-							@Html.ValidationSummary(true)
-							<fieldset>
-								<div class="container">
-									<div class="row">
-										@Html.LabelFor(s => s.Total)
-										@Html.EditorFor(s => s.Total, new { htmlAttributes = new { @class = "form-control" } })
+						<div id="PagoEfectivo" class="invisible">
+							@using (Html.BeginForm("Cobrar", "Ordenes", FormMethod.Post))
+							{
+								@Html.AntiForgeryToken()
+								@Html.ValidationSummary(true)
+								<fieldset>
+									<div class="container">
+										<div class="row">
+											@Html.LabelFor(s => s.Total)
+											@Html.EditorFor(s => s.Total, new { htmlAttributes = new { @class = "form-control" } })
+										</div>
+										<div class="row">
+											@Html.LabelFor(s => s.PagaCon)
+											@Html.EditorFor(s => s.PagaCon, new { htmlAttributes = new { @class = "form-control currency" } })
+										</div>
+										<div class="row">
+											@Html.LabelFor(s => s.cambio)
+											@Html.EditorFor(s => s.cambio, new { htmlAttributes = new { @class = "form-control" } })
+										</div>
 									</div>
-									<div class="row">
-										@Html.LabelFor(s => s.PagaCon)
-										@Html.EditorFor(s => s.PagaCon, new { htmlAttributes = new { @class = "form-control currency" } })
-									</div>
-									<div class="row">
-										@Html.LabelFor(s => s.cambio)
-										@Html.EditorFor(s => s.cambio, new { htmlAttributes = new { @class = "form-control" } })
-									</div>
-								</div>
 
-							</fieldset>
-						}
+								</fieldset>
+							}
+						</div>
 					</div>
 				</div>
 			</div>
@@ -223,7 +229,18 @@
 				$("#PagaCon").focus();
 
 			}
-	});
+		});
+
+		$('#formapago').on('change', function () {
+			alert($('#formapago').val());
+			if ($('#formapago').val() == 1) {
+				$("#PagoEfectivo").removeClass("invisible");
+				$("#PagoEfectivo").addClass("visible");
+			} else {
+				$("#PagoEfectivo").removeClass("visible");
+				$("#PagoEfectivo").addClass("invisible");
+			}
+		});
 
 });
 		function formatNumber(n) {
@@ -379,6 +396,6 @@
 		}
         function Cobro() {
 			$("#Total").val(document.getElementById("totalOrden").innerText);
-			$("#Total").attr("disabled", "disabled"); 
+			$("#Total").attr("disabled", "disabled");
 	}
 </script>

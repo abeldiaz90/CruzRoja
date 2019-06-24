@@ -12,11 +12,13 @@ namespace mvc.Controllers
     {
         Contexto con = new Contexto();
         // GET: Usuarios
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Nuevo()
         {
             Usuarios us = new Usuarios();
@@ -27,6 +29,7 @@ namespace mvc.Controllers
 
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Guardar(Usuarios usuarios)
         {
             usuarios.Usuario = Seguridad.Encrypt(usuarios.Usuario);

@@ -11,6 +11,7 @@ namespace mvc.Controllers
     {
         Contexto con = new Contexto();
         // GET: Servicios
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             IEnumerable<Servicios> servicios = con.servicios.ToList();
@@ -26,12 +27,14 @@ namespace mvc.Controllers
             return View(listaservicios);
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Nuevo()
         {
             return View();
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult Editar(Servicios servicios)
         {
             var estadoslistado = con.servicios.FirstOrDefault(model => model.Id == servicios.Id);
@@ -43,6 +46,7 @@ namespace mvc.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Guardar(Servicios servicios)
         {
             if (ModelState.IsValid)

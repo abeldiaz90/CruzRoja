@@ -16,11 +16,23 @@ namespace mvc.Models
         [Display(Name = "Paciente:")]
         [Required(ErrorMessage = "Indique los datos del paciente")]
         public int Idpaciente { set; get; }
-      
+
         public Pacientes Paciente { set; get; }
 
-        [Required(ErrorMessage ="El total es Requerido")]
-        [Display(Name ="Total:")]
+        [Display(Name ="Forma de Pago:")]
+        public FormaPago formapago { set; get; }
+        public enum FormaPago
+        {
+            [Display(Name = "Crédito")]
+            Crédito,
+            [Display(Name = "Efectivo")]
+            Efectivo
+        };
+
+
+
+        [Required(ErrorMessage = "El total es Requerido")]
+        [Display(Name = "Total:")]
         [DataType(DataType.Currency)]
         public decimal Total { set; get; }
 
@@ -30,15 +42,15 @@ namespace mvc.Models
         [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
         public decimal PagaCon { set; get; }
 
-       
+
         [Display(Name = "Cambio:")]
         [DataType(DataType.Currency)]
         public decimal cambio { set; get; }
 
 
-        [Display(Name ="Fecha y Hora:")]  
+        [Display(Name = "Fecha y Hora:")]
         [DataType(DataType.DateTime)]
-        public DateTime FechaHora { set; get; }    
+        public DateTime FechaHora { set; get; }
 
         public OrdenesTemporal ordentemporal { set; get; }
         public IEnumerable<ServiciosDelegacion> serviciosDelegacions { set; get; }

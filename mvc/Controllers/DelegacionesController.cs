@@ -12,6 +12,7 @@ namespace mvc.Controllers
         // GET: Estados
         // GET: Paises
         Contexto con = new Contexto();
+        [Authorize(Roles ="Admin")]
         public ActionResult Index()
         {
             IEnumerable<Estados> estados = con.estados.ToList();
@@ -21,7 +22,7 @@ namespace mvc.Controllers
                     select new DelegacionesVista { estados = est, delegaciones = del };
             return View(d);
         }
-
+        [Authorize(Roles = "Admin")]
         public ActionResult Nuevo()
         {
             Delegaciones delegacioneslistado = new Delegaciones();
@@ -40,6 +41,7 @@ namespace mvc.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult Editar(Delegaciones delegaciones)
         {
             Delegaciones delegacioneslistado = con.delegaciones.FirstOrDefault(model => model.Id == delegaciones.Id);
@@ -67,6 +69,7 @@ namespace mvc.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Guardar(Delegaciones delegaciones)
         {
             if (ModelState.IsValid)

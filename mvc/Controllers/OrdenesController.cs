@@ -12,16 +12,17 @@ namespace mvc.Controllers
     public class OrdenesController : Controller
     {
         // GET: Ordenes
-        
+
         Contexto contexto = new Contexto();
-       [Authorize(Roles ="secretaria")]
+        [Authorize(Roles = "secretaria")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             if (!User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("~/Account/Index");
             }
-                Ordenes or = new Ordenes();
+            Ordenes or = new Ordenes();
             int maxId = 0;
             try
             {
@@ -46,7 +47,8 @@ namespace mvc.Controllers
             return View(or);
         }
 
-        [Authorize]
+        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "secretaria")]
         public IEnumerable<OrdenesTemporalVista> OrdenDetalle(Int32 Id)
         {
             IEnumerable<ServiciosDelegacion> serviciosdelegacion = contexto.serviciosdelegacion.ToList();
@@ -86,7 +88,8 @@ namespace mvc.Controllers
             return l;
         }
 
-        [Authorize]
+        [Authorize(Roles = "secretaria")]
+        [Authorize(Roles = "Admin")]
         public PartialViewResult Agregar(Ordenes ordenes)
         {
             Contexto con = new Contexto();
@@ -96,7 +99,9 @@ namespace mvc.Controllers
             IEnumerable<OrdenesTemporalVista> vistaestados = OrdenDetalle(ordenes.Id);
             return PartialView("OrdenesTemporal", vistaestados);
         }
-        [Authorize]
+
+        [Authorize(Roles = "secretaria")]
+        [Authorize(Roles = "Admin")]
         public PartialViewResult Eliminar(int Id, int IdFolio)
         {
             Contexto con = new Contexto();
@@ -110,7 +115,9 @@ namespace mvc.Controllers
             IEnumerable<OrdenesTemporalVista> vistaestados = OrdenDetalle(IdFolio);
             return PartialView("OrdenesTemporal", vistaestados);
         }
-        [Authorize]
+
+        [Authorize(Roles = "secretaria")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Editar(int Id)
         {
             Contexto con = new Contexto();
@@ -118,7 +125,8 @@ namespace mvc.Controllers
             return Json(ordenesTemporal, JsonRequestBehavior.AllowGet);
         }
 
-        [Authorize]
+        [Authorize(Roles = "secretaria")]
+        [Authorize(Roles = "Admin")]
         public PartialViewResult Cancelar(int Id)
         {
             Contexto con = new Contexto();
@@ -134,7 +142,8 @@ namespace mvc.Controllers
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "secretaria")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Cobrar(Ordenes ordenes)
         {
             Contexto con = new Contexto();
