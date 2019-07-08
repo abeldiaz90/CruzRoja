@@ -21,10 +21,10 @@
 		{
 			<tr>
 				<td>
-					@Seguridad.Decrypt(modelo.paises.Pais)
+					@modelo.paises.Pais
 				</td>
 				<td>
-					@Seguridad.Decrypt(modelo.estados.Estado)
+					@modelo.estados.Estado
 				</td>
 				<td>
 					@Html.ActionLink("Editar", "Editar", new { @Id = modelo.estados.Id }, new { @class = "btn btn-outline-primary" })

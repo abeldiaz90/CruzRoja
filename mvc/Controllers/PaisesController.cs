@@ -17,7 +17,16 @@ namespace mvc.Controllers
         public ActionResult Index()
         {
             IEnumerable<Paises> paises = con.paises.ToList();
-            return View(paises);
+            List<Paises> listaPaises = new List<Paises>();
+            
+            foreach (var i in paises)
+            {
+                Paises p = new Paises();
+                p.Id = i.Id;
+                p.Pais = Seguridad.Decrypt(i.Pais);
+                listaPaises.Add(p);
+            }
+            return View(listaPaises.OrderBy(s => s.Pais));
         }
 
 

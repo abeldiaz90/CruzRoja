@@ -17,7 +17,7 @@
 		{
 			<tr>
 				<td scope="row">
-					@(Seguridad.Decrypt(modelo.Pais))
+					@modelo.Pais
 				</td>
 				<td scope="row">
 					@Html.ActionLink("Editar", "Editar", new { @Id = modelo.Id }, new { @class = "btn btn-outline-primary" })

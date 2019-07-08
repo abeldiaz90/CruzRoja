@@ -17,10 +17,33 @@ namespace mvc.Controllers
         {
             IEnumerable<Paises> paises = con.paises.ToList();
             IEnumerable<Estados> estados = con.estados.ToList();
-            var vistaestados = from p in paises
-                               join e in estados on p.Id equals e.IdPais
+            List<Paises> lp = new List<Paises>();
+            List<Estados> le = new List<Estados>();
+            foreach (var i in paises)
+            {
+                Paises p = new Paises();
+                p.Id = i.Id;
+                p.Pais = Seguridad.Decrypt(i.Pais);
+                lp.Add(p);
+            }
+
+            foreach (var i in estados)
+            {
+                Estados e = new Estados();
+                e.Id = i.Id;
+                e.Estado = Seguridad.Decrypt(i.Estado);
+                e.IdPais = i.IdPais;
+                e.pais = i.pais;
+                e.paises = i.paises;         
+                le.Add(e);
+            }
+
+            var vistaestados = from p in lp
+                               join e in le on p.Id equals e.IdPais
                                select new EstadosVista { paises = p, estados = e };
-            return View(vistaestados);
+    
+
+            return View(vistaestados.OrderBy(s=>s.estados.Estado));
         }
         [Authorize(Roles = "Admin")]
         public ActionResult Nuevo()
