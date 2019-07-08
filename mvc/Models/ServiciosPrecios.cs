@@ -13,7 +13,8 @@ namespace mvc.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { set; get; }
 
-        [Required]
+        [Required(ErrorMessage = "Seleccione el Servicio:")]
+        [Display(Name = "Servicio:")]
         public int IdServicio { set; get; }
 
         [Required(ErrorMessage = "Indique el precio sin Iva:")]

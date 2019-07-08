@@ -26,8 +26,6 @@ namespace mvc.Controllers
             return View(us);
         }
 
-
-
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public ActionResult Guardar(Usuarios usuarios)

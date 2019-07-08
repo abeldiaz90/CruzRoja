@@ -9,24 +9,23 @@
 	@Html.AntiForgeryToken();
 	@Html.ValidationSummary(true);
 	<fieldset>
-		<div>
-			@Html.HiddenFor(m => m.Id)
+		@Html.HiddenFor(m => m.Id)
+		<div class="container">
+			<div class="row">
+				<div class="col-sm">
+					@Html.LabelFor(m => m.IdServicio)
+					@Html.DropDownListFor(model => model.IdServicio, new SelectList(Model.listaserviciosdelegacion, "Id", "NombreServicio"), new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.IdServicio)
+				</div>
+				<div class="col-sm">
+					@Html.LabelFor(m => m.PrecioSinIva)
+					@Html.EditorFor(model => model.PrecioSinIva, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.PrecioSinIva)
+				</div>
+			</div>
+			<input type="submit" value="Guardar" class="btn btn-outline-secondary" />
 		</div>
-		<div>
-			@Html.LabelFor(m => m.IdServicio)
-		</div>
-		<div>
-			@Html.DropDownListFor(model => model.IdServicio, new SelectList(Model.listaserviciosdelegacion, "Id", "NombreServicio"))
-			@Html.ValidationMessageFor(model => model.IdServicio)
-		</div>
-		<div>
-			@Html.LabelFor(m => m.PrecioSinIva)
-		</div>
-		<div>
-			@Html.EditorFor(model => model.PrecioSinIva)
-			@Html.ValidationMessageFor(model => model.PrecioSinIva)
-		</div>
-		<input type="submit" value="Guardar" />
+
 	</fieldset>
 }
 <div id="myPartialViewDiv">
@@ -38,12 +37,13 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 <script>
 	$(document).ready(function () {
+		$("#IdServicio").addClass("form-control");
 		$('#IdServicio').on("change", function () {
 			var country = $('#IdServicio').val();
 			var obj = { country: country };
 			AjaxCall('/ServiciosPrecios/Index/' + obj.country, JSON.stringify(obj), 'POST').done(function (response) {
 				if (response.length > 0) {
-	    			$('#myPartialViewDiv').html(response);
+					$('#myPartialViewDiv').html(response);
 					//var options = '';
 					//options += '<option value="Select">Select</option>';
 					//for (var i = 0; i < response.length; i++) {
