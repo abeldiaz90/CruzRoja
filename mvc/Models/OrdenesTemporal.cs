@@ -34,5 +34,11 @@ namespace mvc.Models
 
         [Display(Name = "Total:")]
         public decimal Total { set; get; }
+
+        [Display(Name = "Paga con:")]
+        public decimal PagaCon { set; get; }
+
+        [Display(Name = "Cambio:")]
+        public decimal cambio { set; get; }
     }
 }

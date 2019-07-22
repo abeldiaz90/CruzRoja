@@ -93,6 +93,20 @@ namespace mvc.Controllers
         public PartialViewResult Agregar(Ordenes ordenes)
         {
             Contexto con = new Contexto();
+            var Iva = con.serviciosdelegacion.Where(x => x.Id == ordenes.ordentemporal.IdServicio).FirstOrDefault().AplicaIVA;
+
+            if (Iva)
+            {
+                ordenes.ordentemporal.IVA = ((ordenes.ordentemporal.cantidad) * con.serviciosDelegacionPrecios.Where(x => x.Id == ordenes.ordentemporal.IdPrecio).FirstOrDefault().PrecioSinIva) * decimal.Parse("0.16");
+            }
+            else
+            {
+                ordenes.ordentemporal.IVA = 0;
+            }
+            ordenes.ordentemporal.subtotal = (ordenes.ordentemporal.cantidad) * con.serviciosDelegacionPrecios.Where(x => x.Id == ordenes.ordentemporal.IdPrecio).FirstOrDefault().PrecioSinIva;
+            ordenes.ordentemporal.Total = ordenes.ordentemporal.IVA + ordenes.ordentemporal.subtotal;
+
+
             ordenes.ordentemporal.IdFolio = ordenes.Id;
             con.ordenestemporal.Add(ordenes.ordentemporal);
             con.SaveChanges();
@@ -141,28 +155,33 @@ namespace mvc.Controllers
             return PartialView("OrdenesTemporal", vistaestados);
         }
 
-        [HttpPost]
+
         [Authorize(Roles = "secretaria")]
         [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Cobrar(Ordenes ordenes)
         {
             Contexto con = new Contexto();
             Ordenes ordenesmodelo = new Ordenes();
+            ordenesmodelo.Total = ordenes.Total;
+            ordenesmodelo.cambio = ordenes.cambio;
             ordenesmodelo.FechaHora = System.DateTime.Now;
+            ordenesmodelo.PagaCon = ordenes.PagaCon;
+            ordenesmodelo.Id = ordenes.Id;
+
             var validar = con.ordenes.FirstOrDefault(m => m.Id == ordenes.Id);
             if (validar == null)
             {
-                var validarcliente = con.pacientes.FirstOrDefault(m => m.Nombre == ordenes.Paciente.Nombre & m.SegundoNombre == ordenes.Paciente.SegundoNombre & m.ApellidoPaterno == ordenes.Paciente.ApellidoPaterno & m.ApellidoMaterno == ordenes.Paciente.ApellidoMaterno);
-                if (validarcliente == null)
-                {
-                    con.pacientes.Add(ordenes.Paciente);
-                    con.SaveChanges();
-                    ordenesmodelo.Idpaciente = con.pacientes.FirstOrDefault(m => m.Nombre == ordenes.Paciente.Nombre & m.SegundoNombre == ordenes.Paciente.SegundoNombre & m.ApellidoPaterno == ordenes.Paciente.ApellidoPaterno & m.ApellidoMaterno == ordenes.Paciente.ApellidoMaterno).Id;
-                }
-                else
-                {
-                    ordenesmodelo.Idpaciente = validarcliente.Id;
-                }
+                //var validarcliente = con.pacientes.FirstOrDefault(m => m.Nombre == ordenes.Paciente.Nombre & m.SegundoNombre == ordenes.Paciente.SegundoNombre & m.ApellidoPaterno == ordenes.Paciente.ApellidoPaterno & m.ApellidoMaterno == ordenes.Paciente.ApellidoMaterno);
+                //if (validarcliente == null)
+                //{
+                //    con.pacientes.Add(ordenes.Paciente);
+                //    con.SaveChanges();
+                //    ordenesmodelo.Idpaciente = con.pacientes.FirstOrDefault(m => m.Nombre == ordenes.Paciente.Nombre & m.SegundoNombre == ordenes.Paciente.SegundoNombre & m.ApellidoPaterno == ordenes.Paciente.ApellidoPaterno & m.ApellidoMaterno == ordenes.Paciente.ApellidoMaterno).Id;
+                //}
+                //else
+                //{
+                //    ordenesmodelo.Idpaciente = validarcliente.Id;
+                //}
 
                 int maxId = 0;
                 try
@@ -185,6 +204,9 @@ namespace mvc.Controllers
                     ordenesDetalles.IdFolio = i.IdFolio;
                     ordenesDetalles.IdServicio = i.IdServicio;
                     ordenesDetalles.cantidad = i.cantidad;
+                    ordenesDetalles.subtotal = i.subtotal;
+                    ordenesDetalles.IVA = i.IVA;
+                    ordenesDetalles.Total = i.Total;
                     con.ordenesdetalles.Add(ordenesDetalles);
                 }
 

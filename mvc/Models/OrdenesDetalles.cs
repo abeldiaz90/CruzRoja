@@ -22,8 +22,15 @@ namespace mvc.Models
         [Display(Name = "Cantidad:")]
         public int cantidad { set; get; }
 
-        [Display(Name = "Precio sin IVA:")]
-        public decimal precioSinIva { set; get; }
+
+        [Display(Name = "SubTotal:")]
+        public decimal subtotal { set; get; }
+
+        [Display(Name = "IVA:")]
+        public decimal IVA { set; get; }
+
+        [Display(Name = "Total:")]
+        public decimal Total { set; get; }
 
     }
 }
