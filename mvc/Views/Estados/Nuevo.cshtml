@@ -4,35 +4,31 @@
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Estados</h2>
-@Html.ActionLink("Regresar", "Index",null,new { @class="btn btn-outline-info"})
+<h2>Alta de Paises</h2>
+@Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-outline-info" })
 @using (Html.BeginForm("Guardar", "Estados", FormMethod.Post))
 {
 	@Html.AntiForgeryToken();
 	@Html.ValidationSummary(true);
-	<legend>Ingrese los datos del Estado</legend>
-	<fieldset>
-		<div>
-			@Html.HiddenFor(model => model.Id, new { @Value = 0 })
-		</div>
-		<div>
+<fieldset>
+	<div class="row">
+		@Html.HiddenFor(model => model.Id, new { @Value = 0 })
+		<div class="col-sm-4 col-lg-4">
 			@Html.LabelFor(model => model.IdPais)
+			@Html.DropDownListFor(model => model.IdPais, new SelectList(Model.pais, "Id", "Pais"), "--Seleccione el Pais--", new { @class = "form-control" })
+			@Html.ValidationMessageFor(model => model.IdPais, string.Empty, new { @class = "text-danger" })
 		</div>
-		<div>
-			@Html.DropDownListFor(model => model.IdPais, new SelectList(Model.pais, "Id", "Pais"))
-
-			@Html.ValidationMessageFor(model => model.IdPais)
-		</div>
-		<div>
+		<div class="col-sm-4 col-lg-4">
 			@Html.LabelFor(model => model.Estado)
+			@Html.EditorFor(model => model.Estado, string.Empty, new { htmlAttributes = new { @class = "form-control" } })
+			@Html.ValidationMessageFor(model => model.Estado, string.Empty, new { @class = "text-danger" })
 		</div>
-		<div>
-			@Html.EditorFor(model => model.Estado)
-			@Html.ValidationMessageFor(model => model.Estado)
-		</div>
-		<div>
+	</div>
+	<div class="row">
+		<div class="col-sm-4 col-lg-4">
 			<input type="submit" value="Guardar" class="btn btn-outline-success" />
 			@Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-outline-dark" })
 		</div>
-	</fieldset>
+	</div>
+</fieldset>
 }

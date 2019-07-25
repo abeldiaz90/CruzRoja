@@ -7,7 +7,7 @@ using System.Web;
 
 namespace mvc.Models
 {
-    public class Usuarios
+    public class Users
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -32,9 +32,17 @@ namespace mvc.Models
 
         [Required(ErrorMessage ="Seleccione su Delegación")]
         [Display(Name ="Delegación:")]
-        public int IdDelegacion { set; get; }      
+        public int IdDelegacion { set; get; }
+
+        [ForeignKey("IdRol")]
+        public Roles roles { set; get; }
+
+        [Required(ErrorMessage = "Seleccione su Delegación")]
+        [Display(Name = "Delegación:")]
+        public int IdRol { set; get; }
 
         public IEnumerable<Delegaciones> delegaciones { set; get; }
-        public IEnumerable<Usuarios> usuarios { set; get; }
+        public IEnumerable<Users> usuarios { set; get; }
+        public IEnumerable<Roles> roleslista { set; get; }
     }
 }

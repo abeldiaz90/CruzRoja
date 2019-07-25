@@ -1,0 +1,24 @@
+﻿@model IEnumerable<mvc.Models.Roles>
+@{
+    ViewBag.Title = "Roles";
+}
+@Html.ActionLink("Nuevo", "Nuevo", null, new {@class="btn btn-primary" })
+<h2>Roles</h2>
+<table class="table-responsive">
+	<thead class="active">
+		<tr>
+			<th scope="col">
+				Rol
+			</th>
+		</tr>
+		@foreach (var i in Model)
+		{
+			<tr>
+				<td scope="row">
+					@i.Rol
+				</td>
+			</tr>
+		}
+	</thead>
+</table>
+

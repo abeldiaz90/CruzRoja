@@ -27,7 +27,7 @@ namespace mvc.Controllers
 
         //[Authorize]
         [AllowAnonymous]
-        public async Task<ActionResult> Login(Usuarios usuarios)
+        public async Task<ActionResult> Login(Users usuarios)
         {
             if (string.IsNullOrWhiteSpace(usuarios.Usuario))
             {
@@ -37,7 +37,7 @@ namespace mvc.Controllers
             usuarios.Usuario = Seguridad.Encrypt(usuarios.Usuario);
             usuarios.Password = Seguridad.Encrypt(usuarios.Password);
 
-            Usuarios us = con.usuarios.FirstOrDefault(s => s.Usuario == usuarios.Usuario && s.Password == usuarios.Password);
+            Users us = con.users.FirstOrDefault(s => s.Usuario == usuarios.Usuario && s.Password == usuarios.Password);
             Boolean Resultado;
 
             if (us == null)

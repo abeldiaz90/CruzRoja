@@ -21,7 +21,8 @@ namespace mvc.Models
         public DbSet<Ordenes> ordenes { set; get; }
         public DbSet<OrdenesTemporal> ordenestemporal { set; get; }
         public DbSet<OrdenesDetalles> ordenesdetalles { set; get; }
-        public DbSet<Usuarios> usuarios { set; get; }
+        public DbSet<Users> users { set; get; }
+        public DbSet<Roles> roles { set; get; }
         public DbSet<ServiciosDelegacionPrecios> serviciosDelegacionPrecios { set; get; }
 
     }

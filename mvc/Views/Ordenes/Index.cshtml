@@ -155,7 +155,7 @@
 
 				$.ajax({
 					type: "POST",
-					data: JSON.stringify({ 'Id': data.Id, 'ordentemporal.IdFolio': data.IdFolio, 'ordentemporal.IdServicio': data.IdServicio, 'ordentemporal.IdPrecio': data.IdPrecio, 'ordentemporal.cantidad': data.cantidad }),
+					data: JSON.stringify({ 'Id': data.Id, 'ordentemporal.IdFolio': data.IdFolio, 'ordentemporal.IdServicio': data.IdServicio, 'ordentemporal.IdPrecio': data.IdPrecio, 'ordentemporal.cantidad': data.cantidad}),
 					url: url,
 					contentType: "application/json"
 				}).done(function (res) {
@@ -165,9 +165,9 @@
 				});
 			}
 		});
-		$("#ordentemporal_cantidad").change(function () {
-			$("#ordentemporal_cantidad").removeClass("form-control is-invalid");
-			$("#ordentemporal_cantidad").addClass("form-control is-valid");
+	    $("#ordentemporal_cantidad").change(function () {
+		$("#ordentemporal_cantidad").removeClass("form-control is-invalid");
+		$("#ordentemporal_cantidad").addClass("form-control is-valid");
 		});
 		$("input[data-type='currency']").on({
 			keyup: function () {
@@ -205,7 +205,6 @@
 			}
 		});
 		$('#formapago').on('change', function () {
-			alert($('#formapago').val());
 			if ($('#formapago').val() == 1) {
 				$("#PagoEfectivo").removeClass("invisible");
 				$("#PagoEfectivo").addClass("visible");
@@ -239,7 +238,6 @@
 				Limipar();
 			});
 		});
-
 		$('#btncobrarOrden').on("click", function () {
 			var regp = /[^0-9.-]+/g;
 			var url = '@Url.Action("Cobrar","Ordenes")';
@@ -249,19 +247,23 @@
 				IdFolio:@Model.Id,
 				total: parseFloat($('#Total').val().replace(regp, '')),
 				pagacon: parseFloat($('#PagaCon').val().replace(regp, '')),
-				cambio: parseFloat($('#cambio').val().replace(regp, ''))
+				cambio: parseFloat($('#cambio').val().replace(regp, '')),
+				idpaciente: $('#Id').val(),
+				formapago: $('#formapago').val()
 			}
-			alert(datos.total)
 
 			$.ajax({
 				type: "POST",
-				data: JSON.stringify({'Id': datos.Id,'Total':datos.total,'PagaCon':datos.pagacon,'cambio':datos.cambio}),
+				data: JSON.stringify({ 'Id': datos.Id, 'Total': datos.total, 'PagaCon': datos.pagacon, 'cambio': datos.cambio, 'Idpaciente': datos.idpaciente, 'formapago': datos.formapago }),
 				url: url,
 				contentType: "application/json"
 			}).done(function (res) {
-				//$("#Pedido").html(res);
-				//$('#ordentemporal_cantidad').val("");
-				//$("#ordentemporal_cantidad").removeClass();
+				//imprimir();
+				//$("#Pedido").html('');
+				//Limipar();
+				$("#exampleModalCenter").hide();//ocultamos el modal
+		        $('body').removeClass('modal-open');//eliminamos la clase del body para poder hacer scroll
+		        $('.modal-backdrop').remove();//eliminamos el backdrop del modal
 			});
 		});
 	});
@@ -393,8 +395,8 @@
 });
 
 	};
-	function Limipar()
-	{
+	function Limipar()	{
+		    $('#Id').val('');
 			$('#Paciente_Nombre').val('');
 			$('#Paciente_SegundoNombre').val('');
 			$('#Paciente_ApellidoPaterno').val('');
@@ -423,5 +425,17 @@
 			$("#Total").val(document.getElementById("totalOrden").innerText);
 			$("#Total").attr("disabled", "disabled");
 		}
-	}
+		}
+    function imprimir()
+	{
+		if ((navigator.appName == "Netscape"))
+		{
+			window.print();
+        }
+        else
+		{
+			var WebBrowser = '<OBJECT ID="WebBrowser1" WIDTH=0 HEIGHT=0 CLASSID="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2"></OBJECT>';
+			document.body.insertAdjacentHTML('beforeEnd', WebBrowser); WebBrowser1.ExecWB(6, -1); WebBrowser1.outerHTML = "";
+		}
+    }
 </script>

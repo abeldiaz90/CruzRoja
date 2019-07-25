@@ -158,7 +158,7 @@ namespace mvc.Controllers
 
         [Authorize(Roles = "secretaria")]
         [Authorize(Roles = "Admin")]
-        public async Task<ActionResult> Cobrar(Ordenes ordenes)
+        public PartialViewResult Cobrar(Ordenes ordenes)
         {
             Contexto con = new Contexto();
             Ordenes ordenesmodelo = new Ordenes();
@@ -167,22 +167,12 @@ namespace mvc.Controllers
             ordenesmodelo.FechaHora = System.DateTime.Now;
             ordenesmodelo.PagaCon = ordenes.PagaCon;
             ordenesmodelo.Id = ordenes.Id;
+            ordenesmodelo.Idpaciente = ordenes.Idpaciente;
+            ordenesmodelo.formapago = ordenes.formapago;
 
             var validar = con.ordenes.FirstOrDefault(m => m.Id == ordenes.Id);
             if (validar == null)
             {
-                //var validarcliente = con.pacientes.FirstOrDefault(m => m.Nombre == ordenes.Paciente.Nombre & m.SegundoNombre == ordenes.Paciente.SegundoNombre & m.ApellidoPaterno == ordenes.Paciente.ApellidoPaterno & m.ApellidoMaterno == ordenes.Paciente.ApellidoMaterno);
-                //if (validarcliente == null)
-                //{
-                //    con.pacientes.Add(ordenes.Paciente);
-                //    con.SaveChanges();
-                //    ordenesmodelo.Idpaciente = con.pacientes.FirstOrDefault(m => m.Nombre == ordenes.Paciente.Nombre & m.SegundoNombre == ordenes.Paciente.SegundoNombre & m.ApellidoPaterno == ordenes.Paciente.ApellidoPaterno & m.ApellidoMaterno == ordenes.Paciente.ApellidoMaterno).Id;
-                //}
-                //else
-                //{
-                //    ordenesmodelo.Idpaciente = validarcliente.Id;
-                //}
-
                 int maxId = 0;
                 try
                 {
@@ -193,10 +183,8 @@ namespace mvc.Controllers
 
                 con.ordenes.Add(ordenesmodelo);
                 con.SaveChanges();
-
-
+               
                 IEnumerable<OrdenesTemporal> ordenesTemporals = con.ordenestemporal.Where(s => s.IdFolio == ordenes.Id);
-                //List<OrdenesDetalles> ordenesDetallesListado = new List<OrdenesDetalles>();
 
                 foreach (var i in ordenesTemporals)
                 {
@@ -204,19 +192,33 @@ namespace mvc.Controllers
                     ordenesDetalles.IdFolio = i.IdFolio;
                     ordenesDetalles.IdServicio = i.IdServicio;
                     ordenesDetalles.cantidad = i.cantidad;
+                    ordenesDetalles.Precio = contexto.serviciosDelegacionPrecios.Where(x => x.Id == i.IdPrecio).FirstOrDefault().PrecioSinIva;
                     ordenesDetalles.subtotal = i.subtotal;
                     ordenesDetalles.IVA = i.IVA;
                     ordenesDetalles.Total = i.Total;
                     con.ordenesdetalles.Add(ordenesDetalles);
                 }
-
-
                 con.ordenestemporal.RemoveRange(con.ordenestemporal.Where(x => x.IdFolio == ordenes.Id));
                 con.SaveChanges();
 
             }
+            IEnumerable<Ordenes> orden = contexto.ordenes.ToList().Where(s => s.Id == ordenes.Id);
+            IEnumerable<OrdenesDetalles> ordendetalles = contexto.ordenesdetalles.Where(m => m.IdFolio == ordenes.Id).ToList();
+            IEnumerable<ServiciosDelegacion> serviciosDelegacion = contexto.serviciosdelegacion.ToList();
+            IEnumerable<Pacientes> pacientes = contexto.pacientes.ToList().Where(x => x.Id == ordenes.Idpaciente);
 
-            return RedirectToAction("Index");
+            var vistaRecibo = from Ord in orden
+                              join ord_det in ordendetalles on Ord.Id equals ord_det.IdFolio
+                              join sd in serviciosDelegacion on ord_det.IdServicio equals sd.IdServicio
+                              join pa in pacientes on Ord.Idpaciente equals pa.Id
+                              orderby sd.NombreServicio
+                              select new OrdenesRecibos { ordenes = Ord, ordenesDetalles = ord_det, serviciosDelegacion = sd, pacientes = pa };
+            List<OrdenesRecibos> l = new List<OrdenesRecibos>();
+
+
+
+
+            return PartialView("Recibos",l);
         }
 
     }

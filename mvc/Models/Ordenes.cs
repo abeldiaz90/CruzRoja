@@ -29,7 +29,9 @@ namespace mvc.Models
             Efectivo
         };
 
-
+        [Display(Name = "Usuario:")]
+        [Required(ErrorMessage = "Usuario:")]
+        public int IdUsuario { set; get; }
 
         [Required(ErrorMessage = "El total es Requerido")]
         [Display(Name = "Total:")]

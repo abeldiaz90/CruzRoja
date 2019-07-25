@@ -22,6 +22,9 @@ namespace mvc.Models
         [Display(Name = "Cantidad:")]
         public int cantidad { set; get; }
 
+        [Display(Name = "Precio:")]
+        public decimal Precio { set; get; }
+
 
         [Display(Name = "SubTotal:")]
         public decimal subtotal { set; get; }

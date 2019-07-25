@@ -18,7 +18,7 @@
 			@Html.LabelFor(model => model.Nombre, new { @class = "control-label col-md-2" })
 		</div>
 		<div>
-			@Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @style = "text-transform:uppercase" } })
+			@Html.EditorFor(model => model.Nombre, new { htmlAttributes = new { @style = "text-transform:uppercase", @class = "form-control" } })
 			@Html.ValidationMessageFor(model => model.Nombre, string.Empty, new { htmlAttributes = new { @class = "text-danger" } })
 		</div>
 		<div>

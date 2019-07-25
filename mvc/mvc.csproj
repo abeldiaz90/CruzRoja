@@ -325,6 +325,7 @@
     <Compile Include="Controllers\OrdenesController.cs" />
     <Compile Include="Controllers\PacientesController.cs" />
     <Compile Include="Controllers\PaisesController.cs" />
+    <Compile Include="Controllers\RolesController.cs" />
     <Compile Include="Controllers\ServiciosController.cs" />
     <Compile Include="Controllers\ServiciosDelegacionController.cs" />
     <Compile Include="Controllers\ServiciosPreciosController.cs" />
@@ -344,16 +345,18 @@
     <Compile Include="Models\EstadosVista.cs" />
     <Compile Include="Models\Ordenes.cs" />
     <Compile Include="Models\OrdenesDetalles.cs" />
+    <Compile Include="Models\OrdenesRecibos.cs" />
     <Compile Include="Models\OrdenesTemporal.cs" />
     <Compile Include="Models\OrdenesTemporalVista.cs" />
     <Compile Include="Models\Pacientes.cs" />
     <Compile Include="Models\Paises.cs" />
     <Compile Include="App_Data\Seguridad.cs" />
+    <Compile Include="Models\Roles.cs" />
     <Compile Include="Models\Servicios.cs" />
     <Compile Include="Models\ServiciosDelegacion.cs" />
     <Compile Include="Models\ServiciosPrecios.cs" />
     <Compile Include="Models\ServiciosVista.cs" />
-    <Compile Include="Models\Usuarios.cs" />
+    <Compile Include="Models\Users.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -403,6 +406,10 @@
     <Content Include="Views\ServiciosPrecios\Nuevo.cshtml" />
     <Content Include="Views\ServiciosPrecios\Editar.cshtml" />
     <Content Include="Views\Pacientes\Resultados.cshtml" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Ordenes\Recibo.cshtml" />
+    <Content Include="Views\Roles\Index.cshtml" />
+    <Content Include="Views\Roles\Nuevo.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

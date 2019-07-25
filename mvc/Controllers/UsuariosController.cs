@@ -15,35 +15,88 @@ namespace mvc.Controllers
         [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
-            return View();
+            IEnumerable<Users> usuarios = con.users.ToList();
+            return View(usuarios);
         }
 
         [Authorize(Roles = "Admin")]
         public ActionResult Nuevo()
         {
-            Usuarios us = new Usuarios();
-            us.delegaciones = con.delegaciones.ToList().OrderBy(s=>s.Municipio);
+            Users us = new Users();
+            IEnumerable<Roles> listaroles = con.roles.ToList();
+            List<Roles> roles = new List<Roles>();
+
+            IEnumerable<Delegaciones> delegaciones = con.delegaciones.ToList().OrderBy(s => s.Municipio);
+            List<Delegaciones> listadelegaciones = new List<Delegaciones>();
+            foreach (var i in listaroles)
+            {
+                Roles r = new Roles();
+                r.Id = i.Id;
+                r.Rol = Seguridad.Decrypt(i.Rol);
+                roles.Add(r);
+            }
+
+            foreach (var delegacion in delegaciones)
+            {
+                Delegaciones d = new Delegaciones();
+                d.Id = delegacion.Id;
+                d.Municipio = Seguridad.Decrypt(delegacion.Municipio);
+                listadelegaciones.Add(d);
+            }
+
+            us.roleslista = roles;
+            us.delegaciones = listadelegaciones;
+            return View(us);
+        }
+
+        [Authorize(Roles = "Admin")]
+        public ActionResult Editar(int id)
+        {
+            Users us = new Users();
+            IEnumerable<Roles> listaroles = con.roles.ToList().Where(x => x.Id == id);
+            List<Roles> roles = new List<Roles>();
+
+            IEnumerable<Delegaciones> delegaciones = con.delegaciones.ToList().OrderBy(s => s.Municipio);
+            List<Delegaciones> listadelegaciones = new List<Delegaciones>();
+            foreach (var i in listaroles)
+            {
+                Roles r = new Roles();
+                r.Id = i.Id;
+                r.Rol = Seguridad.Decrypt(i.Rol);
+                roles.Add(r);
+            }
+
+            foreach (var delegacion in delegaciones)
+            {
+                Delegaciones d = new Delegaciones();
+                d.Id = delegacion.Id;
+                d.Municipio = Seguridad.Decrypt(delegacion.Municipio);
+                listadelegaciones.Add(d);
+            }
+
+            us.roleslista = roles;
+            us.delegaciones = listadelegaciones;
             return View(us);
         }
 
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public ActionResult Guardar(Usuarios usuarios)
+        public ActionResult Guardar(Users usuarios)
         {
             usuarios.Usuario = Seguridad.Encrypt(usuarios.Usuario);
             usuarios.Password = Seguridad.Encrypt(usuarios.Password);
             usuarios.Correo = Seguridad.Encrypt(usuarios.Correo);
-            
-            Usuarios us = con.usuarios.FirstOrDefault(s => s.Usuario == usuarios.Usuario && s.Password == usuarios.Password);
+
+            Users us = con.users.FirstOrDefault(s => s.Usuario == usuarios.Usuario && s.Password == usuarios.Password);
 
             if (us == null)
             {
-                con.usuarios.Add(usuarios);
+                con.users.Add(usuarios);
                 con.SaveChanges();
             }
             else
             {
-                con.Set<Usuarios>().AddOrUpdate(usuarios);
+                con.Set<Users>().AddOrUpdate(usuarios);
                 con.SaveChanges();
             }
             return RedirectToAction("/Ordenes/Index");

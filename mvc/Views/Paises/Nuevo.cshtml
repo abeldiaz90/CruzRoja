@@ -4,27 +4,26 @@
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Paises</h2>
-@Html.ActionLink("Regresar", "Index", null,new { @class="btn btn-outline-info"})
+<h2>Alta de Paises</h2>
+@Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-outline-info" })
 @using (Html.BeginForm("Guardar", "Paises", FormMethod.Post))
 {
 	@Html.AntiForgeryToken();
 	@Html.ValidationSummary(true);
-	<legend>Ingrese los datos del Pais</legend>
 	<fieldset>
-		<div>
-			@Html.HiddenFor(model => model.Id, new { @Value = 0 })
+		@Html.HiddenFor(model => model.Id, new { @Value = 0 })
+		<div class="row">
+			<div class="col-sm-4 col-lg-4">
+				@Html.LabelFor(model => model.Pais)
+				@Html.EditorFor(model => model.Pais, string.Empty, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.Pais, string.Empty, new { @class = "text-danger" })
+			</div>
 		</div>
-		<div>
-			@Html.LabelFor(model => model.Pais)
-		</div>
-		<div>
-			@Html.EditorFor(model => model.Pais)
-			@Html.ValidationMessageFor(model => model.Pais)
-		</div>
-		<div>
-			<input type="submit" value="Guardar" class="btn btn-outline-success" />
-			@Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-outline-dark" })
+		<div class="row">
+			<div class="col-sm-4 col-lg-4">
+				<input type="submit" value="Guardar" class="btn btn-outline-success" />
+				@Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-outline-dark" })
+			</div>
 		</div>
 	</fieldset>
 }

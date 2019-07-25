@@ -1,4 +1,4 @@
-﻿@model mvc.Models.Usuarios
+﻿@model mvc.Models.Users
 @{
 	ViewBag.Title = "Cruz Roja";
 	Layout = "~/Views/Shared/_Layout.cshtml";
@@ -9,39 +9,38 @@
 {
 	@Html.AntiForgeryToken()
 	@Html.ValidationSummary(true)
-<fieldset>
-	<div>
+	<fieldset>
 		@Html.HiddenFor(m => m.Id, new { @Value = 0 })
-	</div>
-	<div>
-		@Html.LabelFor(m => m.IdDelegacion, new { @class = "text-form" })
-	</div>
-	<div>
-		@Html.DropDownListFor(model => model.IdDelegacion, new SelectList(Model.delegaciones, "Id", "Municipio"))
-		@Html.ValidationMessageFor(m => m.IdDelegacion)
-	</div>
-	<div>
-		@Html.LabelFor(m => m.Usuario, new { @class = "text-form" })
-	</div>
-	<div>
-		@Html.EditorFor(m => m.Usuario, new { @class = "text-form" })
-		@Html.ValidationMessageFor(m => m.Usuario)
-	</div>
-	<div>
-		@Html.LabelFor(m => m.Password, new { @class = "text-form" })
-	</div>
-	<div>
-		@Html.EditorFor(m => m.Password, new { @class = "text-form" })
-		@Html.ValidationMessageFor(m => m.Password)
-	</div>
-	<div>
-		@Html.LabelFor(m => m.Correo, new { @class = "text-form" })
-	</div>
-	<div>
-		@Html.EditorFor(m => m.Correo, new { @class = "text-form" })
-		@Html.ValidationMessageFor(m => m.Correo)
-	</div>
-	<input type="submit" id="Agregar" value="Agregar" />
-</fieldset>
+		<div class="row">
+			<div class="col-sm-3 col-lg-3">
+				@Html.LabelFor(m => m.IdDelegacion, new { @class = "text-form" })
+				@Html.DropDownListFor(model => model.IdDelegacion, new SelectList(Model.delegaciones, "Id", "Municipio"), "--Seleccione la Delegación--", new { @class = "form-control" })
+				@Html.ValidationMessageFor(m => m.IdDelegacion, string.Empty, new { @class = "text-danger" })
+			</div>
+			<div class="col-sm-3 col-lg-3">
+				@Html.LabelFor(m => m.Usuario)
+				@Html.EditorFor(m => m.Usuario, string.Empty, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(m => m.Usuario, string.Empty, new { @class = "text-danger" })
+			</div>
+			<div class="col-sm-3 col-lg-3">
+				@Html.LabelFor(m => m.Password, new { @class = "text-form" })
+				@Html.EditorFor(m => m.Password, string.Empty, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(m => m.Password, string.Empty, new { @class = "text-danger" })
+			</div>
+			<div class="col-sm-3 col-lg-3">
+				@Html.LabelFor(m => m.Correo)
+				@Html.EditorFor(m => m.Correo, string.Empty, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(m => m.Correo, string.Empty, new { @class = "text-danger" })
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-sm-3 col-lg-3">
+				@Html.LabelFor(m=>m.IdRol)
+				@Html.DropDownListFor(model => model.IdRol, new SelectList(Model.roleslista, "Id", "Rol"), "--Seleccione un Rol--", new { @class = "form-control" })
+				@Html.ValidationMessageFor(m => m.IdRol, string.Empty, new { @class = "text-danger" })
+			</div>
+		</div>
+		<input type="submit" id="Agregar" value="Guardar" class="btn btn-outline-primary" />
+	</fieldset>
 }
 

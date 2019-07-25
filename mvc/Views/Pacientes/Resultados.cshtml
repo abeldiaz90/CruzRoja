@@ -86,6 +86,7 @@
 		AjaxCall('/Pacientes/BuscarId/', JSON.stringify(obj), 'POST').done(function (response) {
 			if (response.length > 0) {
 				console.log(response);
+				$('#Id').val(response[0].Id);
 				$('#Paciente_Nombre').val(response[0].Nombre);
 				$('#Paciente_SegundoNombre').val(response[0].SegundoNombre);
 				$('#Paciente_ApellidoPaterno').val(response[0].ApellidoPaterno);

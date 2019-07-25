@@ -5,79 +5,67 @@
 }
 
 <h2>Edición de delegaciones</h2>
-@Html.ActionLink("Regresar", "Index",null,new { @class="btn btn-outline-info"})
+@Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-outline-info" })
 @using (Html.BeginForm("Guardar", "Delegaciones", FormMethod.Post))
 {
 	@Html.AntiForgeryToken();
 	@Html.ValidationSummary(true);
-	<legend>Ingrese los datos del Estado</legend>
 	<fieldset>
 		<div>
 			@Html.HiddenFor(model => model.Id)
 		</div>
-		<div>
-			@Html.LabelFor(model => model.IdEstado)
+		<div class="row">
+			<div class="col-sm-3 col-lg-3">
+				@Html.LabelFor(model => model.IdEstado)
+				@Html.DropDownListFor(model => model.IdEstado, new SelectList(Model.estado, "Id", "Estado"), "--Seleccione un Estado--", new { @class = "form-control" })
+				@Html.ValidationMessageFor(model => model.IdEstado, string.Empty, new { @class = "text-danger" })
+			</div>
+			<div class="col-sm-3 col-lg-3">
+				@Html.LabelFor(model => model.claveDelegacion)
+				@Html.EditorFor(model => model.claveDelegacion, string.Empty, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.claveDelegacion, string.Empty, new { @class = "text-danger" })
+			</div>
+			<div class="col-sm-3 col-lg-3">
+				@Html.LabelFor(model => model.Municipio)
+				@Html.EditorFor(model => model.Municipio, string.Empty, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.Municipio, string.Empty, new { @class = "text-danger" })
+			</div>
+			<div class="col-sm-3 col-lg-3">
+				@Html.LabelFor(model => model.Colonia)
+				@Html.EditorFor(model => model.Colonia, string.Empty, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.Colonia, string.Empty, new { @class = "text-danger" })
+			</div>
 		</div>
-		<div>
-			@Html.DropDownListFor(model => model.IdEstado, new SelectList(Model.estado, "Id", "Estado"))
-			@Html.ValidationMessageFor(model => model.IdEstado)
+		<div class="row">
+			<div class="col-sm-3 col-lg-3">
+				@Html.LabelFor(model => model.Calle)
+				@Html.EditorFor(model => model.Calle, string.Empty, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.Calle, string.Empty, new { @class = "text-danger" })
+			</div>
+			<div class="col-sm-3 col-lg-3">
+				@Html.LabelFor(model => model.NumeroExterior)
+				@Html.EditorFor(model => model.NumeroExterior, string.Empty, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.NumeroExterior, string.Empty, new { @class = "text-danger" })
+			</div>
+			<div class="col-sm-3 col-lg-3">
+				@Html.LabelFor(model => model.NumeroInterior)
+				@Html.EditorFor(model => model.NumeroInterior, string.Empty, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.NumeroInterior, string.Empty, new { @class = "text-danger" })
+			</div>
+			<div class="col-sm-3 col-lg-3">
+				@Html.LabelFor(model => model.CP)
+				@Html.EditorFor(model => model.CP, string.Empty, new { htmlAttributes = new { @class = "form-control" } })
+				@Html.ValidationMessageFor(model => model.CP, string.Empty, new { @class = "text-danger" })
+			</div>
 		</div>
-		<div>
-			@Html.LabelFor(model => model.claveDelegacion)
-		</div>
-		<div>
-			@Html.EditorFor(model => model.claveDelegacion)
-			@Html.ValidationMessageFor(model => model.claveDelegacion)
-		</div>
-		<div>
-			@Html.LabelFor(model => model.Municipio)
-		</div>
-		<div>
-			@Html.EditorFor(model => model.Municipio)
-			@Html.ValidationMessageFor(model => model.Municipio)
-		</div>
-		<div>
-			@Html.LabelFor(model => model.Colonia)
-		</div>
-		<div>
-			@Html.EditorFor(model => model.Colonia)
-			@Html.ValidationMessageFor(model => model.Colonia)
-		</div>
-
-		<div>
-			@Html.LabelFor(model => model.Calle)
-		</div>
-		<div>
-			@Html.EditorFor(model => model.Calle)
-			@Html.ValidationMessageFor(model => model.Calle)
-		</div>
-		<div>
-			@Html.LabelFor(model => model.NumeroExterior)
-		</div>
-		<div>
-			@Html.EditorFor(model => model.NumeroExterior)
-			@Html.ValidationMessageFor(model => model.NumeroExterior)
-		</div>
-		<div>
-			@Html.LabelFor(model => model.NumeroInterior)
-		</div>
-		<div>
-			@Html.EditorFor(model => model.NumeroInterior)
-			@Html.ValidationMessageFor(model => model.NumeroInterior)
-		</div>
-		<div>
-			@Html.LabelFor(model => model.CP)
-		</div>
-		<div>
-			@Html.EditorFor(model => model.CP)
-			@Html.ValidationMessageFor(model => model.CP)
-		</div>
-		<div>
-			@Html.LabelFor(model => model.Telefono)
-		</div>
-		<div>
-			@Html.EditorFor(model => model.Telefono)
-			@Html.ValidationMessageFor(model => model.Telefono)
+		<div class="row">
+			<div class="col-sm-3 col-lg-3">
+				<div>
+					@Html.LabelFor(model => model.Telefono)
+					@Html.EditorFor(model => model.Telefono, string.Empty, new { htmlAttributes = new { @class = "form-control" } })
+					@Html.ValidationMessageFor(model => model.Telefono, string.Empty, new { @class = "text-danger" })
+				</div>
+			</div>
 		</div>
 		<div>
 			<input type="submit" value="Guardar" class="btn btn-outline-success" />

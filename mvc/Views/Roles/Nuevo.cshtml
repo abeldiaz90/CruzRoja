@@ -1,0 +1,28 @@
+﻿@model mvc.Models.Roles
+@{
+	ViewBag.Title = "Nuevo";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Nuevo</h2>
+
+@using (Html.BeginForm("Guardar", "Roles", FormMethod.Post))
+{
+	@Html.AntiForgeryToken()
+	@Html.ValidationSummary(true)
+	<fieldset>
+		<div class="row">
+			<div>
+				@Html.HiddenFor(model => model.Id, new { Value = 0 })
+			</div>
+			<div>
+				@Html.LabelFor(model => model.Rol, new { @class = "control-label col-md-2" })
+				@Html.TextBoxFor(model => model.Rol, new { @class = "form-control", style = "text-transform:uppercase" })
+			</div>
+		</div>
+		<div>
+			@Html.ValidationMessageFor(model => model.Rol, string.Empty, new { @class = "text-danger" })
+		</div>
+		<input type="submit" value="Guardar" class="btn btn-outline-primary" />
+	</fieldset>
+}
