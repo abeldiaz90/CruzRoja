@@ -16,7 +16,17 @@ namespace mvc.Controllers
         public ActionResult Index()
         {
             IEnumerable<Users> usuarios = con.users.ToList();
-            return View(usuarios);
+            List<Users> listausarios = new List<Users>();
+            foreach (var i in usuarios)
+            {
+                Users usuario = new Users();
+                usuario.Id = i.Id;
+                usuario.Usuario = Seguridad.Decrypt(i.Usuario);
+                usuario.delegacion = i.delegacion;
+                usuario.Correo = Seguridad.Decrypt(i.Correo);
+                listausarios.Add(usuario);
+            }
+            return View(listausarios);
         }
 
         [Authorize(Roles = "Admin")]
