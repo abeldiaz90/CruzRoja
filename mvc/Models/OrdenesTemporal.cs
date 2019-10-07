@@ -31,7 +31,7 @@ namespace mvc.Models
 
         [Display(Name = "IVA:")]
         public decimal IVA { set; get; }
-
+               
         [Display(Name = "Total:")]
         public decimal Total { set; get; }
 

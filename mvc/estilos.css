@@ -1,0 +1,8 @@
+﻿@media print {
+	.oculto-impresion{
+		display: none !important;
+	}
+}
+a:after {
+	content: " (" attr(href) ")";
+}

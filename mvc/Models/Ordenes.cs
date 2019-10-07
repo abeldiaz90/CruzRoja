@@ -19,7 +19,7 @@ namespace mvc.Models
 
         public Pacientes Paciente { set; get; }
 
-        [Display(Name ="Forma de Pago:")]
+        [Display(Name = "Forma de Pago:")]
         public FormaPago formapago { set; get; }
         public enum FormaPago
         {
@@ -43,7 +43,6 @@ namespace mvc.Models
         [DataType(DataType.Currency)]
         [DisplayFormat(DataFormatString = "{0:C}", ApplyFormatInEditMode = true)]
         public decimal PagaCon { set; get; }
-
 
         [Display(Name = "Cambio:")]
         [DataType(DataType.Currency)]

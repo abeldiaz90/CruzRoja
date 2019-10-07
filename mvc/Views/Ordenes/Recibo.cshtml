@@ -1,3 +1,62 @@
-﻿
+﻿@model IEnumerable<mvc.Models.OrdenesRecibos>
+@using mvc.Models
+
+<label id="fecha">@System.DateTime.Now</label>
+<div class="table-responsive">
+	<table class="table table-striped">
+		<thead class="thead-light">
+			<tr>
+				<th scope="col">
+					<b>Servicio</b>
+				</th>
+				<th scope="col">
+					<b>Cantidad</b>
+				</th>
+				<th scope="col">
+					<b>Precio sin IVA</b>
+				</th>
+				<th scope="col">
+					<b>IVA</b>
+				</th>
+				<th scope="col">
+					<b>SubTotal</b>
+				</th>
+				<th scope="col">
+					<b>Total</b>
+				</th>
+			</tr>
+			@foreach (var i in Model)
+			{
+				<tr>
+					<td>
+						@i.serviciosDelegacion.NombreServicio
+					</td>
+					<td>
+						@i.ordenesDetalles.cantidad
+					</td>
+					<td>
+						@String.Format("{0:C}",@i.ordenesDetalles.Precio)
+					</td>
+					<td>
+						@String.Format("{0:C}",@i.ordenesDetalles.IVA)
+					</td>
+					<td>
+						@String.Format("{0:C}",@i.ordenesDetalles.subtotal)
+					</td>
+					<td>
+						@String.Format("{0:C}",@i.ordenesDetalles.Total)
+					</td>
+				</tr>
+
+			}
+		</thead>
+	</table>
+</div>
+
+
+
+
+
+
 
 

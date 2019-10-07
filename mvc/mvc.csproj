@@ -248,7 +248,9 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="estilos.css" />
     <Content Include="Global.asax" />
+    <Content Include="home.css" />
     <Content Include="images\header.jpg" />
     <Content Include="images\pic01.jpg" />
     <Content Include="images\pic02.jpg" />
@@ -265,6 +267,7 @@
     <Content Include="images\pic13.jpg" />
     <Content Include="images\pic14.jpg" />
     <Content Include="images\pic15.jpg" />
+    <Content Include="print.css" />
     <Content Include="Scripts\bootstrap-confirm.js" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />

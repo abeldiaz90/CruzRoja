@@ -105,7 +105,7 @@ namespace mvc.Controllers
             }
             ordenes.ordentemporal.subtotal = (ordenes.ordentemporal.cantidad) * con.serviciosDelegacionPrecios.Where(x => x.Id == ordenes.ordentemporal.IdPrecio).FirstOrDefault().PrecioSinIva;
             ordenes.ordentemporal.Total = ordenes.ordentemporal.IVA + ordenes.ordentemporal.subtotal;
-
+            //ordenes.TotalIVA = con.ordenestemporal.Where(x => x.Id == ordenes.ordentemporal.Id).Sum(x => x.IVA) + ordenes.ordentemporal.IVA;
 
             ordenes.ordentemporal.IdFolio = ordenes.Id;
             con.ordenestemporal.Add(ordenes.ordentemporal);
@@ -183,7 +183,7 @@ namespace mvc.Controllers
 
                 con.ordenes.Add(ordenesmodelo);
                 con.SaveChanges();
-               
+
                 IEnumerable<OrdenesTemporal> ordenesTemporals = con.ordenestemporal.Where(s => s.IdFolio == ordenes.Id);
 
                 foreach (var i in ordenesTemporals)
@@ -209,16 +209,29 @@ namespace mvc.Controllers
 
             var vistaRecibo = from Ord in orden
                               join ord_det in ordendetalles on Ord.Id equals ord_det.IdFolio
-                              join sd in serviciosDelegacion on ord_det.IdServicio equals sd.IdServicio
+                              join sd in serviciosDelegacion on ord_det.IdServicio equals sd.Id
                               join pa in pacientes on Ord.Idpaciente equals pa.Id
                               orderby sd.NombreServicio
                               select new OrdenesRecibos { ordenes = Ord, ordenesDetalles = ord_det, serviciosDelegacion = sd, pacientes = pa };
-            List<OrdenesRecibos> l = new List<OrdenesRecibos>();
 
-
-
-
-            return PartialView("Recibos",l);
+            foreach (var i in vistaRecibo)
+            {
+                i.pacientes.Nombre = Seguridad.Decrypt(i.pacientes.Nombre);
+                i.pacientes.SegundoNombre = Seguridad.Decrypt(i.pacientes.SegundoNombre);
+                i.pacientes.ApellidoPaterno = Seguridad.Decrypt(i.pacientes.ApellidoPaterno);
+                i.pacientes.ApellidoMaterno = Seguridad.Decrypt(i.pacientes.ApellidoMaterno);
+                i.pacientes.FechaNacimiento = i.pacientes.FechaNacimiento;
+                i.pacientes.Sexo = i.pacientes.Sexo;
+                i.ordenesDetalles.cantidad = i.ordenesDetalles.cantidad;
+                i.ordenesDetalles.Precio = i.ordenesDetalles.Precio;
+                i.ordenesDetalles.subtotal = i.ordenesDetalles.subtotal;
+                i.ordenesDetalles.IVA = i.ordenesDetalles.IVA;
+                i.ordenesDetalles.Total = i.ordenesDetalles.Total;
+                i.serviciosDelegacion.NombreServicio = Seguridad.Decrypt(i.serviciosDelegacion.NombreServicio);
+                i.ordenes.PagaCon = i.ordenes.PagaCon;
+                i.ordenes.cambio = i.ordenes.cambio;
+            }
+            return PartialView("Recibo", vistaRecibo);
         }
 
     }
