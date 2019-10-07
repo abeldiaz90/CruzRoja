@@ -70,13 +70,12 @@
 		</div>
 	</div>
 </div>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
 <script>
 	$(document).ready(function () {
-
 		$('#btnAgregarPaciente').on('click', function () {
 			window.open("../Pacientes/Nuevo", "_blank");
 		});
-
 
 		$('#btnBuscarPaciente').on('click', function () {
 			var Nombre = $('#Paciente_Nombre').val().toUpperCase();
