@@ -5,13 +5,12 @@
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-	<link rel="stylesheet" type="text/css" href="home.css" media="screen" />
-	<link rel="stylesheet" type="text/css" href="print.css" media="print" />
-	<link rel="stylesheet" type="text/css" href="estilos.css" />
+
 	<div class="pos-f-t">
 		<div class="collapse" id="navbarToggleExternalContent">
 			<div class="bg-dark p-4">
-				<h5 class="text-white h4">@ViewBag.Title</h5>
+				<img src="~/images/logo.png" alt="logo" width="50" height="50" />
+				<!--	<h5 class="text-white h4">@ViewBag.Title</h5>-->
 				<span class="text-muted">
 					@Html.ActionLink("Paises", "Index", "Paises", new { area = "" }, new { @class = "navbar-brand" })
 					@Html.ActionLink("Estados", "Index", "Estados", new { area = "" }, new { @class = "navbar-brand" })

@@ -200,12 +200,32 @@ namespace mvc.Controllers
                 }
                 con.ordenestemporal.RemoveRange(con.ordenestemporal.Where(x => x.IdFolio == ordenes.Id));
                 con.SaveChanges();
-
             }
-            IEnumerable<Ordenes> orden = contexto.ordenes.ToList().Where(s => s.Id == ordenes.Id);
-            IEnumerable<OrdenesDetalles> ordendetalles = contexto.ordenesdetalles.Where(m => m.IdFolio == ordenes.Id).ToList();
+            return Recibo(ordenes.Id);
+        }
+
+        [Authorize(Roles = "secretaria")]
+        [Authorize(Roles = "Admin")]
+        public PartialViewResult Recibo(int numeroorden)
+        {
+            IEnumerable<Ordenes> orden = contexto.ordenes.ToList().Where(s => s.Id == numeroorden);
+            IEnumerable<OrdenesDetalles> ordendetalles = contexto.ordenesdetalles.Where(m => m.IdFolio == numeroorden).ToList();
             IEnumerable<ServiciosDelegacion> serviciosDelegacion = contexto.serviciosdelegacion.ToList();
-            IEnumerable<Pacientes> pacientes = contexto.pacientes.ToList().Where(x => x.Id == ordenes.Idpaciente);
+            int idpaciente = orden.FirstOrDefault().Idpaciente;
+            IEnumerable<Pacientes> pacientes = contexto.pacientes.ToList().Where(x => x.Id == idpaciente);
+
+            foreach (var i in pacientes)
+            {
+                i.Nombre = Seguridad.Decrypt(i.Nombre);
+                i.SegundoNombre = Seguridad.Decrypt(i.SegundoNombre);
+                i.ApellidoPaterno = Seguridad.Decrypt(i.ApellidoPaterno);
+                i.ApellidoMaterno = Seguridad.Decrypt(i.ApellidoMaterno);
+            }
+
+            foreach (var i in serviciosDelegacion)
+            {
+                i.NombreServicio = Seguridad.Decrypt(i.NombreServicio);
+            }
 
             var vistaRecibo = from Ord in orden
                               join ord_det in ordendetalles on Ord.Id equals ord_det.IdFolio
@@ -214,25 +234,9 @@ namespace mvc.Controllers
                               orderby sd.NombreServicio
                               select new OrdenesRecibos { ordenes = Ord, ordenesDetalles = ord_det, serviciosDelegacion = sd, pacientes = pa };
 
-            foreach (var i in vistaRecibo)
-            {
-                i.pacientes.Nombre = Seguridad.Decrypt(i.pacientes.Nombre);
-                i.pacientes.SegundoNombre = Seguridad.Decrypt(i.pacientes.SegundoNombre);
-                i.pacientes.ApellidoPaterno = Seguridad.Decrypt(i.pacientes.ApellidoPaterno);
-                i.pacientes.ApellidoMaterno = Seguridad.Decrypt(i.pacientes.ApellidoMaterno);
-                i.pacientes.FechaNacimiento = i.pacientes.FechaNacimiento;
-                i.pacientes.Sexo = i.pacientes.Sexo;
-                i.ordenesDetalles.cantidad = i.ordenesDetalles.cantidad;
-                i.ordenesDetalles.Precio = i.ordenesDetalles.Precio;
-                i.ordenesDetalles.subtotal = i.ordenesDetalles.subtotal;
-                i.ordenesDetalles.IVA = i.ordenesDetalles.IVA;
-                i.ordenesDetalles.Total = i.ordenesDetalles.Total;
-                i.serviciosDelegacion.NombreServicio = Seguridad.Decrypt(i.serviciosDelegacion.NombreServicio);
-                i.ordenes.PagaCon = i.ordenes.PagaCon;
-                i.ordenes.cambio = i.ordenes.cambio;
-            }
+
+
             return PartialView("Recibo", vistaRecibo);
         }
-
     }
 }

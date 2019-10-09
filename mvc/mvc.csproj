@@ -252,6 +252,7 @@
     <Content Include="Global.asax" />
     <Content Include="home.css" />
     <Content Include="images\header.jpg" />
+    <Content Include="images\logo.png" />
     <Content Include="images\pic01.jpg" />
     <Content Include="images\pic02.jpg" />
     <Content Include="images\pic03.jpg" />

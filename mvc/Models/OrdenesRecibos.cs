@@ -11,5 +11,7 @@ namespace mvc.Models
         public OrdenesDetalles ordenesDetalles { set; get; }
         public ServiciosDelegacion serviciosDelegacion { set; get; }
         public Pacientes pacientes { set; get; }
+        public DelegacionesVista delegacionesVista { set; get; }
+
     }
 }

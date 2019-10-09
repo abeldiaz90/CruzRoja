@@ -1,57 +1,39 @@
 ﻿@model IEnumerable<mvc.Models.OrdenesRecibos>
 @using mvc.Models
-
-<label id="fecha">@System.DateTime.Now</label>
-<div class="table-responsive">
-	<table class="table table-striped">
-		<thead class="thead-light">
-			<tr>
-				<th scope="col">
-					<b>Servicio</b>
-				</th>
-				<th scope="col">
-					<b>Cantidad</b>
-				</th>
-				<th scope="col">
-					<b>Precio sin IVA</b>
-				</th>
-				<th scope="col">
-					<b>IVA</b>
-				</th>
-				<th scope="col">
-					<b>SubTotal</b>
-				</th>
-				<th scope="col">
-					<b>Total</b>
-				</th>
-			</tr>
-			@foreach (var i in Model)
-			{
+<div style="align-content:center">
+	<img src="~/images/logo.png" alt="logo" width="30" height="30" /><br />
+	<label id="lbldelegacion">@Html.DisplayFor(x => x.FirstOrDefault().serviciosDelegacion.NombreServicio)</label>
+	<b><label> Paciente: </label></b>
+	@Html.DisplayFor(x => x.FirstOrDefault().pacientes.Nombre) @Html.DisplayFor(x => x.FirstOrDefault().pacientes.SegundoNombre) @Html.DisplayFor(x => x.FirstOrDefault().pacientes.ApellidoPaterno)  @Html.DisplayFor(x => x.FirstOrDefault().pacientes.ApellidoMaterno)
+	<br />
+	<b><label> CONCEPTOS </label></b>
+	<hr />
+	<label id="fecha">@System.DateTime.Now</label>
+	<div class="table-responsive">
+		<table class="table table-striped">
+			<thead class="thead-light">
 				<tr>
-					<td>
-						@i.serviciosDelegacion.NombreServicio
-					</td>
-					<td>
-						@i.ordenesDetalles.cantidad
-					</td>
-					<td>
-						@String.Format("{0:C}",@i.ordenesDetalles.Precio)
-					</td>
-					<td>
-						@String.Format("{0:C}",@i.ordenesDetalles.IVA)
-					</td>
-					<td>
-						@String.Format("{0:C}",@i.ordenesDetalles.subtotal)
-					</td>
-					<td>
-						@String.Format("{0:C}",@i.ordenesDetalles.Total)
-					</td>
-				</tr>
+					<th scope="col">
 
-			}
-		</thead>
-	</table>
+					</th>
+				</tr>
+				@foreach (var i in Model)
+				{
+					<tr>
+						<td>
+							@i.ordenesDetalles.cantidad---Servicio(s)---@i.serviciosDelegacion.NombreServicio
+						</td>
+					</tr>
+				}
+			</thead>
+		</table>
+		<hr />
+		<b><label>Total Pagado:</label></b>@Html.DisplayFor(x => x.FirstOrDefault().ordenes.Total)
+	</div>
+
 </div>
+
+
 
 
 
