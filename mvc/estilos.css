@@ -1,1 +1,65 @@
-﻿
+﻿@media screen {
+	header, footer, nav, aside {
+		display: none;
+	}
+
+	@page {
+		size: 75mm 80mm landscape;
+	}
+
+	table {
+		align-content:center;
+	}
+	table {
+		align-content: center;
+	}
+
+	div {
+		align-content: center
+	}
+	.ticket {
+		width: 155px;
+		max-width: 155px;
+	}
+}
+
+@media print {
+	header, footer, nav, aside {
+		display: none;
+	}
+
+	@page {
+		size: 75mm 80mm landscape;
+	}
+
+	table {
+		align-content: center;
+	}
+	div {
+		align-content:center
+	}
+	.ticket {
+		width: 155px;
+		max-width: 155px;
+	}
+}
+
+
+
+table {
+	align-content: center;
+}
+
+div {
+	align-content: center
+}
+
+
+@page {
+	size: 75mm 80mm landscape;
+}
+
+.ticket {
+	width: 155px;
+	max-width: 155px;
+}

@@ -86,7 +86,8 @@
 		var obj = { Id: Id };
 		AjaxCall('/Pacientes/BuscarId/', JSON.stringify(obj), 'POST').done(function (response) {
 			if (response.length > 0) {
-				console.log(response);
+				$('#btnCobro').removeAttr('disabled');
+				//console.log(response);
 				$('#Id').val(response[0].Id);
 				$('#Paciente_Nombre').val(response[0].Nombre);
 				$('#Paciente_SegundoNombre').val(response[0].SegundoNombre);

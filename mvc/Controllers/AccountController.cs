@@ -57,6 +57,14 @@ namespace mvc.Controllers
             }
             return Json(Resultado, JsonRequestBehavior.AllowGet);
         }
+
+        [Authorize(Roles = "secretaria")]
+        [Authorize(Roles = "Admin")]
+        public async Task<ActionResult> signout() 
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Index", "Account");
+        }
     }
 
 

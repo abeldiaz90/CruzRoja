@@ -9,70 +9,72 @@
 @Html.ActionLink("Nuevo", "Nuevo", null, new { @class = "btn btn-outline-info" })
 
 <h2>Pacientes</h2>
-<table border="1" style="color:black">
-	<tr>
-		<th>
-			Nombre
-		</th>
-		<th>
-			Segundo Nombre
-		</th>
-		<th>
-			Apellido Paterno
-		</th>
-		<th>
-			Apellido Materno
-		</th>
-		<th>
-			RFC
-		</th>
-		<th>
-			CURP
-		</th>
-		<th>
-			Fecha de Nacimiento
-		</th>
-		<th>
-			Correo Eletrónico
-		</th>
-		<th>
-			Telefóno
-		</th>
-	</tr>
-	@foreach (var modelo in Model)
-	{
-<tr>
-	<td>
-		@modelo.Nombre
-	</td>
-	<td>
-		@modelo.SegundoNombre
-	</td>
-	<td>
-		@modelo.ApellidoPaterno
-	</td>
-	<td>
-		@modelo.ApellidoMaterno
-	</td>
-	<td>
-		@modelo.RFC
-	</td>
-	<td>
-		@modelo.CURP
-	</td>
-	<th>
-		@modelo.FechaNacimiento.ToShortDateString()
-	</th>
-	<th>
-		@modelo.Email
-	</th>
-	<th>
-		@modelo.Telefono
-	</th>
-	<td>
-		@Html.ActionLink("Editar", "Editar", new { @Id = @modelo.Id }, new { @class = "btn btn-outline-primary" })
-	</td>
-</tr>
-	}
+<table class="table">
+	<thead class="thead-dark">
+		<tr>
+			<th>
+				Nombre
+			</th>
+			<th>
+				Segundo Nombre
+			</th>
+			<th>
+				Apellido Paterno
+			</th>
+			<th>
+				Apellido Materno
+			</th>
+			<th>
+				RFC
+			</th>
+			<th>
+				CURP
+			</th>
+			<th>
+				Fecha de Nacimiento
+			</th>
+			<th>
+				Correo Eletrónico
+			</th>
+			<th>
+				Telefóno
+			</th>
+		</tr>
+		@foreach (var modelo in Model)
+		{
+			<tr>
+				<td>
+					@modelo.Nombre
+				</td>
+				<td>
+					@modelo.SegundoNombre
+				</td>
+				<td>
+					@modelo.ApellidoPaterno
+				</td>
+				<td>
+					@modelo.ApellidoMaterno
+				</td>
+				<td>
+					@modelo.RFC
+				</td>
+				<td>
+					@modelo.CURP
+				</td>
+				<th>
+					@modelo.FechaNacimiento.ToShortDateString()
+				</th>
+				<th>
+					@modelo.Email
+				</th>
+				<th>
+					@modelo.Telefono
+				</th>
+				<td>
+					@Html.ActionLink("Editar", "Editar", new { @Id = @modelo.Id }, new { @class = "btn btn-outline-primary" })
+				</td>
+			</tr>
+		}
+		</thead>
 </table>
 

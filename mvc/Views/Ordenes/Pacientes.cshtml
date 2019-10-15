@@ -85,7 +85,6 @@
 			var obj = { Nombre: Nombre, SegundoNombre: SegundoNombre, ApellidoPaterno: ApellidoPaterno, ApellidoMaterno: ApellidoMaterno };
 			AjaxCall('/Pacientes/Buscar/', JSON.stringify(obj), 'POST').done(function (response) {
 				if (response.length > 0) {
-					//LimpiarContenidoPopup();
 					$('#myPartialViewDiv').html('');
 					$('#myPartialViewDiv').html(response);
 				} else { $('#myPartialViewDiv').html(''); }

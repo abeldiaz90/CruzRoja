@@ -6,27 +6,11 @@
 <link rel="stylesheet" type="text/css" href="home.css" media="screen" />
 <link rel="stylesheet" type="text/css" href="print.css" media="print" />
 <link rel="stylesheet" type="text/css" href="estilos.css" />
-<style type="text/css">
-	.form-control:focus {
-		border-color: #28a745;
-		box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
-	}
-
-	div#exampleModalCenter {
-		display: none;
-	}
-</style>
-<div class="container">
+<div class="ticket">
 
 	<div class="row">
-		<div class="col">
-
-		</div>
-		<div class="col-md-auto">
-			@DateTime.Now
-		</div>
-		<div class="col col-lg-2">
-			<button type="button" class="btn btn-primary">
+		<div class="col col-lg-12">
+			<button type="button" class="btn btn-light">
 				Folio: <span class="badge badge-light">	@Html.DisplayFor(model => model.Id)</span>
 			</button>
 		</div>
@@ -67,7 +51,7 @@
 	}
 </div>
 <!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter" id="btnCobro" onclick="Cobro();">
+<button type="button" class="btn btn-primary disabled" data-toggle="modal" data-target="#exampleModalCenter" id="btnCobro" onclick="Cobro();" disabled>
 	Cobrar
 </button>
 
@@ -168,6 +152,8 @@
 					contentType: "application/json"
 				}).done(function (res) {
 					$("#Pedido").html(res);
+					$('#ordentemporal_IdServicio').val("");
+					$('#ordentemporal_IdPrecio').val("");
 					$('#ordentemporal_cantidad').val("");
 					$("#ordentemporal_cantidad").removeClass();
 				});
@@ -413,25 +399,44 @@
 			$('#Paciente_ApellidoPaterno').val('');
 			$('#Paciente_ApellidoMaterno').val('');
 			$('#Paciente_FechaNacimiento').val('');
-			$('#Edad').val('');
+		    $('#Edad').val('');
+		    $('#Paciente_RFC').val('');
+	    	$('#Paciente_CURP').val('');
+		    $('#Paciente_Email').val('');
+		    $('#Paciente_Telefono').val('');
+		
+
 			$("#Paciente_Nombre").removeClass("form-control is-valid");
 			$("#Paciente_SegundoNombre").removeClass("form-control is-valid");
 			$("#Paciente_ApellidoPaterno").removeClass("form-control is-valid");
 			$("#Paciente_ApellidoMaterno").removeClass("form-control is-valid");
 			$("#Paciente_FechaNacimiento").removeClass("form-control is-valid");
 			$("#Paciente_Sexo").removeClass("form-control is-valid");
-			$("#Edad").removeClass("form-control is-valid");
+	    	$("#Edad").removeClass("form-control is-valid");
+		    $('#Paciente_RFC').removeClass("form-control is-valid");
+	    	$('#Paciente_CURP').removeClass("form-control is-valid");
+		    $('#Paciente_Email').removeClass("form-control is-valid");
+		    $('#Paciente_Telefono').removeClass("form-control is-valid");
+
 			$("#Paciente_Nombre").addClass("form-control");
 			$("#Paciente_SegundoNombre").addClass("form-control");
 			$("#Paciente_ApellidoPaterno").addClass("form-control");
 			$("#Paciente_ApellidoMaterno").addClass("form-control");
 			$("#Paciente_FechaNacimiento").addClass("form-control");
 			$("#Paciente_Sexo").addClass("form-control");
-			$("#Edad").addClass("form-control");
+	  	    $("#Edad").addClass("form-control");
+		    $('#Paciente_RFC').addClass("form-control");
+	    	$('#Paciente_CURP').addClass("form-control");
+		    $('#Paciente_Email').addClass("form-control");
+		    $('#Paciente_Telefono').addClass("form-control");
+		    $('#btnCobro').removeAttr('disabled')
 		}
 	function Cobro() {
 	if (($('#Paciente_Nombre').val() == '') || ($('#Paciente_ApellidoPaterno').val() == '')) {
-			alert("Ingrese datos del paciente");
+		$("#exampleModalCenter").hide();
+		$('body').removeClass('modal-open');
+		$('.modal-backdrop').remove();
+				alert("Ingrese datos del paciente");
 	} else {
 			$("#Total").val(document.getElementById("totalOrden").innerText);
 			$("#Total").attr("disabled", "disabled");
