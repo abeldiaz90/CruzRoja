@@ -3,89 +3,133 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="~/estilos.css" />
 </head>
-<div style="align-content:center;text-align:center;font-size:xx-large">
+<div style="align-content:center;text-align:center;">
 	<img src="~/images/logo.png" alt="logo" /><br />
-	<label id="lbldelegacion" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;font-size:xx-large">DELEGACIÓN: @Html.DisplayFor(x => x.FirstOrDefault().Delegacion)</label><br />
-	<b><label style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;font-size:xx-large"> Paciente: </label></b>
-	<span class="test" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;font-size:xx-large">
+	<label id="lbldelegacion" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">DELEGACIÓN: @Html.DisplayFor(x => x.FirstOrDefault().Delegacion)</label><br />
+	<b><label style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;"> Paciente: </label></b>
+	<span class="test" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">
 		@Html.DisplayFor(x => x.FirstOrDefault().pacientes.Nombre) @Html.DisplayFor(x => x.FirstOrDefault().pacientes.SegundoNombre) @Html.DisplayFor(x => x.FirstOrDefault().pacientes.ApellidoPaterno)  @Html.DisplayFor(x => x.FirstOrDefault().pacientes.ApellidoMaterno)
 	</span>
 	<br />
 	<b><label style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;"> CONCEPTOS </label></b>
 	<hr />
-	<div class="table-responsive">
-		<table class="table table-striped">
-			<thead class="thead-light">
-				<tr style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-size:larger">
-					<th scope="col" style="font-size:x-large">
-						SERVICIO
-					</th>
-					<th scope="col" style="font-size:x-large">
-						CANTIDAD
-					</th>
-					<th scope="col" style="font-size:x-large">
-						PRECIO
-					</th>
-					<th scope="col" style="font-size:x-large">
-						SUBTOTAL
-					</th>
-					<th scope="col" style="font-size:x-large">
-						IVA
-					</th>
-					<th scope="col" style="font-size:x-large">
-						TOTAL
-					</th>
+	@*<div class="table-responsive">
+			<table class="table table-striped">
+				<thead class="thead-light">
+					<tr style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-size:larger">
+						<th scope="col" style="font-size:x-large">
+							SERVICIO
+						</th>
+						<th scope="col" style="font-size:x-large">
+							CANTIDAD
+						</th>
+						<th scope="col" style="font-size:x-large">
+							PRECIO
+						</th>
+						<th scope="col" style="font-size:x-large">
+							SUBTOTAL
+						</th>
+						<th scope="col" style="font-size:x-large">
+							IVA
+						</th>
+						<th scope="col" style="font-size:x-large">
+							TOTAL
+						</th>
+					</tr>
+					@foreach (var i in Model)
+					{
+				<tr>
+					<td scope="row" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;font-size:x-large">
+						@i.serviciosDelegacion.NombreServicio
+					</td>
+					<td scope="row" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;font-size:x-large">
+						@i.ordenesDetalles.cantidad
+					</td>
+					<td scope="row" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;font-size:x-large">
+						@String.Format("{0:C}", @i.ordenesDetalles.Precio)
+					</td>
+					<td scope="row" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;font-size:x-large">
+						@String.Format("{0:C}", @i.ordenesDetalles.subtotal)
+					</td>
+					<td scope="row" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;font-size:x-large">
+						@String.Format("{0:C}", @i.ordenesDetalles.IVA)
+					</td>
+
+					<td scope="row" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;font-size:x-large">
+						@String.Format("{0:C}", @i.ordenesDetalles.Total)
+					</td>
 				</tr>
-				@foreach (var i in Model)
-				{
-			<tr>
-				<td scope="row" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;font-size:x-large">
-					@i.serviciosDelegacion.NombreServicio
-				</td>
-				<td scope="row" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;font-size:x-large">
-					@i.ordenesDetalles.cantidad
-				</td>
-				<td scope="row" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;font-size:x-large">
-					@String.Format("{0:C}", @i.ordenesDetalles.Precio)
-				</td>
-				<td scope="row" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;font-size:x-large">
-					@String.Format("{0:C}", @i.ordenesDetalles.subtotal)
-				</td>
-				<td scope="row" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;font-size:x-large">
-					@String.Format("{0:C}", @i.ordenesDetalles.IVA)
-				</td>
+					}
+				</thead>
+				<thead class="thead-light">
+					<tr style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;font-size:x-large">
+						<th scope="col" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;font-size:x-large">
+						</th>
+						<th scope="col" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;font-size:x-large">
+						</th>
+						<th scope="row" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;font-size:x-large">
+						</th>
+						<th scope="row" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;border-top-style:solid;font-size:medium">
+							$@Html.DisplayFor(x => x.FirstOrDefault().subtotal)
+						</th>
+						<th scope="row" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;border-top-style:solid;font-size:medium">
+							$@Html.DisplayFor(x => x.FirstOrDefault().IVA).ToString()
+						</th>
+						<th scope="row" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;border-top-style:solid;font-size:medium">
+							$@Html.DisplayFor(x => x.FirstOrDefault().totalpagado)
+						</th>
+				</thead>
+			</table>
+		</div>
+		<hr />
+		<span class="test" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;font-size:medium">
+			@Html.DisplayFor(x => x.FirstOrDefault().letras)
+		</span>*@
+<table align="center">
+	<thead style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', 'Arial, sans-serif';font-size:xx-large;font-weight:200">
+	<td>
+		Cantidad
+	</td>
+	<td>
+		Descripción
+	</td>
+	<td>
+		Subtotal
+	</td>
+	<td>
+		IVA
+	</td>
+	<td>
+		Total
+	</td>
+	</thead>
+	@foreach (var i in Model)
+	{
+		<tr style="font-size:larger">
+			<td>
+				<label style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', 'Arial, sans-serif'">@i.ordenesDetalles.cantidad</label>
+			</td>
+			<td>
+				<label style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', 'Arial, sans-serif'">@i.serviciosDelegacion.NombreServicio</label>
+			</td>
+			<td>
+				<label style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', 'Arial, sans-serif'">@String.Format("{0:C}", @i.ordenesDetalles.subtotal)</label>
+			</td>
+			<td>
+				<label style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', 'Arial, sans-serif'">@String.Format("{0:C}", @i.ordenesDetalles.IVA)</label>
+			</td>
+			<td>
+				<label style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', 'Arial, sans-serif'">@String.Format("{0:C}", @i.ordenesDetalles.Total)</label>
+			</td>
+		</tr>
 
-				<td scope="row" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;font-size:x-large">
-					@String.Format("{0:C}", @i.ordenesDetalles.Total)
-				</td>
-			</tr>
-				}
-			</thead>
-			<thead class="thead-light">
-				<tr style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;font-size:x-large">
-					<th scope="col" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;font-size:x-large">
-					</th>
-					<th scope="col" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;font-size:x-large">
-					</th>
-					<th scope="row" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;font-size:x-large">
-					</th>
-					<th scope="row" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;border-top-style:solid;font-size:medium">
-						$@Html.DisplayFor(x => x.FirstOrDefault().subtotal)
-					</th>
-					<th scope="row" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;border-top-style:solid;font-size:medium">
-						$@Html.DisplayFor(x => x.FirstOrDefault().IVA).ToString()
-					</th>
-					<th scope="row" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;border-top-style:solid;font-size:medium">
-						$@Html.DisplayFor(x => x.FirstOrDefault().totalpagado)
-					</th>
-			</thead>
-		</table>
-	</div>
-	<hr />
-	<span class="test" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;font-size:medium">
-		@Html.DisplayFor(x => x.FirstOrDefault().letras)
-	</span>
-
+	}
+	<tr style="font-size:larger;font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', 'Arial, sans-serif'" class="col-lg-12">
+		<td>
+			Total Pagado: $@Html.DisplayFor(x => x.FirstOrDefault().totalpagado)
+		</td>
+	</tr>
+</table>
 </div>
 
 

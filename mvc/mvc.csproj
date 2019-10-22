@@ -349,6 +349,7 @@
     <Compile Include="Controllers\ServiciosController.cs" />
     <Compile Include="Controllers\ServiciosDelegacionController.cs" />
     <Compile Include="Controllers\ServiciosPreciosController.cs" />
+    <Compile Include="Controllers\throwsController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -431,6 +432,7 @@
     <Content Include="Views\Ordenes\Recibo.cshtml" />
     <Content Include="Views\Roles\Index.cshtml" />
     <Content Include="Views\Roles\Nuevo.cshtml" />
+    <Content Include="Views\throws\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -258,6 +258,7 @@
 		        $('body').removeClass('modal-open');//eliminamos la clase del body para poder hacer scroll
 				$('.modal-backdrop').remove();//eliminamos el backdrop del modal
 				$("#exampleModalCenter").html(res);
+				$("#Pedido").html('');
 				printContent('exampleModalCenter')
 				//imprimir();
 				Limipar();
@@ -398,13 +399,14 @@
 			$('#Paciente_SegundoNombre').val('');
 			$('#Paciente_ApellidoPaterno').val('');
 			$('#Paciente_ApellidoMaterno').val('');
-			$('#Paciente_FechaNacimiento').val('');
+		    $('#Paciente_FechaNacimiento').val('');
+		    $('#Paciente_Sexo').val('');
 		    $('#Edad').val('');
 		    $('#Paciente_RFC').val('');
 	    	$('#Paciente_CURP').val('');
 		    $('#Paciente_Email').val('');
 		    $('#Paciente_Telefono').val('');
-		
+
 
 			$("#Paciente_Nombre").removeClass("form-control is-valid");
 			$("#Paciente_SegundoNombre").removeClass("form-control is-valid");
