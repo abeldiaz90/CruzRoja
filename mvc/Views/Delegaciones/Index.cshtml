@@ -4,7 +4,6 @@
 	ViewBag.Title = "Cruz Roja";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <h2>Delegaciones</h2>
 @Html.ActionLink("Nuevo", "Nuevo", null, new { @class = "btn btn-outline-info" })
 <table class="table">
@@ -26,7 +25,7 @@
 				Telefono
 			</th>
 			<th>
-				
+
 			</th>
 		</tr>
 		@foreach (var modelo in Model)
@@ -54,4 +53,13 @@
 		}
 	</thead>
 </table>
-
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script type="text/javascript">
+	$(document).ready(function () {
+		dataLayer = [{
+			'pagina': 'DELEGACIONES',
+			'url': 'DELEGACIONES',
+			'event': 'paginavista'
+		}];
+	});
+</script>

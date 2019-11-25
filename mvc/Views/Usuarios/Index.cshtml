@@ -1,33 +1,39 @@
 ﻿@model IEnumerable<mvc.Models.Users>
 @{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Usuarios</h2>
 
-<table>
+<table class="table">
+	<thead class="thead-dark">
+		<tr>
+			<th scope="col">Usuario</th>
+			<th scope="col">Correo</th>
+			<th scope="col">Rol</th>
+			<th scope="col">Delegación</th>
+			<th scope="col"></th>
+		</tr>
+		@foreach (var i in Model)
+		{
 	<tr>
-		<th>Usuario</th>
-		<th>Correo</th>
-		<th>Rol</th>
-		<th>Delegación</th>
+		<td>
+			@i.Usuario
+		</td>
+		<td>
+			@i.Correo
+		</td>
+		<td>
+			@i.IdRol
+		</td>
+		<td>
+			@i.IdDelegacion
+		</td>
+		<td>
+			@Html.ActionLink("Editar", "Editar", new { @Id = @i.Id }, new { @class = "btn btn-outline-primary" })
+		</td>
 	</tr>
-	@foreach (var i in Model)
-	{
-<tr>
-	<td>
-		@i.Usuario
-	</td>
-	<td>
-		@i.Correo
-	</td>
-	<td>
-		@i.IdRol
-	</td>
-	<td>
-		@i.IdDelegacion
-	</td>
-</tr>
-	}
+		}
+	</thead>
 </table>

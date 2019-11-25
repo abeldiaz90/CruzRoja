@@ -7,7 +7,7 @@
 	<img src="~/images/logo.png" alt="logo" /><br />
 	<label id="lbldelegacion" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">DELEGACIÓN: @Html.DisplayFor(x => x.FirstOrDefault().Delegacion)</label><br />
 	<b><label style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;"> Paciente: </label></b>
-	<span class="test" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">
+	<span class="test" style="font-size:larger;'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">
 		@Html.DisplayFor(x => x.FirstOrDefault().pacientes.Nombre) @Html.DisplayFor(x => x.FirstOrDefault().pacientes.SegundoNombre) @Html.DisplayFor(x => x.FirstOrDefault().pacientes.ApellidoPaterno)  @Html.DisplayFor(x => x.FirstOrDefault().pacientes.ApellidoMaterno)
 	</span>
 	<br />

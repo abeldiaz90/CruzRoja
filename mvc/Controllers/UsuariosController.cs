@@ -12,7 +12,7 @@ namespace mvc.Controllers
     {
         Contexto con = new Contexto();
         // GET: Usuarios
-        [Authorize(Roles = "Admin")]
+       // [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
             IEnumerable<Users> usuarios = con.users.ToList();
@@ -29,7 +29,7 @@ namespace mvc.Controllers
             return View(listausarios);
         }
 
-        [Authorize(Roles = "Admin")]
+       // [Authorize(Roles = "Admin")]
         public ActionResult Nuevo()
         {
             Users us = new Users();
@@ -59,7 +59,7 @@ namespace mvc.Controllers
             return View(us);
         }
 
-        [Authorize(Roles = "Admin")]
+     //   [Authorize(Roles = "Admin")]
         public ActionResult Editar(int id)
         {
             Users us = new Users();
@@ -84,13 +84,22 @@ namespace mvc.Controllers
                 listadelegaciones.Add(d);
             }
 
+            Contexto co = new Contexto();
+            var usuarios = co.users.FirstOrDefault(x => x.Id == id);
+
             us.roleslista = roles;
             us.delegaciones = listadelegaciones;
+            us.Id = usuarios.Id;
+            us.IdDelegacion = usuarios.IdDelegacion;
+            us.IdRol = usuarios.IdRol;
+            us.Correo = Seguridad.Decrypt(usuarios.Correo);
+            us.Usuario = Seguridad.Decrypt(usuarios.Usuario);
+            
             return View(us);
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+  //      [Authorize(Roles = "Admin")]
         public ActionResult Guardar(Users usuarios)
         {
             usuarios.Usuario = Seguridad.Encrypt(usuarios.Usuario);

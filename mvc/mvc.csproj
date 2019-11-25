@@ -251,6 +251,7 @@
     <Content Include="estilos.css" />
     <Content Include="Global.asax" />
     <Content Include="home.css" />
+    <Content Include="html1.html" />
     <Content Include="images\header.jpg" />
     <Content Include="images\logo.png" />
     <Content Include="images\pic01.jpg" />

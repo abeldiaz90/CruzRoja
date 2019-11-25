@@ -71,12 +71,11 @@
 	</div>
 </div>
 <script src="~/Scripts/jquery-3.4.1.js"></script>
-<script>
+<script type="text/javascript">
 	$(document).ready(function () {
 		$('#btnAgregarPaciente').on('click', function () {
 			window.open("../Pacientes/Nuevo", "_blank");
 		});
-
 		$('#btnBuscarPaciente').on('click', function () {
 			var Nombre = $('#Paciente_Nombre').val().toUpperCase();
 			var SegundoNombre = $('#Paciente_SegundoNombre').val().toUpperCase();
@@ -87,6 +86,12 @@
 				if (response.length > 0) {
 					$('#myPartialViewDiv').html('');
 					$('#myPartialViewDiv').html(response);
+					//dataLayer.push({
+					//	'categoria': 'ORDENES',
+					//	'accion': 'BUSCAR',
+					//	'etiqueta': 'PACIENTES',
+					//	'event': 'eventos'
+					//});
 				} else { $('#myPartialViewDiv').html(''); }
 			}).fail(function (error) {
 				console.log(error)
@@ -94,37 +99,6 @@
 				alert(error.StatusText);
 			});
 		});
-
-		$('#btnLimpiar').on('click', function () {
-			$('#Paciente_Id').val('');
-			$('#Paciente_Nombre').val('');
-			$('#Paciente_SegundoNombre').val('');
-			$('#Paciente_ApellidoPaterno').val('');
-			$('#Paciente_ApellidoMaterno').val('');
-			$('#Paciente_FechaNacimiento').val('');
-			$('#Edad').val('');
-			$('#Paciente_Email').val('');
-			$('#Paciente_Telefono').val('');
-			$("#Paciente_Nombre").removeClass("form-control is-valid");
-			$("#Paciente_SegundoNombre").removeClass("form-control is-valid");
-			$("#Paciente_ApellidoPaterno").removeClass("form-control is-valid");
-			$("#Paciente_ApellidoMaterno").removeClass("form-control is-valid");
-			$("#Paciente_FechaNacimiento").removeClass("form-control is-valid");
-			$("#Paciente_Sexo").removeClass("form-control is-valid");
-			$("#Paciente_Email").removeClass("form-control is-valid");
-			$("#Paciente_Telefono").removeClass("form-control is-valid");
-			$("#Edad").removeClass("form-control is-valid");
-			$("#Paciente_Nombre").addClass("form-control");
-			$("#Paciente_SegundoNombre").addClass("form-control");
-			$("#Paciente_ApellidoPaterno").addClass("form-control");
-			$("#Paciente_ApellidoMaterno").addClass("form-control");
-			$("#Paciente_FechaNacimiento").addClass("form-control");
-			$("#Paciente_Sexo").addClass("form-control");
-			$("#Paciente_Email").addClass("form-control");
-			$("#Paciente_Telefono").addClass("form-control");
-			$("#Edad").addClass("form-control");
-		});
-
 		$("#Paciente_Nombre").change(function () {
 			$("#Paciente_Nombre").removeClass("form-control is-invalid");
 			$("#Paciente_Nombre").addClass("form-control is-valid");
@@ -141,22 +115,18 @@
 			$("#Paciente_ApellidoMaterno").removeClass("form-control is-invalid");
 			$("#Paciente_ApellidoMaterno").addClass("form-control is-valid");
 		});
-
 		$("#Paciente_FechaNacimiento").change(function () {
 			$("#Paciente_FechaNacimiento").removeClass("form-control is-invalid");
 			$("#Paciente_FechaNacimiento").addClass("form-control is-valid");
 		});
-
 		$("#Paciente_Sexo").change(function () {
 			$("#Paciente_Sexo").removeClass("form-control is-invalid");
 			$("#Paciente_Sexo").addClass("form-control is-valid");
 		});
-
 		$("#Paciente_Email").change(function () {
 			$("#Paciente_Email").removeClass("form-control is-invalid");
 			$("#Paciente_Email").addClass("form-control is-valid");
 		});
-
 		$("#Paciente_Telefono").change(function () {
 			$("#Paciente_Telefono").removeClass("form-control is-invalid");
 			$("#Paciente_Telefono").addClass("form-control is-valid");
@@ -169,10 +139,12 @@
 				contentType: 'application/json'
 			});
 		}
-
 		function LimpiarContenidoPopup() {
 			$('body').removeClass('modal-open');//eliminamos la clase del body para poder hacer scroll
 			$('.modal-backdrop').remove();//eliminamos el backdrop del modal
 		}
+	});
+	$('#btnLimpiar').on('click', function () {
+		Limipar();	
 	});
 </script>

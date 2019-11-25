@@ -3,9 +3,17 @@
 	ViewBag.Title = "Index";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<link rel="stylesheet" type="text/css" href="home.css" media="screen" />
-<link rel="stylesheet" type="text/css" href="print.css" media="print" />
-<link rel="stylesheet" type="text/css" href="estilos.css" />
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+@*<script>
+	dataLayer = [{
+		'pagina': 'ORDENES',
+		'url': 'INDEX',
+		'event': 'paginavista',
+		'categoria': '',
+		'accion': '',
+		'etiqueta': ''
+	}];
+</script>*@
 <div class="ticket">
 
 	<div class="row">
@@ -17,10 +25,7 @@
 	</div>
 </div>
 <h3>Ordenes de Servicio</h3>
-
-
 @Html.Partial("Pacientes")
-
 @using (Html.BeginForm("Agregar", "Ordenes", FormMethod.Post, new { @class = "form", id = "Formulario" }))
 {
 	@Html.AntiForgeryToken();
@@ -207,13 +212,13 @@
 				$("#PagoEfectivo").addClass("invisible");
 			}
 		});
-		$('#btnCancelarOrden').on("click", function () {
+	});
+	$('#btnCancelarOrden').on("click", function () {
 			var conf = confirm("¿Desea Cancelar la Ordén?");
 			if (conf) {
 				var url = '@Url.Action("Cancelar","Ordenes")';
 				var JsonModel = '@Html.Raw(Json.Encode(@Model))'
 			}
-
 			var data = {
 				Id: @Model.Id
 			 }
@@ -231,8 +236,8 @@
 				$('#ordentemporal_IdPrecio').val("");
 				Limipar();
 			});
-		});
-		$('#btncobrarOrden').on("click", function () {
+	});
+	$('#btncobrarOrden').on("click", function () {
 			var regp = /[^0-9.-]+/g;
 			var url = '@Url.Action("Cobrar","Ordenes")';
 			var JsonModel = '@Html.Raw(Json.Encode(@Model))';
@@ -264,7 +269,6 @@
 				Limipar();
 			});
 		});
-	});
 	function formatNumber(n) {
 			// format number 1000000 to 1,234,567
 			return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -406,7 +410,7 @@
 	    	$('#Paciente_CURP').val('');
 		    $('#Paciente_Email').val('');
 		    $('#Paciente_Telefono').val('');
-
+		    $('#ordentemporal_IdPrecio').html('');
 
 			$("#Paciente_Nombre").removeClass("form-control is-valid");
 			$("#Paciente_SegundoNombre").removeClass("form-control is-valid");
@@ -431,8 +435,14 @@
 	    	$('#Paciente_CURP').addClass("form-control");
 		    $('#Paciente_Email').addClass("form-control");
 		    $('#Paciente_Telefono').addClass("form-control");
-		    $('#btnCobro').removeAttr('disabled')
-		}
+		    $('#btnCobro').removeAttr('disabled');
+		//	dataLayer.push({
+		//	'categoria': 'ORDENES',
+		//	'accion': 'LIMPIAR',
+		//	'etiqueta': 'LIMPIAR',
+		//	'event': 'eventos'
+		//});
+	}
 	function Cobro() {
 	if (($('#Paciente_Nombre').val() == '') || ($('#Paciente_ApellidoPaterno').val() == '')) {
 		$("#exampleModalCenter").hide();

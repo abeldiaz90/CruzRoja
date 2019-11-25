@@ -5,7 +5,7 @@
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <h2>Paises</h2>
-<b>@Html.ActionLink("Nuevo", "Nuevo",null,new {@class="btn btn-outline-info" })</b>
+<b>@Html.ActionLink("Nuevo", "Nuevo", null, new { @class = "btn btn-outline-info" })</b>
 <table class="table">
 	<thead class="thead-dark">
 		<tr>
@@ -26,3 +26,13 @@
 		}
 	</thead>
 </table>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script type="text/javascript">
+	$(document).ready(function () {
+		//dataLayer = [{
+		//	'pagina': 'PAISES',
+		//	'url': 'PAISES',
+		//	'event': 'paginavista'
+		//}];
+	});
+</script>
