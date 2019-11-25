@@ -4,16 +4,25 @@
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <script src="~/Scripts/jquery-3.4.1.js"></script>
+<script type="text/javascript">
+	var utag_data = {
+		titulo: "HOME",
+		pagina: "ORDENES",
+		event_category: "",
+		event_action: "",
+		event_label:""
+	}
+</script>
 @*<script>
-	dataLayer = [{
-		'pagina': 'ORDENES',
-		'url': 'INDEX',
-		'event': 'paginavista',
-		'categoria': '',
-		'accion': '',
-		'etiqueta': ''
-	}];
-</script>*@
+		dataLayer = [{
+			'pagina': 'ORDENES',
+			'url': 'INDEX',
+			'event': 'paginavista',
+			'categoria': '',
+			'accion': '',
+			'etiqueta': ''
+		}];
+	</script>*@
 <div class="ticket">
 
 	<div class="row">
@@ -114,6 +123,7 @@
 <script src="~/Scripts/jquery-3.4.1.js"></script>
 <script>
 	$(document).ready(function () {
+		utag.view({ 'titulo': "INDEX", 'pagina': "ORDENES" });
 		$("#Paciente_Sexo").addClass("form-control");
 		$('#ordentemporal_IdServicio').on('change', function () {
 			var Id = $('#ordentemporal_IdServicio').val();
@@ -229,6 +239,7 @@
 				url: url,
 				contentType: "application/json"
 			}).done(function (res) {
+				 utag.link({ "event_category": "ORDENES", "event_action": "SERVICIOS", "event_label": "CANCELAR ORDEN" })
 				$("#Pedido").html(res);
 				$('#ordentemporal_cantidad').val("");
 				$("#ordentemporal_cantidad").removeClass();
@@ -389,7 +400,7 @@
     $('#ordentemporal_IdPrecio').html('');
     $('#ordentemporal_IdPrecio').append(options);
     $('#ordentemporal_IdPrecio').val(_IdPrecio);
-
+    utag.link({ "event_category": "ORDENES", "event_action": "SERVICIOS", "event_label": "CONSULTAR PRECIO" });
 				} else {$('#ordentemporal_IdPrecio').html(''); }
 			}).fail(function (error) {
         $('#ordentemporal_IdPrecio').html('');
@@ -436,12 +447,7 @@
 		    $('#Paciente_Email').addClass("form-control");
 		    $('#Paciente_Telefono').addClass("form-control");
 		    $('#btnCobro').removeAttr('disabled');
-		//	dataLayer.push({
-		//	'categoria': 'ORDENES',
-		//	'accion': 'LIMPIAR',
-		//	'etiqueta': 'LIMPIAR',
-		//	'event': 'eventos'
-		//});
+		    utag.link({ "event_category": "ORDENES", "event_action": "PACIENTES", "event_label": "LIMPIAR" });
 	}
 	function Cobro() {
 	if (($('#Paciente_Nombre').val() == '') || ($('#Paciente_ApellidoPaterno').val() == '')) {
