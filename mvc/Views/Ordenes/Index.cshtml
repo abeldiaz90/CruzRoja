@@ -4,7 +4,7 @@
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <script src="~/Scripts/jquery-3.4.1.js"></script>
-<script type="text/javascript">
+@*<script type="text/javascript">
 	var utag_data = {
 		titulo: "HOME",
 		pagina: "ORDENES",
@@ -12,8 +12,8 @@
 		event_action: "",
 		event_label:""
 	}
-</script>
-@*<script>
+</script>*@
+<script>
 		dataLayer = [{
 			'pagina': 'ORDENES',
 			'url': 'INDEX',
@@ -22,7 +22,7 @@
 			'accion': '',
 			'etiqueta': ''
 		}];
-	</script>*@
+	</script>
 <div class="ticket">
 
 	<div class="row">
@@ -123,7 +123,7 @@
 <script src="~/Scripts/jquery-3.4.1.js"></script>
 <script>
 	$(document).ready(function () {
-		utag.view({ 'titulo': "INDEX", 'pagina': "ORDENES" });
+		//utag.view({ 'titulo': "INDEX", 'pagina': "ORDENES" });
 		$("#Paciente_Sexo").addClass("form-control");
 		$('#ordentemporal_IdServicio').on('change', function () {
 			var Id = $('#ordentemporal_IdServicio').val();

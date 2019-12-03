@@ -3,7 +3,7 @@
 <head>
 
 	<!-- Google Tag Manager -->
-	<!--<script>
+	<script>
 		dataLayer = [{
 		'pagina': '',
 		'url': '',
@@ -20,7 +20,7 @@
 			}); var f = d.getElementsByTagName(s)[0],
 				j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
 					'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-		})(window, document, 'script', 'dataLayer', 'GTM-NK5KGBD');</script>-->
+		})(window, document, 'script', 'dataLayer', 'GTM-NK5KGBD');</script>
 	<!-- End Google Tag Manager -->
 
 	<title>Cruz Roja</title>
@@ -32,6 +32,10 @@
 	{
 		<div class="pos-f-t">
 			<div class="navbar navbar-expand-lg navbar-light bg-light" id="navbarToggleExternalContent">
+				<a class="navbar-brand" href="#">Menu</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
 				<span class="text-muted" style="color:white">
 					<nav class="navbar navbar-expand-lg navbar-light bg-light">
 						<div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -71,7 +75,7 @@
 									</div>
 								</li>
 								<li class="nav-item">
-									<a class="nav-link" href="~/Account/signout" tabindex="-1" aria-disabled="false">Cerrar Sesión</a>
+									<a class="nav-link" href="~/Account/signout" tabindex="-1" aria-disabled="false" onclick="dataLayer.push({ categoria: 'ACCOUNT', accion: 'LOGIN', etiqueta: 'CIERRE DE SESIÓN', event: 'eventos' });">Cerrar Sesión</a>
 								</li>
 							</ul>
 							<form class="form-inline my-2 my-lg-0">
@@ -92,27 +96,27 @@
 	}
 </head>
 <body style="background-color:white">
-	<script type="text/javascript">
+	<!--<script type="text/javascript">
 		var utag_data = {
 			titulo: "", // titulo
 			pagina: "" // pagina
 		}
-	</script>
+	</script>-->
 
 	<!-- Loading script asynchronously -->
-	<script type="text/javascript">
+	<!--<script type="text/javascript">
 		(function (a, b, c, d) {
 			a = 'https://tags.tiqcdn.com/utag/tu-exam/exam052/prod/utag.js';
 			b = document; c = 'script'; d = b.createElement(c); d.src = a; d.type = 'text/java' + c; d.async = true;
 			a = b.getElementsByTagName(c)[0]; a.parentNode.insertBefore(d, a);
 		})();
-	</script>
+	</script>-->
 
 	<!--Google Tag Manager(noscript)-->
-	<!--<noscript>
+	<noscript>
 		<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NK5KGBD"
 				height="0" width="0" style="display:none;visibility:hidden"></iframe>
-	</noscript>-->
+	</noscript>
 	<!--End Google Tag Manager (noscript)-->
 	<div>
 		<!-- Main -->

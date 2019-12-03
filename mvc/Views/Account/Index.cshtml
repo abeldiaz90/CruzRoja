@@ -3,8 +3,7 @@
 @{
 	ViewBag.Title = "Cruz Roja Mexicana.";
 }
-<!--
-	<script type="text/javascript">
+<script type="text/javascript">
 	dataLayer = [{
 		'pagina': 'ACCOUNT',
 		'url': 'INDEX',
@@ -12,7 +11,7 @@
 		'userid': '',
 		'categoria': '',
 		'accion': '',
-		'etiqueta':''
+		'etiqueta': ''
 	}];
 	(function (w, d, s, l, i) {
 		w[l] = w[l] || []; w[l].push({
@@ -22,7 +21,7 @@
 			j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
 				'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
 	})(window, document, 'script', 'dataLayer', 'GTM-NK5KGBD');
-	</script>-->
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <!-- Scripts -->
@@ -37,42 +36,21 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
 <body style="background-color:red;align-content:center">
-	@*<script type="text/javascript">
-			var utag_data = {
-				titulo: "ACCOUNT", // guardaremos aqui el titulo de la pagina
-				urlamigable: "LOGIN", // la url del sitio
-				categoria: "", // categoria del evento
-				accion: "", // accion
-				etiqueta: "", // etiqueta
-				tag_test: "" //
-			}
-		</script>
-
-		<script type="text/javascript">
-			(function (a, b, c, d) {
-				a = 'https://tags.tiqcdn.com/utag/education-martha/santander-012/prod/utag.js';
-				b = document; c = 'script'; d = b.createElement(c); d.src = a; d.type = 'text/java' + c; d.async = true;
-				a = b.getElementsByTagName(c)[0]; a.parentNode.insertBefore(d, a);
-			})();
-		</script>*@
-
-	<script type="text/javascript">
-		var utag_data = {		
+	<!--<script type="text/javascript">
+		var utag_data = {
 			titulo: "LOGIN", // titulo
 			pagina: "ACCOUNT" // pagina
 		}
 	</script>
 
 	<!-- Loading script asynchronously -->
-	<script type="text/javascript">
+	<!--<script type="text/javascript">
 		(function (a, b, c, d) {
 			a = 'https://tags.tiqcdn.com/utag/tu-exam/exam052/prod/utag.js';
 			b = document; c = 'script'; d = b.createElement(c); d.src = a; d.type = 'text/java' + c; d.async = true;
 			a = b.getElementsByTagName(c)[0]; a.parentNode.insertBefore(d, a);
 		})();
-	</script>
-
-
+	</script>-->
 	<div class="row" style="background-color:red;align-content:center;vertical-align:central;">
 		<div class="col-md-3" style="align-content:safe center">
 			<section id="loginForm" style="color:white;align-content:center">
@@ -113,8 +91,17 @@
 	</div>
 </body>
 <script>
-	$(document).ready(function () {
-		$('#btnInicioSesion').on("click", function () {
+	$(document).ready(function () {	
+			});
+	function AjaxCall(url, data, type) {
+			return $.ajax({
+			url: url,
+			type: type ? type : 'GET',
+			data: data,
+			contentType: 'application/json'
+			});
+	}
+	$('#btnInicioSesion').on("click", function () {
 			var url = '@Url.Action("Login", "Account")';
 			var JsonModel = '@Html.Raw(Json.Encode(@Model))'
 			var data = {
@@ -130,28 +117,17 @@
 			}).done(function (res) {
 			console.log(res);
 				if (res) {
-					//dataLayer.push = ({
-					//'pagina': 'ACCOUNT',
-					//'url': 'LOGIN',
-					//'categoria': 'ACCOUNT',
-					//'accion': 'LOGIN',
-					//'etiqueta':'INICIO EXITOSO',
-					//'event': 'evento',
-					//'userid': data.Usuario
-					//});
+					dataLayer.push({
+					categoria: 'ACCOUNT',
+					accion: 'LOGIN',
+					etiqueta:'INICIO EXITOSO',
+					event: 'eventos',
+					userid: data.Usuario
+					});
 			window.location.href = '../Ordenes/Index';
 			} else { alert("Password invalido");}
 			}).fail(function (error) {
 			alert(error.StatusText);
 			});
 			});
-			});
-			function AjaxCall(url, data, type) {
-			return $.ajax({
-			url: url,
-			type: type ? type : 'GET',
-			data: data,
-			contentType: 'application/json'
-			});
-			}
 </script>
