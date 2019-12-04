@@ -93,6 +93,8 @@ namespace mvc.Controllers
         public PartialViewResult Agregar(Ordenes ordenes)
         {
             Contexto con = new Contexto();
+            var itemAgregado = con.ordenestemporal.Count(X => X.IdServicio == ordenes.ordentemporal.IdServicio);
+            
             var Iva = con.serviciosdelegacion.Where(x => x.Id == ordenes.ordentemporal.IdServicio).FirstOrDefault().AplicaIVA;
 
             if (Iva)
@@ -239,15 +241,15 @@ namespace mvc.Controllers
                 iddelegacion = i.IdDelegacion;
             }
 
-           
-      
+
+
             var delnombre = Seguridad.Decrypt(contexto.delegaciones.FirstOrDefault(x => x.Id == iddelegacion).Municipio);
             var vistaRecibo = from Ord in orden
                               join ord_det in ordendetalles on Ord.Id equals ord_det.IdFolio
                               join sd in serviciosDelegacion on ord_det.IdServicio equals sd.Id
                               join pa in pacientes on Ord.Idpaciente equals pa.Id
                               orderby sd.NombreServicio
-                              select new OrdenesRecibos { ordenes = Ord, ordenesDetalles = ord_det, serviciosDelegacion = sd, pacientes = pa, subtotal = rsubtotal, total = rtotal, IVA = riva, totalpagado = Ord.Total, pagacon = Ord.PagaCon, cambio = Ord.cambio, Delegacion = delnombre,letras=enletras(Ord.Total) };
+                              select new OrdenesRecibos { ordenes = Ord, ordenesDetalles = ord_det, serviciosDelegacion = sd, pacientes = pa, subtotal = rsubtotal, total = rtotal, IVA = riva, totalpagado = Ord.Total, pagacon = Ord.PagaCon, cambio = Ord.cambio, Delegacion = delnombre, letras = enletras(Ord.Total) };
 
             return PartialView("Recibo", vistaRecibo);
         }

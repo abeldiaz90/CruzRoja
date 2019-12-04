@@ -48,7 +48,7 @@
 						<label id="_edad">Edad:</label>
 						<input type="text" id="Edad" class="form-control" />
 					</div>
-					<div class="col-sm col-lg-9">
+					<div class="col-sm col-lg-12">
 						<button type="button" class="btn btn-outline-primary" id="btnAgregarPaciente">Agregar Paciente</button>
 						<button type="button" class="btn btn-outline-info" data-toggle="modal" data-target=".bd-example-modal-lg" id="btnBuscarPaciente">Buscar Pacientes</button>
 						<button type="button" class="btn btn-outline-dark" id="btnLimpiar">Limpiar</button>
@@ -73,10 +73,12 @@
 <script src="~/Scripts/jquery-3.4.1.js"></script>
 <script type="text/javascript">
 	$(document).ready(function () {
-		$('#btnAgregarPaciente').on('click', function () {
+		
+	});
+	$('#btnAgregarPaciente').on('click', function () {
 			window.open("../Pacientes/Nuevo", "_blank");
 		});
-		$('#btnBuscarPaciente').on('click', function () {
+	$('#btnBuscarPaciente').on('click', function () {
 			var Nombre = $('#Paciente_Nombre').val().toUpperCase();
 			var SegundoNombre = $('#Paciente_SegundoNombre').val().toUpperCase();
 			var ApellidoPaterno = $('#Paciente_ApellidoPaterno').val().toUpperCase();
@@ -99,39 +101,39 @@
 				alert(error.StatusText);
 			});
 		});
-		$("#Paciente_Nombre").change(function () {
-			$("#Paciente_Nombre").removeClass("form-control is-invalid");
-			$("#Paciente_Nombre").addClass("form-control is-valid");
+	$("#Paciente_Nombre").change(function () {
+	$("#Paciente_Nombre").removeClass("form-control is-invalid");
+	$("#Paciente_Nombre").addClass("form-control is-valid");
 		});
-		$("#Paciente_SegundoNombre").change(function () {
-			$("#Paciente_SegundoNombre").removeClass("form-control is-invalid");
-			$("#Paciente_SegundoNombre").addClass("form-control is-valid");
+	$("#Paciente_SegundoNombre").change(function () {
+	$("#Paciente_SegundoNombre").removeClass("form-control is-invalid");
+	$("#Paciente_SegundoNombre").addClass("form-control is-valid");
 		});
-		$("#Paciente_ApellidoPaterno").change(function () {
+	$("#Paciente_ApellidoPaterno").change(function () {
 			$("#Paciente_ApellidoPaterno").removeClass("form-control is-invalid");
 			$("#Paciente_ApellidoPaterno").addClass("form-control is-valid");
 		});
-		$("#Paciente_ApellidoMaterno").change(function () {
+	$("#Paciente_ApellidoMaterno").change(function () {
 			$("#Paciente_ApellidoMaterno").removeClass("form-control is-invalid");
 			$("#Paciente_ApellidoMaterno").addClass("form-control is-valid");
 		});
-		$("#Paciente_FechaNacimiento").change(function () {
+	$("#Paciente_FechaNacimiento").change(function () {
 			$("#Paciente_FechaNacimiento").removeClass("form-control is-invalid");
 			$("#Paciente_FechaNacimiento").addClass("form-control is-valid");
 		});
-		$("#Paciente_Sexo").change(function () {
+	$("#Paciente_Sexo").change(function () {
 			$("#Paciente_Sexo").removeClass("form-control is-invalid");
 			$("#Paciente_Sexo").addClass("form-control is-valid");
 		});
-		$("#Paciente_Email").change(function () {
+	$("#Paciente_Email").change(function () {
 			$("#Paciente_Email").removeClass("form-control is-invalid");
 			$("#Paciente_Email").addClass("form-control is-valid");
 		});
-		$("#Paciente_Telefono").change(function () {
+	$("#Paciente_Telefono").change(function () {
 			$("#Paciente_Telefono").removeClass("form-control is-invalid");
 			$("#Paciente_Telefono").addClass("form-control is-valid");
 		});
-		function AjaxCall(url, data, type) {
+	function AjaxCall(url, data, type) {
 			return $.ajax({
 				url: url,
 				type: type ? type : 'GET',
@@ -139,11 +141,10 @@
 				contentType: 'application/json'
 			});
 		}
-		function LimpiarContenidoPopup() {
+	function LimpiarContenidoPopup() {
 			$('body').removeClass('modal-open');//eliminamos la clase del body para poder hacer scroll
 			$('.modal-backdrop').remove();//eliminamos el backdrop del modal
 		}
-	});
 	$('#btnLimpiar').on('click', function () {
 		Limipar();	
 	});

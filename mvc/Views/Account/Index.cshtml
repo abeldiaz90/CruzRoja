@@ -91,7 +91,7 @@
 	</div>
 </body>
 <script>
-	$(document).ready(function () {	
+	$(document).ready(function () {
 			});
 	function AjaxCall(url, data, type) {
 			return $.ajax({
@@ -119,8 +119,8 @@
 				if (res) {
 					dataLayer.push({
 					categoria: 'ACCOUNT',
-					accion: 'LOGIN',
-					etiqueta:'INICIO EXITOSO',
+					accion: '@Resources.Recursos.LOGIN',
+					etiqueta:'@Resources.Recursos.LOGIN_EXITOSO',
 					event: 'eventos',
 					userid: data.Usuario
 					});
