@@ -12,7 +12,6 @@ namespace mvc.Controllers
     public class OrdenesController : Controller
     {
         // GET: Ordenes
-
         Contexto contexto = new Contexto();
         [Authorize(Roles = "secretaria")]
         [Authorize(Roles = "Admin")]
@@ -93,10 +92,13 @@ namespace mvc.Controllers
         public PartialViewResult Agregar(Ordenes ordenes)
         {
             Contexto con = new Contexto();
-            var itemAgregado = con.ordenestemporal.Count(X => X.IdServicio == ordenes.ordentemporal.IdServicio);
-            
+            Int32 itemAgregado = con.ordenestemporal.Count(X => X.IdServicio == ordenes.ordentemporal.IdServicio);
+            if (itemAgregado == 0)
+            {
+                ordenes.ordentemporal.Agregado = true;
+            }
+            else { ordenes.ordentemporal.Agregado = false; }
             var Iva = con.serviciosdelegacion.Where(x => x.Id == ordenes.ordentemporal.IdServicio).FirstOrDefault().AplicaIVA;
-
             if (Iva)
             {
                 ordenes.ordentemporal.IVA = ((ordenes.ordentemporal.cantidad) * con.serviciosDelegacionPrecios.Where(x => x.Id == ordenes.ordentemporal.IdPrecio).FirstOrDefault().PrecioSinIva) * decimal.Parse("0.16");
@@ -107,11 +109,10 @@ namespace mvc.Controllers
             }
             ordenes.ordentemporal.subtotal = (ordenes.ordentemporal.cantidad) * con.serviciosDelegacionPrecios.Where(x => x.Id == ordenes.ordentemporal.IdPrecio).FirstOrDefault().PrecioSinIva;
             ordenes.ordentemporal.Total = ordenes.ordentemporal.IVA + ordenes.ordentemporal.subtotal;
-            //ordenes.TotalIVA = con.ordenestemporal.Where(x => x.Id == ordenes.ordentemporal.Id).Sum(x => x.IVA) + ordenes.ordentemporal.IVA;
-
             ordenes.ordentemporal.IdFolio = ordenes.Id;
             con.ordenestemporal.Add(ordenes.ordentemporal);
             con.SaveChanges();
+            con.Dispose();
             IEnumerable<OrdenesTemporalVista> vistaestados = OrdenDetalle(ordenes.Id);
             return PartialView("OrdenesTemporal", vistaestados);
         }
@@ -122,14 +123,15 @@ namespace mvc.Controllers
         {
             Contexto con = new Contexto();
             OrdenesTemporal ordenesTemporal = con.ordenestemporal.FirstOrDefault(s => s.Id == Id);
-            con.ordenestemporal.Remove(ordenesTemporal);
+            con.ordenestemporal.Remove(ordenesTemporal);         
             con.SaveChanges();
 
             IEnumerable<ServiciosDelegacion> serviciosdelegacion = con.serviciosdelegacion.ToList();
             IEnumerable<OrdenesTemporal> ordenestemporal = con.ordenestemporal.Where(m => m.IdFolio == IdFolio).ToList();
             IEnumerable<ServiciosDelegacionPrecios> serviciosDelegacionPrecios = con.serviciosDelegacionPrecios.ToList();
             IEnumerable<OrdenesTemporalVista> vistaestados = OrdenDetalle(IdFolio);
-            return PartialView("OrdenesTemporal", vistaestados);
+            con.Dispose();
+            return PartialView("OrdenesTemporal", vistaestados);          
         }
 
         [Authorize(Roles = "secretaria")]
@@ -138,6 +140,7 @@ namespace mvc.Controllers
         {
             Contexto con = new Contexto();
             OrdenesTemporal ordenesTemporal = con.ordenestemporal.FirstOrDefault(s => s.Id == Id);
+            con.Dispose();
             return Json(ordenesTemporal, JsonRequestBehavior.AllowGet);
         }
 
@@ -154,6 +157,7 @@ namespace mvc.Controllers
             IEnumerable<OrdenesTemporal> ordenestemporal = con.ordenestemporal.Where(m => m.IdFolio == Id).ToList();
             IEnumerable<ServiciosDelegacionPrecios> serviciosDelegacionPrecios = con.serviciosDelegacionPrecios.ToList();
             IEnumerable<OrdenesTemporalVista> vistaestados = OrdenDetalle(Id);
+            con.Dispose();
             return PartialView("OrdenesTemporal", vistaestados);
         }
 
@@ -171,6 +175,7 @@ namespace mvc.Controllers
             ordenesmodelo.Id = ordenes.Id;
             ordenesmodelo.Idpaciente = ordenes.Idpaciente;
             ordenesmodelo.formapago = ordenes.formapago;
+            ordenesmodelo.Factura = ordenes.Factura;
 
             var validar = con.ordenes.FirstOrDefault(m => m.Id == ordenes.Id);
             if (validar == null)
@@ -187,7 +192,7 @@ namespace mvc.Controllers
                 con.SaveChanges();
 
                 IEnumerable<OrdenesTemporal> ordenesTemporals = con.ordenestemporal.Where(s => s.IdFolio == ordenes.Id);
-
+                
                 foreach (var i in ordenesTemporals)
                 {
                     OrdenesDetalles ordenesDetalles = new OrdenesDetalles();
@@ -196,12 +201,17 @@ namespace mvc.Controllers
                     ordenesDetalles.cantidad = i.cantidad;
                     ordenesDetalles.Precio = contexto.serviciosDelegacionPrecios.Where(x => x.Id == i.IdPrecio).FirstOrDefault().PrecioSinIva;
                     ordenesDetalles.subtotal = i.subtotal;
-                    ordenesDetalles.IVA = i.IVA;
+                    if (ordenesmodelo.Factura)
+                    {
+                        ordenesDetalles.IVA = i.IVA;
+                    }
+                    else { ordenesDetalles.IVA = 0; }                    
                     ordenesDetalles.Total = i.Total;
                     con.ordenesdetalles.Add(ordenesDetalles);
                 }
                 con.ordenestemporal.RemoveRange(con.ordenestemporal.Where(x => x.IdFolio == ordenes.Id));
                 con.SaveChanges();
+                con.Dispose();
             }
             return Recibo(ordenes.Id);
         }

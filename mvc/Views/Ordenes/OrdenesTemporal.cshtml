@@ -55,7 +55,7 @@
 				<td></td>
 				<td></td>
 				<td>Subtotal</td>
-				<td>@String.Format("{0:C}", Model.Sum(modelo => modelo.ServiciosDelegacionPrecios.PrecioSinIva * modelo.ordenesTemporal.cantidad))</td>
+				<td><label id="subTotalOrden">@String.Format("{0:C}", Model.Sum(modelo => modelo.ServiciosDelegacionPrecios.PrecioSinIva * modelo.ordenesTemporal.cantidad))</label></td>
 			</tr>
 			<tr>
 				<td></td>

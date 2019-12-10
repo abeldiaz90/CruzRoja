@@ -61,6 +61,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a LA FACTURA GENERA EL COBRO DEL IVA.
+        /// </summary>
+        internal static string FACTURACION_MENSAJE {
+            get {
+                return ResourceManager.GetString("FACTURACION_MENSAJE", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a LOGIN.
         /// </summary>
         internal static string LOGIN {

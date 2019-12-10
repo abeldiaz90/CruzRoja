@@ -85,6 +85,10 @@
 						@Html.LabelFor(s => s.formapago)
 						@Html.EnumDropDownListFor(s => s.formapago)
 					</div>
+					<div>
+						@Html.LabelFor(s => s.Factura, new { @class = "font-weight-bold" })
+						@Html.CheckBoxFor(s => s.Factura)
+					</div>
 					<div class="row">
 						<div id="PagoEfectivo" class="invisible">
 							@using (Html.BeginForm("Cobrar", "Ordenes", FormMethod.Post))
@@ -106,15 +110,19 @@
 											@Html.EditorFor(s => s.cambio, new { htmlAttributes = new { @class = "form-control" } })
 										</div>
 									</div>
-
 								</fieldset>
 							}
 						</div>
 					</div>
 				</div>
 			</div>
+			<div id="alertaIVA" class="alert alert-danger" role="alert" style="visibility:hidden">
+				<h4 class="alert-heading">@Resources.Recursos.FACTURACION_MENSAJE</h4>
+				<p>Si requiere factura se le cobrara IVA  donde apliquen los conceptos</p>
+				<hr>
+			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
 				<button type="button" class="btn btn-primary disabled oculto-impresion" id="btncobrarOrden">Cobrar y Generar Orden</button>
 			</div>
 		</div>
@@ -259,12 +267,12 @@
 				pagacon: parseFloat($('#PagaCon').val().replace(regp, '')),
 				cambio: parseFloat($('#cambio').val().replace(regp, '')),
 				idpaciente: $('#Id').val(),
-				formapago: $('#formapago').val()
-			}
-
+				formapago: $('#formapago').val(),
+				factura: $('#Factura').is(':checked')
+		}
 			$.ajax({
 				type: "POST",
-				data: JSON.stringify({ 'Id': datos.Id, 'Total': datos.total, 'PagaCon': datos.pagacon, 'cambio': datos.cambio, 'Idpaciente': datos.idpaciente, 'formapago': datos.formapago }),
+				data: JSON.stringify({ 'Id': datos.Id, 'Total': datos.total, 'PagaCon': datos.pagacon, 'cambio': datos.cambio, 'Idpaciente': datos.idpaciente, 'formapago': datos.formapago,'Factura':datos.factura }),
 				url: url,
 				contentType: "application/json"
 			}).done(function (res) {
@@ -279,7 +287,18 @@
 				//imprimir();
 				Limipar();
 			});
-		});
+	});
+	$('#Factura').on("click", function () {
+		if ($(this).is(':checked')) {
+			$("#Total").val(document.getElementById("totalOrden").innerText);
+			$("#alertaIVA").removeAttr("style","visibility:hidden");
+			$("#alertaIVA").attr("style", "visibility:visible");
+		} else {
+			$("#alertaIVA").removeAttr("style","visibility:visible");
+			$("#alertaIVA").attr("style","visibility:hidden");
+			$("#Total").val(document.getElementById("subTotalOrden").innerText);
+		}
+	});
 	function formatNumber(n) {
 			// format number 1000000 to 1,234,567
 			return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -395,7 +414,7 @@
    	function ConsultarPrecios(_IdServicio, _IdPrecio) {
 			var obj = {IdServicio: _IdServicio };
 			AjaxCall('/ServiciosPrecios/ConsultaPrecios/' + obj.IdServicio, JSON.stringify(obj), 'POST').done(function (response) {
-				if (response.length > 0) {				
+				if (response.length > 0) {
 					var options = '';
 					options += '<option value="Select">Seleccione el Precio</option>';
 					for (var i = 0; i < response.length; i++) {
@@ -459,7 +478,7 @@
 		$('.modal-backdrop').remove();
 				alert("Ingrese datos del paciente");
 	} else {
-			$("#Total").val(document.getElementById("totalOrden").innerText);
+			$("#Total").val(document.getElementById("subTotalOrden").innerText);
 			$("#Total").attr("disabled", "disabled");
 		}
 		}

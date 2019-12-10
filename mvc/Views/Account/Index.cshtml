@@ -54,7 +54,7 @@
 	<div class="row" style="background-color:red;align-content:center;vertical-align:central;">
 		<div class="col-md-3" style="align-content:safe center">
 			<section id="loginForm" style="color:white;align-content:center">
-				<img src="~/images/logo.png" />
+				<!--<img src="~/images/logo.png" />-->
 				@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 				{
 					@Html.AntiForgeryToken()

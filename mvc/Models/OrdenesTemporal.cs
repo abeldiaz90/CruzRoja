@@ -40,5 +40,8 @@ namespace mvc.Models
 
         [Display(Name = "Cambio:")]
         public decimal cambio { set; get; }
+
+        [Display(Name ="Elemento ya fue agregado")]
+        public Boolean Agregado { set; get; }
     }
 }
