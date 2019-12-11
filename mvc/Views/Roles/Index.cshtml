@@ -3,7 +3,6 @@
     ViewBag.Title = "Roles";
 }
 @Html.ActionLink("Nuevo", "Nuevo", null, new {@class="btn btn-primary" })
-<h2>Roles</h2>
 <table class="table-responsive">
 	<thead class="active">
 		<tr>
@@ -13,11 +12,14 @@
 		</tr>
 		@foreach (var i in Model)
 		{
-			<tr>
-				<td scope="row">
-					@i.Rol
-				</td>
-			</tr>
+	<tr>
+		<td scope="row">
+			@i.Rol
+		</td>
+		<td scope="row">
+			@Html.ActionLink("Editar", "Editar", new { @Id = i.Id }, new { @class = "btn btn-outline-primary" })
+		</td>
+	</tr>
 		}
 	</thead>
 </table>

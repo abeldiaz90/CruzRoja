@@ -29,7 +29,10 @@ namespace mvc.Controllers
 
         public ActionResult Editar(Roles roles)
         {
-            return View();
+            Contexto con = new Contexto();
+            var rol=con.roles.FirstOrDefault(x => x.Id == roles.Id);
+            rol.Rol = Seguridad.Decrypt(rol.Rol);
+            return View(rol);
         }
 
         public ActionResult Guardar(Roles roles)

@@ -15,16 +15,24 @@ namespace mvc.Controllers
        // [Authorize(Roles = "Admin")]
         public ActionResult Index()
         {
-            IEnumerable<Users> usuarios = con.users.ToList();
-            List<Users> listausarios = new List<Users>();
-            foreach (var i in usuarios)
+            IEnumerable<Users> listausarios = con.users.ToList();
+            IEnumerable<Roles> listaroles = con.roles.ToList();
+            IEnumerable<Delegaciones> listadelegaciones = con.delegaciones.ToList();
+            var ur = from us in listausarios
+                            join lr in listaroles on us.IdRol equals lr.Id
+                            join ld in listadelegaciones on us.IdDelegacion equals ld.Id
+                     select new UsersRoles { roles = lr, users = us, delegaciones=ld};
+           // IEnumerable<UsersRoles> listarolesusuarios = new IEnumerable<UsersRoles>;
+            foreach (var i in ur)
             {
-                Users usuario = new Users();
-                usuario.Id = i.Id;
-                usuario.Usuario = Seguridad.Decrypt(i.Usuario);
-                usuario.delegacion = i.delegacion;
-                usuario.Correo = Seguridad.Decrypt(i.Correo);
-                listausarios.Add(usuario);
+               // UsersRoles urlista = new UsersRoles();
+                i.users.Id = i.users.Id;
+                i.users.Usuario = Seguridad.Decrypt(i.users.Usuario);
+                i.users.delegacion = i.users.delegacion;
+                i.users.Correo = Seguridad.Decrypt(i.users.Correo);
+                i.roles.Rol = Seguridad.Decrypt(i.roles.Rol);
+                i.delegaciones.Municipio = Seguridad.Decrypt(i.delegaciones.Municipio);
+               // ur.Add(urlista);
             }
             return View(listausarios);
         }
@@ -63,7 +71,7 @@ namespace mvc.Controllers
         public ActionResult Editar(int id)
         {
             Users us = new Users();
-            IEnumerable<Roles> listaroles = con.roles.ToList().Where(x => x.Id == id);
+            IEnumerable<Roles> listaroles = con.roles.ToList();
             List<Roles> roles = new List<Roles>();
 
             IEnumerable<Delegaciones> delegaciones = con.delegaciones.ToList().OrderBy(s => s.Municipio);
