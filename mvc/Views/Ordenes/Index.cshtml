@@ -4,15 +4,6 @@
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <script src="~/Scripts/jquery-3.4.1.js"></script>
-@*<script type="text/javascript">
-		var utag_data = {
-			titulo: "HOME",
-			pagina: "ORDENES",
-			event_category: "",
-			event_action: "",
-			event_label:""
-		}
-	</script>*@
 <script>
 	dataLayer = [{
 		'pagina': '@Resources.Recursos.ORDENES',
@@ -24,7 +15,6 @@
 	}];
 </script>
 <div class="ticket">
-
 	<div class="row">
 		<div class="col col-lg-12">
 			<button type="button" class="btn btn-light">
@@ -44,18 +34,14 @@
 			<div class="col-sm-3">
 				@Html.HiddenFor(m => m.Id)
 			</div>
-			<div class="input-group">
-				<div class="input-group-prepend">
-					<span class="input-group-text" id="">DETALLE DE LA ORDEN</span>
-					@Html.DropDownListFor(m => m.ordentemporal.IdServicio, new SelectList(Model.serviciosDelegacions, "Id", "NombreServicio"), "---Seleccione un Servicio---")
-					@Html.DropDownListFor(m => m.ordentemporal.IdPrecio, new SelectList(Model.serviciosDelegacionPrecios, "Id", "PrecioSinIva", "---Seleccione el Precio---"))
-					@Html.EditorFor(model => model.ordentemporal.cantidad, new { htmlAttributes = new { @class = "form-control" } })
-					<button id="btnEnviar" type="button">Agregar</button>
-				</div>
-
+			<div class="alert alert-info" role="alert">
+				DETALLE DE ORDEN
+				@Html.DropDownListFor(m => m.ordentemporal.IdServicio, new SelectList(Model.serviciosDelegacions, "Id", "NombreServicio"), "---Seleccione un Servicio---", new { @class = "form-control" })
+				@Html.DropDownListFor(m => m.ordentemporal.IdPrecio, new SelectList(Model.serviciosDelegacionPrecios, "Id", "PrecioSinIva", "---Seleccione el Precio---"), new { @class = "form-control" })
+				@Html.EditorFor(model => model.ordentemporal.cantidad, new { htmlAttributes = new { @class = "form-control" } })
+				<button id="btnEnviar" type="button" class="btn btn-outline-primary">Agregar</button>
 			</div>
 		</div>
-
 	</fieldset>
 }
 
@@ -131,7 +117,7 @@
 <script src="~/Scripts/jquery-3.4.1.js"></script>
 <script>
 	$(document).ready(function () {
-		//utag.view({ 'titulo': "INDEX", 'pagina': "ORDENES" });
+		$("#ordentemporal_cantidad").addClass("form-control");
 		$("#Paciente_Sexo").addClass("form-control");
 	});
 	$('#ordentemporal_IdServicio').on('change', function () {
@@ -180,6 +166,7 @@
 					$('#ordentemporal_IdPrecio').html("");
 					$('#ordentemporal_cantidad').val("");
 					$("#ordentemporal_cantidad").removeClass();
+					$("#ordentemporal_cantidad").addClass('form-control');
 				});
 			}
 		});
@@ -232,14 +219,12 @@
 			}
 		});
 	$('#btnCancelarOrden').on("click", function () {
-			var conf = confirm("¿Desea Cancelar la Ordén?");
+		var conf = confirm("¿Desea Cancelar la Ordén?");
+		console.log(conf);
 		if (conf) {
-				var url = '@Url.Action("Cancelar","Ordenes")';
-				var JsonModel = '@Html.Raw(Json.Encode(@Model))'
-			}
-			var data = {
-				Id: @Model.Id
-			 }
+			var url = '@Url.Action("Cancelar","Ordenes")';
+			var JsonModel = '@Html.Raw(Json.Encode(@Model))'
+			var data = { Id: @Model.Id}
 
 			$.ajax({
 				type: "POST",
@@ -247,15 +232,18 @@
 				url: url,
 				contentType: "application/json"
 			}).done(function (res) {
-				dataLayer.push({ categoria: "@Resources.Recursos.ORDENES", accion: "@Resources.Recursos.ORDENES_SERVICIOS", etiqueta: "@Resources.Recursos.ORDENES_SERVICIOS_CANCELA_ORDEN", event:"eventos" })
+				dataLayer.push({ categoria: "@Resources.Recursos.ORDENES", accion: "@Resources.Recursos.ORDENES_SERVICIOS", etiqueta: "@Resources.Recursos.ORDENES_SERVICIOS_CANCELA_ORDEN", event: "eventos" })
 				$("#Pedido").html(res);
 				$('#ordentemporal_cantidad').val("");
 				$("#ordentemporal_cantidad").removeClass();
+				$("#ordentemporal_cantidad").addClass("form-control");
 				$('#ordentemporal_IdServicio').val("");
 				$('#ordentemporal_IdPrecio').val("");
 				Limipar();
 			});
-	});
+		}
+		});
+
 	$('#btncobrarOrden').on("click", function () {
 			var regp = /[^0-9.-]+/g;
 			var url = '@Url.Action("Cobrar","Ordenes")';
@@ -388,6 +376,7 @@
 					$('#ordentemporal_IdPrecio').html("");
 					$('#ordentemporal_cantidad').val("");
 					$("#ordentemporal_cantidad").removeClass();
+					$("#ordentemporal_cantidad").addClass("form-control");
 				} else { $('#Pedido').html(''); }
 			}).fail(function (error) {
 				$('#Pedido').html('');
@@ -402,10 +391,10 @@
 			var obj = {IdServicio: Id };
 			AjaxCall('/Ordenes/Editar/' + obj.IdServicio, JSON.stringify(obj), 'POST').done(function (response) {
             ConsultarPrecios(response.IdServicio, response.IdPrecio);
-            console.log(response.IdPrecio);
-    $('#ordentemporal_IdServicio').val(response.IdServicio),
-        //$('#ordentemporal_IdPrecio').val(response.IdPrecio),
-        $('#ordentemporal_cantidad').val(response.cantidad);
+            //console.log(response.IdPrecio);
+            $('#ordentemporal_IdServicio').val(response.IdServicio),
+            $('#ordentemporal_IdPrecio').val(response.IdPrecio),
+            $('#ordentemporal_cantidad').val(response.cantidad);
 			}).fail(function (error) {
         $('#Pedido').html('');
     alert(error.StatusText);

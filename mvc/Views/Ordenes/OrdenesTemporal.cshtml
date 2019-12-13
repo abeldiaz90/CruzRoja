@@ -67,7 +67,7 @@
 				<td></td>
 				<td></td>
 				<td>Total:</td>
-				<td><label id="totalOrden">@String.Format("{0:C}", Model.Sum(modelo => modelo.ordenesTemporal.subtotal)+Model.Sum(modelo => modelo.ordenesTemporal.IVA))</label></td>
+				<td><label id="totalOrden">@String.Format("{0:C}", Model.Sum(modelo => modelo.ordenesTemporal.subtotal) + Model.Sum(modelo => modelo.ordenesTemporal.IVA))</label></td>
 			</tr>
 		</thead>
 	</table>

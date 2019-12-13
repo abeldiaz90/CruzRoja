@@ -43,6 +43,7 @@ namespace mvc.Controllers
             or.serviciosDelegacionPrecios = contexto.serviciosDelegacionPrecios.ToList().Where(s => s.IdServicio == 0);
             or.serviciosDelegacions = serviciosDelegacions.OrderBy(s => s.NombreServicio);
             or.ordenestemporalvista = OrdenDetalle(or.Id);
+            contexto.Dispose();
             return View(or);
         }
 
@@ -83,7 +84,7 @@ namespace mvc.Controllers
                 otv = i;
                 l.Add(otv);
             }
-
+            contexto.Dispose();
             return l;
         }
 
