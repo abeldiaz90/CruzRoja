@@ -88,12 +88,6 @@
 				if (response.length > 0) {
 					$('#myPartialViewDiv').html('');
 					$('#myPartialViewDiv').html(response);
-					//dataLayer.push({
-					//	'categoria': 'ORDENES',
-					//	'accion': 'BUSCAR',
-					//	'etiqueta': 'PACIENTES',
-					//	'event': 'eventos'
-					//});
 				} else { $('#myPartialViewDiv').html(''); }
 			}).fail(function (error) {
 				console.log(error)

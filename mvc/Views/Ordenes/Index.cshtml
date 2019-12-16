@@ -140,12 +140,18 @@
 				alert(error.StatusText);
 			});
 		});
-    $('#btnEnviar').on("click", function () {
-			if ($('#ordentemporal_cantidad').val() == "") {
-				alert("Capture la Cantidad");
-				$('#ordentemporal_cantidad').focus();
-				$("#ordentemporal_cantidad").addClass("form-control is-invalid");
-			} else {
+	$('#btnEnviar').on("click", function () {
+		if ($('#ordentemporal_IdPrecio').val() == "Select") {			
+			$("#ordentemporal_IdPrecio").addClass("form-control is-invalid");	
+			$('#ordentemporal_IdPrecio').focus();
+			alert("SELECCIONE PRECIO");
+		} else if ($('#ordentemporal_cantidad').val() == "") {
+			$("#ordentemporal_cantidad").addClass("form-control is-invalid");
+			$('#ordentemporal_cantidad').focus();
+			alert("DIGITE LA CANTIDAD");			
+		} else {
+			$("#ordentemporal_IdPrecio").removeClass("is-invalid");
+			$("#ordentemporal_cantidad").removeClass("is-invalid");
 				var url = '@Url.Action("Agregar","Ordenes")';
 				var JsonModel = '@Html.Raw(Json.Encode(@Model))';
 				var data = {
@@ -183,31 +189,7 @@
 			}
 		});
 	$("#PagaCon").change(function () {
-			const formatter = new Intl.NumberFormat('es-MX', {
-				style: 'currency',
-				currency: 'MXN',
-				minimumFractionDigits: 2
-			});
-
-			$("#PagaCon").val(formatter.format($("#PagaCon").val()));
-
-
-			var n1 = $("#Total").val();
-			var n2 = $("#PagaCon").val();
-			var regp = /[^0-9.-]+/g;
-
-			if (parseFloat(n2.replace(regp, '')) >= parseFloat(n1.replace(regp, ''))) {
-				var cambio = parseFloat(n2.replace(regp, '')) - parseFloat(n1.replace(regp, ''));
-				$("#cambio").val(formatter.format(cambio));
-				$("#btncobrarOrden").removeClass("disabled");
-			} else {
-				alert("La cantidad que ingreso a Pagar no cubre el monto de la orden");
-				$("#cambio").val('');
-				$("#PagaCon").val('');
-				$("#PagaCon").focus();
-				$("#btncobrarOrden").addClass("disabled");
-
-			}
+		cuentaycambio();
 		});
 	$('#formapago').on('change', function () {
 			if ($('#formapago').val() == 1) {
@@ -243,7 +225,6 @@
 			});
 		}
 		});
-
 	$('#btncobrarOrden').on("click", function () {
 			var regp = /[^0-9.-]+/g;
 			var url = '@Url.Action("Cobrar","Ordenes")';
@@ -277,6 +258,7 @@
 			});
 	});
 	$('#Factura').on("click", function () {
+		cuentaycambio();
 		if ($(this).is(':checked')) {
 			$("#Total").val(document.getElementById("totalOrden").innerText);
 			$("#alertaIVA").removeAttr("style","visibility:hidden");
@@ -287,6 +269,34 @@
 			$("#Total").val(document.getElementById("subTotalOrden").innerText);
 		}
 	});
+
+	function cuentaycambio() {
+			const formatter = new Intl.NumberFormat('es-MX', {
+				style: 'currency',
+				currency: 'MXN',
+				minimumFractionDigits: 2
+			});
+
+			$("#PagaCon").val(formatter.format($("#PagaCon").val()));
+
+
+			var n1 = $("#Total").val();
+			var n2 = $("#PagaCon").val();
+			var regp = /[^0-9.-]+/g;
+
+			if (parseFloat(n2.replace(regp, '')) >= parseFloat(n1.replace(regp, ''))) {
+				var cambio = parseFloat(n2.replace(regp, '')) - parseFloat(n1.replace(regp, ''));
+				$("#cambio").val(formatter.format(cambio));
+				$("#btncobrarOrden").removeClass("disabled");
+			} else {
+				alert("La cantidad que ingreso a Pagar no cubre el monto de la orden");
+				$("#cambio").val('');
+				$("#PagaCon").val('');
+				$("#PagaCon").focus();
+				$("#btncobrarOrden").addClass("disabled");
+
+			}
+	}
 	function formatNumber(n) {
 			// format number 1000000 to 1,234,567
 			return n.replace(/\D/g, "").replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -432,7 +442,9 @@
 	    	$('#Paciente_CURP').val('');
 		    $('#Paciente_Email').val('');
 		    $('#Paciente_Telefono').val('');
+		    $('#ordentemporal_IdServicio').val('');
 		    $('#ordentemporal_IdPrecio').html('');
+		    $('#ordentemporal_cantidad').val('');
 
 			$("#Paciente_Nombre").removeClass("form-control is-valid");
 			$("#Paciente_SegundoNombre").removeClass("form-control is-valid");
