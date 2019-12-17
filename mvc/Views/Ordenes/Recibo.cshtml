@@ -5,13 +5,13 @@
 </head>
 <div style="align-content:center;text-align:center;">
 	<img src="~/images/logo.png" alt="logo" /><br />
-	<label id="lbldelegacion" style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">DELEGACIÓN: @Html.DisplayFor(x => x.FirstOrDefault().Delegacion)</label><br />
-	<b><label style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;"> Paciente: </label></b>
-	<span class="test" style="font-size:larger;'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;">
+	<label id="lbldelegacion" style="font-family:'Courier New, Courier, monospace'">DELEGACIÓN: @Html.DisplayFor(x => x.FirstOrDefault().Delegacion)</label><br />
+	<b><label style="font-family:'Courier New, Courier, monospace'"> Paciente: </label></b>
+	<span class="test" style="font-family:'Courier New, Courier, monospace'">
 		@Html.DisplayFor(x => x.FirstOrDefault().pacientes.Nombre) @Html.DisplayFor(x => x.FirstOrDefault().pacientes.SegundoNombre) @Html.DisplayFor(x => x.FirstOrDefault().pacientes.ApellidoPaterno)  @Html.DisplayFor(x => x.FirstOrDefault().pacientes.ApellidoMaterno)
 	</span>
 	<br />
-	<b><label style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;"> CONCEPTOS </label></b>
+	<b><label style="font-family:'Courier New, Courier, monospace'"> CONCEPTOS </label></b>
 	<hr />
 	@*<div class="table-responsive">
 			<table class="table table-striped">
@@ -86,7 +86,7 @@
 			@Html.DisplayFor(x => x.FirstOrDefault().letras)
 		</span>*@
 <table align="center">
-	<thead style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', 'Arial, sans-serif';font-size:xx-large;font-weight:200">
+	<thead style="font-family:'Courier New, Courier, monospace'">
 	<td>
 		Cantidad
 	</td>
@@ -105,26 +105,26 @@
 	</thead>
 	@foreach (var i in Model)
 	{
-		<tr style="font-size:larger">
+		<tr>
 			<td>
-				<label style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', 'Arial, sans-serif'">@i.ordenesDetalles.cantidad</label>
+				<label style="font-family:'Courier New, Courier, monospace'">@i.ordenesDetalles.cantidad</label>
 			</td>
 			<td>
-				<label style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', 'Arial, sans-serif'">@i.serviciosDelegacion.NombreServicio</label>
+				<label style="font-family:'Courier New, Courier, monospace'">@i.serviciosDelegacion.NombreServicio</label>
 			</td>
 			<td>
-				<label style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', 'Arial, sans-serif'">@String.Format("{0:C}", @i.ordenesDetalles.subtotal)</label>
+				<label style="font-family:'Courier New, Courier, monospace'">@String.Format("{0:C}", @i.ordenesDetalles.subtotal)</label>
 			</td>
 			<td>
-				<label style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', 'Arial, sans-serif'">@String.Format("{0:C}", @i.ordenesDetalles.IVA)</label>
+				<label style="font-family:'Courier New, Courier, monospace'">@String.Format("{0:C}", @i.ordenesDetalles.IVA)</label>
 			</td>
 			<td>
-				<label style="font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', 'Arial, sans-serif'">@String.Format("{0:C}", @i.ordenesDetalles.Total)</label>
+				<label style="font-family:'Courier New, Courier, monospace'">@String.Format("{0:C}", @i.ordenesDetalles.Total)</label>
 			</td>
 		</tr>
 
 	}
-	<tr style="font-size:larger;font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', 'Arial, sans-serif'" class="col-lg-12">
+	<tr style="font-size:larger;font-family:'Courier New, Courier, monospace'" class="col-lg-12">
 		<td>
 			Total Pagado: $@Html.DisplayFor(x => x.FirstOrDefault().totalpagado)
 		</td>
