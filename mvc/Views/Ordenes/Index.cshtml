@@ -141,15 +141,21 @@
 			});
 		});
 	$('#btnEnviar').on("click", function () {
-		if ($('#ordentemporal_IdPrecio').val() == "Select") {			
-			$("#ordentemporal_IdPrecio").addClass("form-control is-invalid");	
+		if ($('#ordentemporal_IdServicio').val() == "" || $('#ordentemporal_IdServicio').val() == null) {
+			$("#ordentemporal_IdServicio").addClass("form-control is-invalid");
+			$('#ordentemporal_IdServicio').focus();
+			alert("SELECCIONE UN ELEMENTO");
+		}
+		else if ($('#ordentemporal_IdPrecio').val() == "Select" || $('#ordentemporal_IdPrecio').val() == null) {
+			$("#ordentemporal_IdPrecio").addClass("form-control is-invalid");
 			$('#ordentemporal_IdPrecio').focus();
 			alert("SELECCIONE PRECIO");
 		} else if ($('#ordentemporal_cantidad').val() == "") {
 			$("#ordentemporal_cantidad").addClass("form-control is-invalid");
 			$('#ordentemporal_cantidad').focus();
-			alert("DIGITE LA CANTIDAD");			
+			alert("DIGITE LA CANTIDAD");
 		} else {
+			$("#ordentemporal_IdServicio").removeClass("is-invalid");
 			$("#ordentemporal_IdPrecio").removeClass("is-invalid");
 			$("#ordentemporal_cantidad").removeClass("is-invalid");
 				var url = '@Url.Action("Agregar","Ordenes")';
@@ -469,19 +475,20 @@
 	    	$('#Paciente_CURP').addClass("form-control");
 		    $('#Paciente_Email').addClass("form-control");
 		    $('#Paciente_Telefono').addClass("form-control");
-		    $('#btnCobro').removeAttr('disabled');
+		    $('#btnCobro').attr('disabled','disabled');
 		    dataLayer.push({ categoria: "ORDENES", accion: "PACIENTES", etiqueta: "LIMPIAR", event:"eventos" });
 	}
 	function Cobro() {
-	if (($('#Paciente_Nombre').val() == '') || ($('#Paciente_ApellidoPaterno').val() == '')) {
-		$("#exampleModalCenter").hide();
-		$('body').removeClass('modal-open');
-		$('.modal-backdrop').remove();
+		console.log($('#subTotalOrden').val());
+			if (($('#Paciente_Nombre').val() == '') || ($('#Paciente_ApellidoPaterno').val() == '')) {
+				$("#exampleModalCenter").hide();
+				$('body').removeClass('modal-open');
+				$('.modal-backdrop').remove();
 				alert("Ingrese datos del paciente");
-	} else {
-			$("#Total").val(document.getElementById("subTotalOrden").innerText);
-			$("#Total").attr("disabled", "disabled");
-		}
+			} else {
+				$("#Total").val(document.getElementById("subTotalOrden").innerText);
+				$("#Total").attr("disabled", "disabled");
+			}
 		}
     function imprimir()
 	{

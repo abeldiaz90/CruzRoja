@@ -16,7 +16,6 @@ namespace mvc.App_Start
         {
             // Para obtener más información sobre cómo configurar la aplicación, visite https://go.microsoft.com/fwlink/?LinkID=316888
             SetCookieAuthenticationAsDefault(app);
-
         }
         private void SetCookieAuthenticationAsDefault(IAppBuilder app)
         {
