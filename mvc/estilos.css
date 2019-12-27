@@ -1,6 +1,6 @@
 ﻿* {
 	font-size: 12px;
-	font-family: 'Times New Roman';
+	font-family: 'Courier New';
 }
 
 td,
@@ -37,7 +37,7 @@ table {
 }
 
 .ticket {
-	width: 155px;
+	width: 75mm;
 	max-width: 155px;
 }
 

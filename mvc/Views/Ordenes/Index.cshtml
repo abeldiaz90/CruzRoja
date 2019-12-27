@@ -251,16 +251,10 @@
 				url: url,
 				contentType: "application/json"
 			}).done(function (res) {
-				//imprimir();
-				Limipar();
-				$("#exampleModalCenter").hide();//ocultamos el modal
-		        $('body').removeClass('modal-open');//eliminamos la clase del body para poder hacer scroll
-				$('.modal-backdrop').remove();//eliminamos el backdrop del modal
-				$("#exampleModalCenter").html(res);
-				$("#Pedido").html('');
-				printContent('exampleModalCenter')
-				//imprimir();
-				Limipar();
+				var myWindow = window.open("../ordenes/recibo?numeroorden="+datos.Id, "_blank", "fullscreen=yes");
+     			myWindow.focus();
+				myWindow.print();
+				window.location.href = 'Index';
 			});
 	});
 	$('#Factura').on("click", function () {
@@ -490,7 +484,7 @@
 				$("#Total").attr("disabled", "disabled");
 			}
 		}
-    function imprimir()
+    function imprimir(el)
 	{
 		if ((navigator.appName == "Netscape"))
 		{
@@ -498,8 +492,11 @@
         }
         else
 		{
-			var WebBrowser = '<OBJECT ID="WebBrowser1" WIDTH=0 HEIGHT=0 CLASSID="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2"></OBJECT>';
-			document.body.insertAdjacentHTML('beforeEnd', WebBrowser); WebBrowser1.ExecWB(6, -1); WebBrowser1.outerHTML = "";
+			  var printcontent = document.getElementById(el).innerHTML;
+			document.body.innerHTML = printcontent;
+			//var WebBrowser = '<OBJECT ID="WebBrowser1" WIDTH=0 HEIGHT=0 CLASSID="CLSID:8856F961-340A-11D0-A96B-00C04FD705A2"></OBJECT>';
+			document.body.insertAdjacentHTML('afterbegin', document.getElementById.innerHTML); WebBrowser1.ExecWB(6, -1); WebBrowser1.outerHTML = "";
+			window.print();
 		}
 	}
     function printContent(el){

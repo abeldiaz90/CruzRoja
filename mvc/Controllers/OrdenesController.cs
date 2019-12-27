@@ -165,7 +165,8 @@ namespace mvc.Controllers
 
         [Authorize(Roles = "secretaria")]
         [Authorize(Roles = "Admin")]
-        public PartialViewResult Cobrar(Ordenes ordenes)
+        //public PartialViewResult Cobrar(Ordenes ordenes)
+        public ActionResult Cobrar(Ordenes ordenes)
         {
             Contexto con = new Contexto();
             Ordenes ordenesmodelo = new Ordenes();
@@ -214,7 +215,8 @@ namespace mvc.Controllers
                 con.SaveChanges();
                 con.Dispose();
             }
-            return Recibo(ordenes.Id);
+            //return Recibo(ordenes.Id);     
+            return RedirectToAction("Index");
         }
 
         [Authorize(Roles = "secretaria")]
