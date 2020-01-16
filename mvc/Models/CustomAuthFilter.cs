@@ -13,9 +13,15 @@ namespace mvc.Models
         public void OnAuthentication(AuthenticationContext filterContext)
         {
             // if (string.IsNullOrEmpty(Convert.ToString(filterContext.HttpContext.User.Identity.IsAuthenticated)))
-            if(!filterContext.HttpContext.User.Identity.IsAuthenticated)
+            if (!filterContext.HttpContext.User.Identity.IsAuthenticated)
             {
-                filterContext.Result = new HttpUnauthorizedResult();
+                //filterContext.Result = new HttpUnauthorizedResult();
+                filterContext.Result = new RedirectToRouteResult(
+           new RouteValueDictionary
+           {
+                     { "controller", "Account" },
+                     { "action", "Index" }
+           });
             }
         }
         public void OnAuthenticationChallenge(AuthenticationChallengeContext filterContext)
@@ -27,7 +33,7 @@ namespace mvc.Models
                 new RouteValueDictionary
                 {
                      { "controller", "Account" },
-                     { "action", "Index" }
+                     { "action", "Unauthorized" }
                 });
             }
         }

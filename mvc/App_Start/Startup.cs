@@ -52,7 +52,7 @@ namespace mvc.App_Start
                 //});
 
                 options.AddPolicy("Ventas", policy =>
-                  policy.RequireRole("Administrador", "Recepcionista"));
+                  policy.RequireRole("Administrador", "CONTADOR"));
             });
 
            

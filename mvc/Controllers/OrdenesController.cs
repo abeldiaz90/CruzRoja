@@ -6,25 +6,22 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using mvc.Models;
-using Microsoft.AspNetCore.Authorization;
+//using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
+
 
 namespace mvc.Controllers
 {
-    [Microsoft.AspNetCore.Authorization.Authorize(Policy = "Ventas")]
+    
     public class OrdenesController : Controller
     {
         // GET: Ordenes
         Contexto contexto = new Contexto();
-        //[Authorize(Roles = "secretaria")]
         [CustomAuthFilter]
-        [Microsoft.AspNetCore.Authorization.Authorize(Policy = "Ventas")]     
+        [Authorize(Roles = "Administrador, Capturista")]
+        //[Microsoft.AspNetCore.Authorization.Authorize(Policy = "Ventas")]     
         public ActionResult Index()
         {
-            //if (!User.Identity.IsAuthenticated)
-            //{
-            //    return RedirectToAction("~/Account/Index");
-            //}
             Ordenes or = new Ordenes();
             int maxId = 0;
             try
@@ -51,7 +48,8 @@ namespace mvc.Controllers
             return View(or);
         }
 
-        [Microsoft.AspNetCore.Authorization.Authorize(Policy = "Ventas")]
+        [CustomAuthFilter]
+        [Authorize(Roles = "Administrador, Capturista")]
         public IEnumerable<OrdenesTemporalVista> OrdenDetalle(Int32 Id)
         {
             IEnumerable<ServiciosDelegacion> serviciosdelegacion = contexto.serviciosdelegacion.ToList();
@@ -91,7 +89,8 @@ namespace mvc.Controllers
             return l;
         }
 
-        [Microsoft.AspNetCore.Authorization.Authorize(Policy = "Ventas")]
+        [CustomAuthFilter]
+        [Authorize(Roles = "Administrador, Capturista")]
         public PartialViewResult Agregar(Ordenes ordenes)
         {
             Contexto con = new Contexto();
@@ -120,7 +119,8 @@ namespace mvc.Controllers
             return PartialView("OrdenesTemporal", vistaestados);
         }
 
-        [Microsoft.AspNetCore.Authorization.Authorize(Policy = "Ventas")]
+        [CustomAuthFilter]
+        [Authorize(Roles = "Administrador, Capturista")]
         public PartialViewResult Eliminar(int Id, int IdFolio)
         {
             Contexto con = new Contexto();
@@ -136,7 +136,8 @@ namespace mvc.Controllers
             return PartialView("OrdenesTemporal", vistaestados);
         }
 
-        [Microsoft.AspNetCore.Authorization.Authorize(Policy = "Ventas")]
+        [CustomAuthFilter]
+        [Authorize(Roles = "Administrador, Capturista")]
         public ActionResult Editar(int Id)
         {
             Contexto con = new Contexto();
@@ -145,7 +146,8 @@ namespace mvc.Controllers
             return Json(ordenesTemporal, JsonRequestBehavior.AllowGet);
         }
 
-        [Microsoft.AspNetCore.Authorization.Authorize(Policy = "Ventas")]
+        [CustomAuthFilter]
+        [Authorize(Roles = "Administrador, Capturista")]
         public PartialViewResult Cancelar(int Id)
         {
             Contexto con = new Contexto();
@@ -162,7 +164,8 @@ namespace mvc.Controllers
         }
 
 
-        [Microsoft.AspNetCore.Authorization.Authorize(Policy = "Ventas")]
+        [CustomAuthFilter]
+        [Authorize(Roles = "Administrador, Capturista")]
         //public PartialViewResult Cobrar(Ordenes ordenes)
         public ActionResult Cobrar(Ordenes ordenes)
         {
@@ -218,7 +221,8 @@ namespace mvc.Controllers
             return RedirectToAction("Index");
         }
 
-        [Microsoft.AspNetCore.Authorization.Authorize(Policy = "Ventas")]
+        [CustomAuthFilter]
+        [Authorize(Roles = "Administrador, Capturista")]
         public PartialViewResult Recibo(int numeroorden)
         {
             IEnumerable<Ordenes> orden = contexto.ordenes.ToList().Where(s => s.Id == numeroorden);

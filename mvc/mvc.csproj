@@ -476,6 +476,7 @@
     <Content Include="Views\Roles\Nuevo.cshtml" />
     <Content Include="Views\throws\Index.cshtml" />
     <Content Include="Views\Roles\Editar.cshtml" />
+    <Content Include="Views\Account\Unauthorized.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -13,7 +13,8 @@ namespace mvc.Controllers
         // GET: Paises
         Contexto con = new Contexto();
 
-       // [Authorize(Roles = "Administrador")]
+        [CustomAuthFilter]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Index()
         {
             IEnumerable<Paises> paises = con.paises.ToList();
@@ -30,14 +31,15 @@ namespace mvc.Controllers
         }
 
 
-      //  [Authorize(Roles = "Administrador")]
+        [CustomAuthFilter]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Nuevo()
         {
             return View();            
         }
 
-        [HttpGet]
-       // [Authorize(Roles = "Administrador")]
+        [CustomAuthFilter]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Editar(Paises paises)
         {            
             var paiseslistado = con.paises.FirstOrDefault(model => model.Id == paises.Id);
@@ -48,7 +50,8 @@ namespace mvc.Controllers
         }
 
         [HttpPost]
-       // [Authorize(Roles = "Administrador")]
+        [CustomAuthFilter]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Guardar(Paises paises)
         {
             if (ModelState.IsValid)

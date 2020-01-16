@@ -25,6 +25,12 @@ namespace mvc.Controllers
             return View();
         }
 
+        [AllowAnonymous]
+        public ActionResult Unauthorized()
+        {
+            return View();
+        }
+
         //[Authorize]
         [AllowAnonymous]
         public async Task<ActionResult> Login(Users usuarios)
