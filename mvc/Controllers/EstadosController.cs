@@ -12,7 +12,7 @@ namespace mvc.Controllers
         // GET: Estados
         // GET: Paises
         Contexto con = new Contexto();
-       // [Authorize(Roles = "Admin")]
+       // [Authorize(Roles = "Administrador")]
         public ActionResult Index()
         {
             IEnumerable<Paises> paises = con.paises.ToList();
@@ -45,7 +45,7 @@ namespace mvc.Controllers
 
             return View(vistaestados.OrderBy(s=>s.estados.Estado));
         }
-       // [Authorize(Roles = "Admin")]
+       // [Authorize(Roles = "Administrador")]
         public ActionResult Nuevo()
         {
             Estados estadoslistado = new Estados();
@@ -67,7 +67,7 @@ namespace mvc.Controllers
         }
 
         [HttpGet]
-       // [Authorize(Roles = "Admin")]
+       // [Authorize(Roles = "Administrador")]
         public ActionResult Editar(Estados estados)
         {
             var estadoslistado = con.estados.FirstOrDefault(model => model.Id == estados.Id);
@@ -91,7 +91,7 @@ namespace mvc.Controllers
         }
 
         [HttpPost]
-       // [Authorize(Roles = "Admin")]
+       // [Authorize(Roles = "Administrador")]
         public ActionResult Guardar(Estados estados)
         {
             if (ModelState.IsValid)

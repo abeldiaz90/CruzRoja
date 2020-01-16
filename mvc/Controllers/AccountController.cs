@@ -38,6 +38,7 @@ namespace mvc.Controllers
             usuarios.Password = Seguridad.Encrypt(usuarios.Password);
 
             Users us = con.users.FirstOrDefault(s => s.Usuario == usuarios.Usuario && s.Password == usuarios.Password);
+           
             Boolean Resultado;
 
             if (us == null)
@@ -46,7 +47,8 @@ namespace mvc.Controllers
             }
             else
             {
-                var authTicket = new FormsAuthenticationTicket(1,usuarios.Usuario,DateTime.Now, DateTime.Now.AddMinutes(20),false, "secretaria;Admin");
+                var rol = con.roles.FirstOrDefault(x => x.Id == us.IdRol).Rol;
+                var authTicket = new FormsAuthenticationTicket(1,Seguridad.Decrypt(usuarios.Usuario),DateTime.Now, DateTime.Now.AddMinutes(20),false, Seguridad.Decrypt(rol));
                 string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
                 var authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
                 HttpContext.Response.Cookies.Add(authCookie);
@@ -55,8 +57,8 @@ namespace mvc.Controllers
             return Json(Resultado, JsonRequestBehavior.AllowGet);
         }
 
-        [Authorize(Roles = "secretaria")]
-        [Authorize(Roles = "Admin")]
+       // [Authorize(Roles = "secretaria")]
+       // [Authorize(Roles = "Administrador")]
         public async Task<ActionResult> signout() 
         {
             FormsAuthentication.SignOut();

@@ -53,8 +53,10 @@ namespace mvc.Models
         [DataType(DataType.DateTime)]
         public DateTime FechaHora { set; get; }
 
-        [Display(Name ="Requiere Factura")]
+        [Display(Name = "Requiere Factura")]
         public Boolean Factura { set; get; }
+        [Required(ErrorMessage ="Delegación")]
+        public int IdDelegacionExpedicion { set; get; }
 
         public OrdenesTemporal ordentemporal { set; get; }
         public IEnumerable<ServiciosDelegacion> serviciosDelegacions { set; get; }

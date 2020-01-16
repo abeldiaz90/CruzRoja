@@ -12,7 +12,7 @@ namespace mvc.Controllers
         Contexto con = new Contexto();
         // GET: ServiciosPrecios
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Index(int id)
         {
             ServiciosDelegacionPrecios sp = new ServiciosDelegacionPrecios();
@@ -21,7 +21,7 @@ namespace mvc.Controllers
             // return Json(sp.serviciosDelegacionPrecios,JsonRequestBehavior.AllowGet);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrador")]
        // [HttpPost]
         public ActionResult Nuevo(int id)
         {
@@ -42,7 +42,7 @@ namespace mvc.Controllers
             return View(sdp);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Editar(int id)
         {
             ServiciosDelegacionPrecios sdp = con.serviciosDelegacionPrecios.FirstOrDefault(s => s.Id == id);
@@ -66,7 +66,7 @@ namespace mvc.Controllers
             return View(sdp);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrador")]
         public ActionResult ConsultaPrecios(Int32 IdServicio)
         {
             ServiciosDelegacionPrecios sp = new ServiciosDelegacionPrecios();
@@ -74,7 +74,7 @@ namespace mvc.Controllers
             return Json(sp.serviciosDelegacionPrecios, JsonRequestBehavior.AllowGet);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Guardar(ServiciosDelegacionPrecios serviciosDelegacionPrecios)
         {
             if (ModelState.IsValid)

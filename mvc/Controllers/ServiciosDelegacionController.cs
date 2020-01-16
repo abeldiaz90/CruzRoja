@@ -10,7 +10,7 @@ namespace mvc.Controllers
     public class ServiciosDelegacionController : Controller
     {
         Contexto con = new Contexto();
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Index()
         {
             ServiciosDelegacion serviciosDelegacion = new ServiciosDelegacion();
@@ -61,7 +61,7 @@ namespace mvc.Controllers
             return View(serviciosDelegacion);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Nuevo()
         {
             ServiciosDelegacion serviciosDelegacion = new ServiciosDelegacion();
@@ -91,7 +91,7 @@ namespace mvc.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Editar(ServiciosDelegacion serviciosdelegacion)
         {
             ServiciosDelegacion serviciosDelegacion = con.serviciosdelegacion.FirstOrDefault(model => model.Id == serviciosdelegacion.Id);
@@ -123,7 +123,7 @@ namespace mvc.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Guardar(ServiciosDelegacion serviciosdelegacion)
         {
             if (ModelState.IsValid)
@@ -147,7 +147,7 @@ namespace mvc.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Precios(int id)
         {
             IEnumerable<ServiciosDelegacion> serviciosDelegacions = con.serviciosdelegacion.ToList();

@@ -26,9 +26,9 @@ namespace mvc
             //Database.SetInitializer<Contexto>(new DropCreateDatabaseIfModelChanges<Contexto>());
         }
         protected void Application_Error(object sender, EventArgs e)
-        {            
+        {
             Exception ex = Server.GetLastError();
-           // Server.Transfer("~/throws/index");
+            // Server.Transfer("~/throws/index");
         }
 
         protected void Application_AuthenticateRequest(Object sender, EventArgs e)
@@ -52,6 +52,7 @@ namespace mvc
 
             if (Context.User != null)
                 Context.User = new GenericPrincipal(Context.User.Identity, roles);
+           // Context.User.IsInRole(roles[0]);
         }
     }
 }

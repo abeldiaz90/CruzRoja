@@ -6,21 +6,25 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using mvc.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace mvc.Controllers
 {
+    [Microsoft.AspNetCore.Authorization.Authorize(Policy = "Ventas")]
     public class OrdenesController : Controller
     {
         // GET: Ordenes
         Contexto contexto = new Contexto();
-        [Authorize(Roles = "secretaria")]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "secretaria")]
+        [CustomAuthFilter]
+        [Microsoft.AspNetCore.Authorization.Authorize(Policy = "Ventas")]     
         public ActionResult Index()
         {
-            if (!User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("~/Account/Index");
-            }
+            //if (!User.Identity.IsAuthenticated)
+            //{
+            //    return RedirectToAction("~/Account/Index");
+            //}
             Ordenes or = new Ordenes();
             int maxId = 0;
             try
@@ -47,8 +51,7 @@ namespace mvc.Controllers
             return View(or);
         }
 
-        [Authorize(Roles = "Admin")]
-        [Authorize(Roles = "secretaria")]
+        [Microsoft.AspNetCore.Authorization.Authorize(Policy = "Ventas")]
         public IEnumerable<OrdenesTemporalVista> OrdenDetalle(Int32 Id)
         {
             IEnumerable<ServiciosDelegacion> serviciosdelegacion = contexto.serviciosdelegacion.ToList();
@@ -88,8 +91,7 @@ namespace mvc.Controllers
             return l;
         }
 
-        [Authorize(Roles = "secretaria")]
-        [Authorize(Roles = "Admin")]
+        [Microsoft.AspNetCore.Authorization.Authorize(Policy = "Ventas")]
         public PartialViewResult Agregar(Ordenes ordenes)
         {
             Contexto con = new Contexto();
@@ -118,13 +120,12 @@ namespace mvc.Controllers
             return PartialView("OrdenesTemporal", vistaestados);
         }
 
-        [Authorize(Roles = "secretaria")]
-        [Authorize(Roles = "Admin")]
+        [Microsoft.AspNetCore.Authorization.Authorize(Policy = "Ventas")]
         public PartialViewResult Eliminar(int Id, int IdFolio)
         {
             Contexto con = new Contexto();
             OrdenesTemporal ordenesTemporal = con.ordenestemporal.FirstOrDefault(s => s.Id == Id);
-            con.ordenestemporal.Remove(ordenesTemporal);         
+            con.ordenestemporal.Remove(ordenesTemporal);
             con.SaveChanges();
 
             IEnumerable<ServiciosDelegacion> serviciosdelegacion = con.serviciosdelegacion.ToList();
@@ -132,11 +133,10 @@ namespace mvc.Controllers
             IEnumerable<ServiciosDelegacionPrecios> serviciosDelegacionPrecios = con.serviciosDelegacionPrecios.ToList();
             IEnumerable<OrdenesTemporalVista> vistaestados = OrdenDetalle(IdFolio);
             con.Dispose();
-            return PartialView("OrdenesTemporal", vistaestados);          
+            return PartialView("OrdenesTemporal", vistaestados);
         }
 
-        [Authorize(Roles = "secretaria")]
-        [Authorize(Roles = "Admin")]
+        [Microsoft.AspNetCore.Authorization.Authorize(Policy = "Ventas")]
         public ActionResult Editar(int Id)
         {
             Contexto con = new Contexto();
@@ -145,8 +145,7 @@ namespace mvc.Controllers
             return Json(ordenesTemporal, JsonRequestBehavior.AllowGet);
         }
 
-        [Authorize(Roles = "secretaria")]
-        [Authorize(Roles = "Admin")]
+        [Microsoft.AspNetCore.Authorization.Authorize(Policy = "Ventas")]
         public PartialViewResult Cancelar(int Id)
         {
             Contexto con = new Contexto();
@@ -163,8 +162,7 @@ namespace mvc.Controllers
         }
 
 
-        [Authorize(Roles = "secretaria")]
-        [Authorize(Roles = "Admin")]
+        [Microsoft.AspNetCore.Authorization.Authorize(Policy = "Ventas")]
         //public PartialViewResult Cobrar(Ordenes ordenes)
         public ActionResult Cobrar(Ordenes ordenes)
         {
@@ -178,6 +176,7 @@ namespace mvc.Controllers
             ordenesmodelo.Idpaciente = ordenes.Idpaciente;
             ordenesmodelo.formapago = ordenes.formapago;
             ordenesmodelo.Factura = ordenes.Factura;
+            ordenesmodelo.IdDelegacionExpedicion = ordenes.IdDelegacionExpedicion;
 
             var validar = con.ordenes.FirstOrDefault(m => m.Id == ordenes.Id);
             if (validar == null)
@@ -194,7 +193,7 @@ namespace mvc.Controllers
                 con.SaveChanges();
 
                 IEnumerable<OrdenesTemporal> ordenesTemporals = con.ordenestemporal.Where(s => s.IdFolio == ordenes.Id);
-                
+
                 foreach (var i in ordenesTemporals)
                 {
                     OrdenesDetalles ordenesDetalles = new OrdenesDetalles();
@@ -207,7 +206,7 @@ namespace mvc.Controllers
                     {
                         ordenesDetalles.IVA = i.IVA;
                     }
-                    else { ordenesDetalles.IVA = 0; }                    
+                    else { ordenesDetalles.IVA = 0; }
                     ordenesDetalles.Total = i.Total;
                     con.ordenesdetalles.Add(ordenesDetalles);
                 }
@@ -219,11 +218,11 @@ namespace mvc.Controllers
             return RedirectToAction("Index");
         }
 
-        [Authorize(Roles = "secretaria")]
-        [Authorize(Roles = "Admin")]
+        [Microsoft.AspNetCore.Authorization.Authorize(Policy = "Ventas")]
         public PartialViewResult Recibo(int numeroorden)
         {
             IEnumerable<Ordenes> orden = contexto.ordenes.ToList().Where(s => s.Id == numeroorden);
+            //  IEnumerable<Delegaciones> delegaciones = contexto.delegaciones.FirstOrDefault(x => x.Id =orden.FirstOrDefault(x=>x.)
             IEnumerable<OrdenesDetalles> ordendetalles = contexto.ordenesdetalles.Where(m => m.IdFolio == numeroorden).ToList();
             IEnumerable<ServiciosDelegacion> serviciosDelegacion = contexto.serviciosdelegacion.ToList();
             int idpaciente = orden.FirstOrDefault().Idpaciente;

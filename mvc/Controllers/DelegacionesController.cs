@@ -22,7 +22,7 @@ namespace mvc.Controllers
                     select new DelegacionesVista { estados = est, delegaciones = del };
             return View(d);
         }
-       // [Authorize(Roles = "Admin")]
+       // [Authorize(Roles = "Administrador")]
         public ActionResult Nuevo()
         {
             Delegaciones delegacioneslistado = new Delegaciones();
@@ -41,7 +41,7 @@ namespace mvc.Controllers
         }
 
         [HttpGet]
-      //  [Authorize(Roles = "Admin")]
+      //  [Authorize(Roles = "Administrador")]
         public ActionResult Editar(Delegaciones delegaciones)
         {
             Delegaciones delegacioneslistado = con.delegaciones.FirstOrDefault(model => model.Id == delegaciones.Id);
@@ -69,7 +69,7 @@ namespace mvc.Controllers
         }
 
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Administrador")]
         public ActionResult Guardar(Delegaciones delegaciones)
         {
             if (ModelState.IsValid)
