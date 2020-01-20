@@ -12,6 +12,7 @@ namespace mvc.Controllers
         Contexto con = new Contexto();
         // GET: ServiciosPrecios
         [HttpPost]
+        [CustomAuthFilter]
         [Authorize(Roles = "Administrador")]
         public ActionResult Index(int id)
         {
@@ -21,8 +22,9 @@ namespace mvc.Controllers
             // return Json(sp.serviciosDelegacionPrecios,JsonRequestBehavior.AllowGet);
         }
 
+        [CustomAuthFilter]
         [Authorize(Roles = "Administrador")]
-       // [HttpPost]
+        // [HttpPost]
         public ActionResult Nuevo(int id)
         {
             ServiciosDelegacionPrecios sdp = new ServiciosDelegacionPrecios();
@@ -66,7 +68,8 @@ namespace mvc.Controllers
             return View(sdp);
         }
 
-        [Authorize(Roles = "Administrador")]
+        [CustomAuthFilter]
+        [Authorize(Roles = "Administrador, Capturista")]
         public ActionResult ConsultaPrecios(Int32 IdServicio)
         {
             ServiciosDelegacionPrecios sp = new ServiciosDelegacionPrecios();
@@ -74,6 +77,7 @@ namespace mvc.Controllers
             return Json(sp.serviciosDelegacionPrecios, JsonRequestBehavior.AllowGet);
         }
 
+        [CustomAuthFilter]
         [Authorize(Roles = "Administrador")]
         public ActionResult Guardar(ServiciosDelegacionPrecios serviciosDelegacionPrecios)
         {

@@ -12,7 +12,8 @@ namespace mvc.Controllers
     {
         Contexto con = new Contexto();
         // GET: Usuarios
-       // [Authorize(Roles = "Administrador")]
+        [CustomAuthFilter]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Index()
         {
             IEnumerable<Users> listausarios = con.users.ToList();
@@ -37,7 +38,8 @@ namespace mvc.Controllers
             return View(listausarios);
         }
 
-       // [Authorize(Roles = "Administrador")]
+        [CustomAuthFilter]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Nuevo()
         {
             Users us = new Users();
@@ -67,7 +69,8 @@ namespace mvc.Controllers
             return View(us);
         }
 
-     //   [Authorize(Roles = "Administrador")]
+        [CustomAuthFilter]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Editar(int id)
         {
             Users us = new Users();
@@ -107,7 +110,8 @@ namespace mvc.Controllers
         }
 
         [HttpPost]
-  //      [Authorize(Roles = "Administrador")]
+        [CustomAuthFilter]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Guardar(Users usuarios)
         {
             usuarios.Usuario = Seguridad.Encrypt(usuarios.Usuario);

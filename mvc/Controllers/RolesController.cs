@@ -12,6 +12,8 @@ namespace mvc.Controllers
     {
         // GET: Roles
         Contexto contexto = new Contexto();
+        [CustomAuthFilter]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Index()
         {
             IEnumerable<Roles> roles = contexto.roles.ToList();
@@ -22,11 +24,15 @@ namespace mvc.Controllers
             return View(roles);
         }
 
+        [CustomAuthFilter]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Nuevo()
         {
             return View();
         }
 
+        [CustomAuthFilter]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Editar(Roles roles)
         {
             Contexto con = new Contexto();
@@ -35,6 +41,8 @@ namespace mvc.Controllers
             return View(rol);
         }
 
+        [CustomAuthFilter]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Guardar(Roles roles)
         {
             try

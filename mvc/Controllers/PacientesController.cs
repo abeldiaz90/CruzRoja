@@ -12,9 +12,8 @@ namespace mvc.Controllers
 {
     public class PacientesController : Controller
     {
-        // GET: Clientes
-        [Authorize(Roles = "secretaria")]
-        [Authorize(Roles = "Administrador")]
+        [CustomAuthFilter]
+        [Authorize(Roles = "Administrador, Capturista")]
         public ActionResult Index()
         {
             Contexto con = new Contexto();
@@ -39,23 +38,23 @@ namespace mvc.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "secretaria")]
-        [Authorize(Roles = "Administrador")]
+        [CustomAuthFilter]
+        [Authorize(Roles = "Administrador, Capturista")]
         public ActionResult Nuevo()
         {
             return View();
         }
 
-        [Authorize(Roles = "secretaria")]
-        [Authorize(Roles = "Administrador")]
+        [CustomAuthFilter]
+        [Authorize(Roles = "Administrador, Capturista")]
         public ActionResult Busqueda()
         {
             return View();
         }
 
         [HttpGet]
-        [Authorize(Roles = "secretaria")]
-        [Authorize(Roles = "Administrador")]
+        [CustomAuthFilter]
+        [Authorize(Roles = "Administrador, Capturista")]
         public ActionResult Editar(Pacientes pa)
         {
             Contexto con = new Contexto();
@@ -76,8 +75,8 @@ namespace mvc.Controllers
         }
  
         [HttpPost]
-        [Authorize(Roles = "secretaria")]
-        [Authorize(Roles = "Administrador")]
+        [CustomAuthFilter]
+        [Authorize(Roles = "Administrador, Capturista")]
         public PartialViewResult Buscar(Pacientes pa)
         {
             Contexto con = new Contexto();
@@ -137,8 +136,8 @@ namespace mvc.Controllers
              return PartialView("Resultados", pacientes);
         }
 
-        [Authorize(Roles = "secretaria")]
-        [Authorize(Roles = "Administrador")]
+        [CustomAuthFilter]
+        [Authorize(Roles = "Administrador, Capturista")]
         public ActionResult BuscarId(Pacientes pa)
         {
             Contexto con = new Contexto();
@@ -203,8 +202,8 @@ namespace mvc.Controllers
 
 
         [HttpPost]
-        [Authorize(Roles = "secretaria")]
-        [Authorize(Roles = "Administrador")]
+        [CustomAuthFilter]
+        [Authorize(Roles = "Administrador, Capturista")]
         public ActionResult Guardar(Pacientes paciente)
         {
             if (ModelState.IsValid)

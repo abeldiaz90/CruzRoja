@@ -166,7 +166,6 @@ namespace mvc.Controllers
 
         [CustomAuthFilter]
         [Authorize(Roles = "Administrador, Capturista")]
-        //public PartialViewResult Cobrar(Ordenes ordenes)
         public ActionResult Cobrar(Ordenes ordenes)
         {
             Contexto con = new Contexto();

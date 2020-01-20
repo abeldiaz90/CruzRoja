@@ -11,6 +11,7 @@ namespace mvc.Controllers
     {
         Contexto con = new Contexto();
         // GET: Servicios
+        [CustomAuthFilter]
         [Authorize(Roles = "Administrador")]
         public ActionResult Index()
         {
@@ -27,6 +28,7 @@ namespace mvc.Controllers
             return View(listaservicios);
         }
 
+        [CustomAuthFilter]
         [Authorize(Roles = "Administrador")]
         public ActionResult Nuevo()
         {
@@ -46,6 +48,7 @@ namespace mvc.Controllers
         }
 
         [HttpPost]
+        [CustomAuthFilter]
         [Authorize(Roles = "Administrador")]
         public ActionResult Guardar(Servicios servicios)
         {

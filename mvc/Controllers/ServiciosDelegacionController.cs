@@ -10,6 +10,7 @@ namespace mvc.Controllers
     public class ServiciosDelegacionController : Controller
     {
         Contexto con = new Contexto();
+        [CustomAuthFilter]
         [Authorize(Roles = "Administrador")]
         public ActionResult Index()
         {
@@ -61,6 +62,7 @@ namespace mvc.Controllers
             return View(serviciosDelegacion);
         }
 
+        [CustomAuthFilter]
         [Authorize(Roles = "Administrador")]
         public ActionResult Nuevo()
         {
@@ -91,6 +93,7 @@ namespace mvc.Controllers
         }
 
         [HttpGet]
+        [CustomAuthFilter]
         [Authorize(Roles = "Administrador")]
         public ActionResult Editar(ServiciosDelegacion serviciosdelegacion)
         {
@@ -123,6 +126,7 @@ namespace mvc.Controllers
         }
 
         [HttpPost]
+        [CustomAuthFilter]
         [Authorize(Roles = "Administrador")]
         public ActionResult Guardar(ServiciosDelegacion serviciosdelegacion)
         {
@@ -147,7 +151,8 @@ namespace mvc.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Administrador")]
+        [CustomAuthFilter]
+        [Authorize(Roles = "Administrador,Capturista")]
         public ActionResult Precios(int id)
         {
             IEnumerable<ServiciosDelegacion> serviciosDelegacions = con.serviciosdelegacion.ToList();
