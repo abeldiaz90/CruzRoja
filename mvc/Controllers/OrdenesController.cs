@@ -178,7 +178,11 @@ namespace mvc.Controllers
             ordenesmodelo.Idpaciente = ordenes.Idpaciente;
             ordenesmodelo.formapago = ordenes.formapago;
             ordenesmodelo.Factura = ordenes.Factura;
-            ordenesmodelo.IdDelegacionExpedicion = ordenes.IdDelegacionExpedicion;
+            var username = Seguridad.Encrypt(HttpContext.User.Identity.Name);
+            int idenc = con.users.FirstOrDefault(x => x.Usuario == username).IdDelegacion;
+            int idsuario=con.users.FirstOrDefault(x => x.Usuario == username).Id;
+            ordenesmodelo.IdDelegacionExpedicion = idenc;
+            ordenesmodelo.IdUsuario = idsuario;
 
             var validar = con.ordenes.FirstOrDefault(m => m.Id == ordenes.Id);
             if (validar == null)
