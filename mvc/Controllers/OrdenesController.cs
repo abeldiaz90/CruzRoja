@@ -220,8 +220,8 @@ namespace mvc.Controllers
                 con.SaveChanges();
                 con.Dispose();
             }
-            //return Recibo(ordenes.Id);     
-            return RedirectToAction("Index");
+            return Json(true,JsonRequestBehavior.AllowGet);
+          //  return RedirectToAction("Index");
         }
 
         [CustomAuthFilter]
@@ -229,7 +229,6 @@ namespace mvc.Controllers
         public PartialViewResult Recibo(int numeroorden)
         {
             IEnumerable<Ordenes> orden = contexto.ordenes.ToList().Where(s => s.Id == numeroorden);
-            //  IEnumerable<Delegaciones> delegaciones = contexto.delegaciones.FirstOrDefault(x => x.Id =orden.FirstOrDefault(x=>x.)
             IEnumerable<OrdenesDetalles> ordendetalles = contexto.ordenesdetalles.Where(m => m.IdFolio == numeroorden).ToList();
             IEnumerable<ServiciosDelegacion> serviciosDelegacion = contexto.serviciosdelegacion.ToList();
             int idpaciente = orden.FirstOrDefault().Idpaciente;

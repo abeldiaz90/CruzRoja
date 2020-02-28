@@ -34,47 +34,65 @@
 <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<style>
+	.center {
+		display: flex;
+		text-align: center;
+		margin: auto;
+		width: 50%;
+		margin-left:25%;
+		border: 3px solid black;
+		padding: 10px;
+		vertical-align: middle;
+		justify-content: center;
+		overflow-x: no-display;
+		overflow-y: auto;
+		position: absolute;
+		top: 50%;
+		-ms-transform: translateY(-50%);
+		transform: translateY(-50%);
+		line-height: 50px;
+		justify-content: center;
+	}
+</style>
+<div class="center" style="align-content:center;vertical-align:middle">
+	<form>
+		<!--<img src="~/images/logo.png" />-->
+		@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+		{
+			@Html.AntiForgeryToken()
+			@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+			<div class="row">
+				<div class="col-xl-auto">
+					@Html.LabelFor(m => m.Usuario, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.Usuario, new { @class = "form-control" })
+					@Html.ValidationMessageFor(m => m.Usuario, "", new { @class = "text-danger" })
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xl-auto">
+					@Html.LabelFor(m => m.Password, new { @class = "control-label" })
+					@Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+					@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+				</div>
+			</div>
 
+			<div class="row">
+				<div class="col-xl-auto">
+					<input type="button" value="Iniciar Sesion" class="btn btn-lg btn-outline-primary" id="btnInicioSesion" />
+				</div>
+			</div>
+		}
+	</form>
+</div>
+<div class="collapse" id="collapseExample">
+	<div class="well alert-danger">
+		<label id="msj">
 
-	<div class="row" style="background-color:red;align-content:center;vertical-align:central;">
-		<div class="col-md-3" style="align-content:safe center">
-			<section id="loginForm" style="color:white;align-content:center">
-				<!--<img src="~/images/logo.png" />-->
-				@using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-				{
-					@Html.AntiForgeryToken()
-
-					<hr />
-					@Html.ValidationSummary(true, "", new { @class = "text-danger" })
-					<div class="form-group">
-						@Html.LabelFor(m => m.Usuario, new { @class = "col-md-2 control-label" })
-						<div class="col-md-10">
-							@Html.TextBoxFor(m => m.Usuario, new { @class = "form-control" })
-							@Html.ValidationMessageFor(m => m.Usuario, "", new { @class = "text-danger" })
-						</div>
-					</div>
-					<div class="form-group">
-						@Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-						<div class="col-md-10">
-							@Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-							@Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
-						</div>
-					</div>
-					<div class="form-group">
-						<div class="col-md-offset-2 col-md-10">
-							<input type="button" value="Iniciar Sesion" class="btn btn-sm" style="background-color:white" id="btnInicioSesion" />
-						</div>
-					</div>
-				}
-			</section>
-		</div>
-		<div class="col-md-4">
-			<section id="socialLoginForm">
-				@*	@Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })*@
-			</section>
-		</div>
+		</label>
 	</div>
-
+</div>
 <script type="text/javascript">
 	$(document).ready(function () {
 			});
@@ -87,32 +105,36 @@
 			});
 	}
 	$('#btnInicioSesion').on("click", function () {
+		if ($("#Usuario").val() != "" && $("#Password").val() != "") {
+			$('.collapse').collapse('hide');
 			var url = '@Url.Action("Login", "Account")';
 			var JsonModel = '@Html.Raw(Json.Encode(@Model))'
 			var data = {
-			Usuario: $("#Usuario").val(),
-			Password: $("#Password").val()
+				Usuario: $("#Usuario").val(),
+				Password: $("#Password").val()
 			}
 			$.ajax({
-			type: "POST",
-			data: JSON.stringify({
-			'Usuario': data.Usuario, 'Password': data.Password}),
-			url: url,
-			contentType: "application/json"
+				type: "POST",
+				data: JSON.stringify({
+					'Usuario': data.Usuario, 'Password': data.Password
+				}),
+				url: url,
+				contentType: "application/json"
 			}).done(function (res) {
-			console.log(res);
+				console.log(res);
 				if (res) {
 					dataLayer.push({
-					categoria: 'ACCOUNT',
-					accion: '@Resources.Recursos.LOGIN',
-					etiqueta:'@Resources.Recursos.LOGIN_EXITOSO',
-					event: 'eventos',
-					userid: data.Usuario
+						categoria: 'ACCOUNT',
+						accion: '@Resources.Recursos.LOGIN',
+						etiqueta: '@Resources.Recursos.LOGIN_EXITOSO',
+						event: 'eventos',
+						userid: data.Usuario
 					});
-			window.location.href = '../Ordenes/Index';
-			} else { alert("Password invalido");}
+					window.location.href = '../Ordenes/Index';
+				} else { $('#msj').text('@Resources.Recursos.LOGIN_FALLIDO'); $('.collapse').collapse('show');}
 			}).fail(function (error) {
-			alert(error.StatusText);
+				alert(error.StatusText);
 			});
-			});
+		} else { $("#Usuario").focus(); $('#msj').text('@Resources.Recursos.LOGIN_USUARIO_PASSWORD'); $('.collapse').collapse('show'); }
+		});
 </script>

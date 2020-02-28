@@ -24,6 +24,32 @@
 	<title>Cruz Roja</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<!-- Google Analytics -->
+
+	<!-- End Google Analytics -->
+	@*<meta http-equiv="refresh" content="0; url=https://w3c.github.io/paint-timing/" />*@
+	@*<script>
+			var observer = new PerformanceObserver(function (list) {
+				var perfEntries = list.getEntries();
+				for (var i = 0; i < perfEntries.length; i++) {
+					console.log(perfEntries[i].startTime, perfEntries[i].duration);
+				}
+			});
+
+			// register observer for paint timing notifications
+			observer.observe({ entryTypes: ["paint"] });
+		</script>*@
+	<script>
+		const observer = new PerformanceObserver(function (list) {
+			
+			for (const entry of list.getEntries()) {
+
+				dataLayer.push({ categoria: entry.entryType, accion: entry.duration, etiqueta: entry.name, event: 'eventos' });
+				console.log(entry)
+			}
+		});
+		observer.observe({ type: "longtask", buffered: true });
+	</script>
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 	@if (Context.User.Identity.IsAuthenticated)
 	{

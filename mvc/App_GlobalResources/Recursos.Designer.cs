@@ -88,6 +88,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a INICIO DE SESION FALLIDO- NO SUPERO EL PROCESO DE AUTENTICACION.
+        /// </summary>
+        internal static string LOGIN_FALLIDO {
+            get {
+                return ResourceManager.GetString("LOGIN_FALLIDO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a INGRESE USUARIO Y PASSWORD.
+        /// </summary>
+        internal static string LOGIN_USUARIO_PASSWORD {
+            get {
+                return ResourceManager.GetString("LOGIN_USUARIO_PASSWORD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a ORDENES.
         /// </summary>
         internal static string ORDENES {

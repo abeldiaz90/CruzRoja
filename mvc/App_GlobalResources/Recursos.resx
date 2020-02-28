@@ -126,6 +126,12 @@
   <data name="LOGIN_EXITOSO" xml:space="preserve">
     <value>INICIO DE SESIÓN EXITOSO</value>
   </data>
+  <data name="LOGIN_FALLIDO" xml:space="preserve">
+    <value>INICIO DE SESION FALLIDO- NO SUPERO EL PROCESO DE AUTENTICACION</value>
+  </data>
+  <data name="LOGIN_USUARIO_PASSWORD" xml:space="preserve">
+    <value>INGRESE USUARIO Y PASSWORD</value>
+  </data>
   <data name="ORDENES" xml:space="preserve">
     <value>ORDENES</value>
   </data>

@@ -244,7 +244,6 @@
 				idpaciente: $('#Id').val(),
 				formapago: $('#formapago').val(),
 				factura: $('#Factura').is(':checked')
-				//IdDelegacionExpedicion: 
 		}
 			$.ajax({
 				type: "POST",
@@ -252,6 +251,7 @@
 				url: url,
 				contentType: "application/json"
 			}).done(function (res) {
+				console.log(res);
 				var myWindow = window.open("../ordenes/recibo?numeroorden="+datos.Id, "_blank", "fullscreen=yes");
      			myWindow.focus();
 				myWindow.print();
@@ -270,7 +270,6 @@
 			$("#Total").val(document.getElementById("subTotalOrden").innerText);
 		}
 	});
-
 	function cuentaycambio() {
 			const formatter = new Intl.NumberFormat('es-MX', {
 				style: 'currency',
