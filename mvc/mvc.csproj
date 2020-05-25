@@ -1,5 +1,5 @@
 ﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props" Condition="Exists('$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\TypeScript\Microsoft.TypeScript.Default.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -46,20 +46,44 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AdvancedStringBuilder, Version=0.1.0.0, Culture=neutral, PublicKeyToken=e818a2fc08933ddb, processorArchitecture=MSIL">
+      <HintPath>..\packages\AdvancedStringBuilder.0.1.0\lib\net45\AdvancedStringBuilder.dll</HintPath>
+    </Reference>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
       <HintPath>..\packages\BouncyCastle.1.8.6.1\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
+    <Reference Include="BundleTransformer.Core, Version=1.10.0.0, Culture=neutral, PublicKeyToken=973c344c93aac60d, processorArchitecture=MSIL">
+      <HintPath>..\packages\BundleTransformer.Core.1.10.0\lib\net40\BundleTransformer.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="DynamicBundles, Version=0.9.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DynamicBundles.0.9.1.0\lib\net45\DynamicBundles.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Protobuf, Version=3.11.4.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Protobuf.3.11.4\lib\net45\Google.Protobuf.dll</HintPath>
+    <Reference Include="Google.Protobuf, Version=3.12.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.12.1\lib\net45\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="JavaScriptEngineSwitcher.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
+      <HintPath>..\packages\JavaScriptEngineSwitcher.Core.3.3.0\lib\net45\JavaScriptEngineSwitcher.Core.dll</HintPath>
     </Reference>
     <Reference Include="jQuery.Validation.Unobtrusive.Native, Version=1.1.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\jQuery.Validation.Unobtrusive.Native.MVC4.1.1.1.0\lib\net45\jQuery.Validation.Unobtrusive.Native.dll</HintPath>
+    </Reference>
+    <Reference Include="K4os.Compression.LZ4, Version=1.1.11.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
+      <HintPath>..\packages\K4os.Compression.LZ4.1.1.11\lib\net46\K4os.Compression.LZ4.dll</HintPath>
+    </Reference>
+    <Reference Include="K4os.Compression.LZ4.Streams, Version=1.1.11.0, Culture=neutral, PublicKeyToken=2186fa9121ef231d, processorArchitecture=MSIL">
+      <HintPath>..\packages\K4os.Compression.LZ4.Streams.1.1.11\lib\net46\K4os.Compression.LZ4.Streams.dll</HintPath>
+    </Reference>
+    <Reference Include="K4os.Hash.xxHash, Version=1.0.6.0, Culture=neutral, PublicKeyToken=32cd54395057cec3, processorArchitecture=MSIL">
+      <HintPath>..\packages\K4os.Hash.xxHash.1.0.6\lib\net46\K4os.Hash.xxHash.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AnalysisServices.Server.Core, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AnalysisServices.Server.13.0.1601.5\lib\Microsoft.AnalysisServices.Server.Core.dll</HintPath>
@@ -76,27 +100,27 @@
     <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.3\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNetCore.Authorization, Version=3.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNetCore.Authorization.3.1.3\lib\netstandard2.0\Microsoft.AspNetCore.Authorization.dll</HintPath>
+    <Reference Include="Microsoft.AspNetCore.Authorization, Version=3.1.4.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Authorization.3.1.4\lib\netstandard2.0\Microsoft.AspNetCore.Authorization.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.AspNetCore.Metadata, Version=3.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.AspNetCore.Metadata.3.1.3\lib\netstandard2.0\Microsoft.AspNetCore.Metadata.dll</HintPath>
+    <Reference Include="Microsoft.AspNetCore.Metadata, Version=3.1.4.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Metadata.3.1.4\lib\netstandard2.0\Microsoft.AspNetCore.Metadata.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=2.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=3.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.3.1.3\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
+    <Reference Include="Microsoft.Extensions.DependencyInjection.Abstractions, Version=3.1.4.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.DependencyInjection.Abstractions.3.1.4\lib\netstandard2.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=3.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.3.1.3\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
+    <Reference Include="Microsoft.Extensions.Logging.Abstractions, Version=3.1.4.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Logging.Abstractions.3.1.4\lib\netstandard2.0\Microsoft.Extensions.Logging.Abstractions.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Extensions.Options, Version=3.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.Options.3.1.3\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
+    <Reference Include="Microsoft.Extensions.Options, Version=3.1.4.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Options.3.1.4\lib\netstandard2.0\Microsoft.Extensions.Options.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Extensions.Primitives, Version=3.1.3.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Extensions.Primitives.3.1.3\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
+    <Reference Include="Microsoft.Extensions.Primitives, Version=3.1.4.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.3.1.4\lib\netstandard2.0\Microsoft.Extensions.Primitives.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Owin, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Owin.4.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
@@ -134,8 +158,8 @@
     <Reference Include="Microsoft.SqlServer.Types, Version=14.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.SqlServer.Types.14.0.1016.290\lib\net40\Microsoft.SqlServer.Types.dll</HintPath>
     </Reference>
-    <Reference Include="MySql.Data, Version=8.0.19.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
-      <HintPath>..\packages\MySql.Data.8.0.19\lib\net452\MySql.Data.dll</HintPath>
+    <Reference Include="MySql.Data, Version=8.0.20.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.8.0.20\lib\net452\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data.Entity.EF6, Version=6.10.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.Entity.6.10.9\lib\net452\MySql.Data.Entity.EF6.dll</HintPath>
@@ -149,8 +173,8 @@
     <Reference Include="Renci.SshNet, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
       <HintPath>..\packages\SSH.NET.2016.1.0\lib\net40\Renci.SshNet.dll</HintPath>
     </Reference>
-    <Reference Include="SendGrid, Version=9.14.0.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
-      <HintPath>..\packages\SendGrid.9.14.0\lib\net452\SendGrid.dll</HintPath>
+    <Reference Include="SendGrid, Version=9.15.1.0, Culture=neutral, PublicKeyToken=4f047e93159395ca, processorArchitecture=MSIL">
+      <HintPath>..\packages\SendGrid.9.15.1\lib\net452\SendGrid.dll</HintPath>
     </Reference>
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
@@ -226,6 +250,9 @@
     <Reference Include="System.Web.Http.Owin, Version=5.2.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebApi.Owin.5.2.7\lib\net45\System.Web.Http.Owin.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -233,14 +260,20 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="Ubiety.Dns.Core, Version=4.1.2.0, Culture=neutral, PublicKeyToken=62d65a2efdde5827, processorArchitecture=MSIL">
-      <HintPath>..\packages\Ubiety.Dns.Core.4.1.2\lib\net471\Ubiety.Dns.Core.dll</HintPath>
+    <Reference Include="Ubiety.Dns.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.8.0.20\lib\net452\Ubiety.Dns.Core.dll</HintPath>
     </Reference>
     <Reference Include="Ubiety.Logging.Core, Version=1.2.2.0, Culture=neutral, PublicKeyToken=133e143470e66433, processorArchitecture=MSIL">
       <HintPath>..\packages\Ubiety.Logging.Core.1.2.2\lib\net452\Ubiety.Logging.Core.dll</HintPath>
     </Reference>
     <Reference Include="Validation, Version=2.4.0.0, Culture=neutral, PublicKeyToken=2fc06f0d701809a7, processorArchitecture=MSIL">
       <HintPath>..\packages\Validation.2.4.22\lib\net45\Validation.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+    </Reference>
+    <Reference Include="Zstandard.Net, Version=1.1.7.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.8.0.20\lib\net452\Zstandard.Net.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -295,7 +328,274 @@
     <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\images\ajax-loader.gif" />
+    <Content Include="Content\images\icons-png\action-black.png" />
+    <Content Include="Content\images\icons-png\action-white.png" />
+    <Content Include="Content\images\icons-png\alert-black.png" />
+    <Content Include="Content\images\icons-png\alert-white.png" />
+    <Content Include="Content\images\icons-png\arrow-d-black.png" />
+    <Content Include="Content\images\icons-png\arrow-d-l-black.png" />
+    <Content Include="Content\images\icons-png\arrow-d-l-white.png" />
+    <Content Include="Content\images\icons-png\arrow-d-r-black.png" />
+    <Content Include="Content\images\icons-png\arrow-d-r-white.png" />
+    <Content Include="Content\images\icons-png\arrow-d-white.png" />
+    <Content Include="Content\images\icons-png\arrow-l-black.png" />
+    <Content Include="Content\images\icons-png\arrow-l-white.png" />
+    <Content Include="Content\images\icons-png\arrow-r-black.png" />
+    <Content Include="Content\images\icons-png\arrow-r-white.png" />
+    <Content Include="Content\images\icons-png\arrow-u-black.png" />
+    <Content Include="Content\images\icons-png\arrow-u-l-black.png" />
+    <Content Include="Content\images\icons-png\arrow-u-l-white.png" />
+    <Content Include="Content\images\icons-png\arrow-u-r-black.png" />
+    <Content Include="Content\images\icons-png\arrow-u-r-white.png" />
+    <Content Include="Content\images\icons-png\arrow-u-white.png" />
+    <Content Include="Content\images\icons-png\audio-black.png" />
+    <Content Include="Content\images\icons-png\audio-white.png" />
+    <Content Include="Content\images\icons-png\back-black.png" />
+    <Content Include="Content\images\icons-png\back-white.png" />
+    <Content Include="Content\images\icons-png\bars-black.png" />
+    <Content Include="Content\images\icons-png\bars-white.png" />
+    <Content Include="Content\images\icons-png\bullets-black.png" />
+    <Content Include="Content\images\icons-png\bullets-white.png" />
+    <Content Include="Content\images\icons-png\calendar-black.png" />
+    <Content Include="Content\images\icons-png\calendar-white.png" />
+    <Content Include="Content\images\icons-png\camera-black.png" />
+    <Content Include="Content\images\icons-png\camera-white.png" />
+    <Content Include="Content\images\icons-png\carat-d-black.png" />
+    <Content Include="Content\images\icons-png\carat-d-white.png" />
+    <Content Include="Content\images\icons-png\carat-l-black.png" />
+    <Content Include="Content\images\icons-png\carat-l-white.png" />
+    <Content Include="Content\images\icons-png\carat-r-black.png" />
+    <Content Include="Content\images\icons-png\carat-r-white.png" />
+    <Content Include="Content\images\icons-png\carat-u-black.png" />
+    <Content Include="Content\images\icons-png\carat-u-white.png" />
+    <Content Include="Content\images\icons-png\check-black.png" />
+    <Content Include="Content\images\icons-png\check-white.png" />
+    <Content Include="Content\images\icons-png\clock-black.png" />
+    <Content Include="Content\images\icons-png\clock-white.png" />
+    <Content Include="Content\images\icons-png\cloud-black.png" />
+    <Content Include="Content\images\icons-png\cloud-white.png" />
+    <Content Include="Content\images\icons-png\comment-black.png" />
+    <Content Include="Content\images\icons-png\comment-white.png" />
+    <Content Include="Content\images\icons-png\delete-black.png" />
+    <Content Include="Content\images\icons-png\delete-white.png" />
+    <Content Include="Content\images\icons-png\edit-black.png" />
+    <Content Include="Content\images\icons-png\edit-white.png" />
+    <Content Include="Content\images\icons-png\eye-black.png" />
+    <Content Include="Content\images\icons-png\eye-white.png" />
+    <Content Include="Content\images\icons-png\forbidden-black.png" />
+    <Content Include="Content\images\icons-png\forbidden-white.png" />
+    <Content Include="Content\images\icons-png\forward-black.png" />
+    <Content Include="Content\images\icons-png\forward-white.png" />
+    <Content Include="Content\images\icons-png\gear-black.png" />
+    <Content Include="Content\images\icons-png\gear-white.png" />
+    <Content Include="Content\images\icons-png\grid-black.png" />
+    <Content Include="Content\images\icons-png\grid-white.png" />
+    <Content Include="Content\images\icons-png\heart-black.png" />
+    <Content Include="Content\images\icons-png\heart-white.png" />
+    <Content Include="Content\images\icons-png\home-black.png" />
+    <Content Include="Content\images\icons-png\home-white.png" />
+    <Content Include="Content\images\icons-png\info-black.png" />
+    <Content Include="Content\images\icons-png\info-white.png" />
+    <Content Include="Content\images\icons-png\location-black.png" />
+    <Content Include="Content\images\icons-png\location-white.png" />
+    <Content Include="Content\images\icons-png\lock-black.png" />
+    <Content Include="Content\images\icons-png\lock-white.png" />
+    <Content Include="Content\images\icons-png\mail-black.png" />
+    <Content Include="Content\images\icons-png\mail-white.png" />
+    <Content Include="Content\images\icons-png\minus-black.png" />
+    <Content Include="Content\images\icons-png\minus-white.png" />
+    <Content Include="Content\images\icons-png\navigation-black.png" />
+    <Content Include="Content\images\icons-png\navigation-white.png" />
+    <Content Include="Content\images\icons-png\phone-black.png" />
+    <Content Include="Content\images\icons-png\phone-white.png" />
+    <Content Include="Content\images\icons-png\plus-black.png" />
+    <Content Include="Content\images\icons-png\plus-white.png" />
+    <Content Include="Content\images\icons-png\power-black.png" />
+    <Content Include="Content\images\icons-png\power-white.png" />
+    <Content Include="Content\images\icons-png\recycle-black.png" />
+    <Content Include="Content\images\icons-png\recycle-white.png" />
+    <Content Include="Content\images\icons-png\refresh-black.png" />
+    <Content Include="Content\images\icons-png\refresh-white.png" />
+    <Content Include="Content\images\icons-png\search-black.png" />
+    <Content Include="Content\images\icons-png\search-white.png" />
+    <Content Include="Content\images\icons-png\shop-black.png" />
+    <Content Include="Content\images\icons-png\shop-white.png" />
+    <Content Include="Content\images\icons-png\star-black.png" />
+    <Content Include="Content\images\icons-png\star-white.png" />
+    <Content Include="Content\images\icons-png\tag-black.png" />
+    <Content Include="Content\images\icons-png\tag-white.png" />
+    <Content Include="Content\images\icons-png\user-black.png" />
+    <Content Include="Content\images\icons-png\user-white.png" />
+    <Content Include="Content\images\icons-png\video-black.png" />
+    <Content Include="Content\images\icons-png\video-white.png" />
+    <Content Include="Content\images\icons-svg\action-black.svg" />
+    <Content Include="Content\images\icons-svg\action-white.svg" />
+    <Content Include="Content\images\icons-svg\alert-black.svg" />
+    <Content Include="Content\images\icons-svg\alert-white.svg" />
+    <Content Include="Content\images\icons-svg\arrow-d-black.svg" />
+    <Content Include="Content\images\icons-svg\arrow-d-l-black.svg" />
+    <Content Include="Content\images\icons-svg\arrow-d-l-white.svg" />
+    <Content Include="Content\images\icons-svg\arrow-d-r-black.svg" />
+    <Content Include="Content\images\icons-svg\arrow-d-r-white.svg" />
+    <Content Include="Content\images\icons-svg\arrow-d-white.svg" />
+    <Content Include="Content\images\icons-svg\arrow-l-black.svg" />
+    <Content Include="Content\images\icons-svg\arrow-l-white.svg" />
+    <Content Include="Content\images\icons-svg\arrow-r-black.svg" />
+    <Content Include="Content\images\icons-svg\arrow-r-white.svg" />
+    <Content Include="Content\images\icons-svg\arrow-u-black.svg" />
+    <Content Include="Content\images\icons-svg\arrow-u-l-black.svg" />
+    <Content Include="Content\images\icons-svg\arrow-u-l-white.svg" />
+    <Content Include="Content\images\icons-svg\arrow-u-r-black.svg" />
+    <Content Include="Content\images\icons-svg\arrow-u-r-white.svg" />
+    <Content Include="Content\images\icons-svg\arrow-u-white.svg" />
+    <Content Include="Content\images\icons-svg\audio-black.svg" />
+    <Content Include="Content\images\icons-svg\audio-white.svg" />
+    <Content Include="Content\images\icons-svg\back-black.svg" />
+    <Content Include="Content\images\icons-svg\back-white.svg" />
+    <Content Include="Content\images\icons-svg\bars-black.svg" />
+    <Content Include="Content\images\icons-svg\bars-white.svg" />
+    <Content Include="Content\images\icons-svg\bullets-black.svg" />
+    <Content Include="Content\images\icons-svg\bullets-white.svg" />
+    <Content Include="Content\images\icons-svg\calendar-black.svg" />
+    <Content Include="Content\images\icons-svg\calendar-white.svg" />
+    <Content Include="Content\images\icons-svg\camera-black.svg" />
+    <Content Include="Content\images\icons-svg\camera-white.svg" />
+    <Content Include="Content\images\icons-svg\carat-d-black.svg" />
+    <Content Include="Content\images\icons-svg\carat-d-white.svg" />
+    <Content Include="Content\images\icons-svg\carat-l-black.svg" />
+    <Content Include="Content\images\icons-svg\carat-l-white.svg" />
+    <Content Include="Content\images\icons-svg\carat-r-black.svg" />
+    <Content Include="Content\images\icons-svg\carat-r-white.svg" />
+    <Content Include="Content\images\icons-svg\carat-u-black.svg" />
+    <Content Include="Content\images\icons-svg\carat-u-white.svg" />
+    <Content Include="Content\images\icons-svg\check-black.svg" />
+    <Content Include="Content\images\icons-svg\check-white.svg" />
+    <Content Include="Content\images\icons-svg\clock-black.svg" />
+    <Content Include="Content\images\icons-svg\clock-white.svg" />
+    <Content Include="Content\images\icons-svg\cloud-black.svg" />
+    <Content Include="Content\images\icons-svg\cloud-white.svg" />
+    <Content Include="Content\images\icons-svg\comment-black.svg" />
+    <Content Include="Content\images\icons-svg\comment-white.svg" />
+    <Content Include="Content\images\icons-svg\delete-black.svg" />
+    <Content Include="Content\images\icons-svg\delete-white.svg" />
+    <Content Include="Content\images\icons-svg\edit-black.svg" />
+    <Content Include="Content\images\icons-svg\edit-white.svg" />
+    <Content Include="Content\images\icons-svg\eye-black.svg" />
+    <Content Include="Content\images\icons-svg\eye-white.svg" />
+    <Content Include="Content\images\icons-svg\forbidden-black.svg" />
+    <Content Include="Content\images\icons-svg\forbidden-white.svg" />
+    <Content Include="Content\images\icons-svg\forward-black.svg" />
+    <Content Include="Content\images\icons-svg\forward-white.svg" />
+    <Content Include="Content\images\icons-svg\gear-black.svg" />
+    <Content Include="Content\images\icons-svg\gear-white.svg" />
+    <Content Include="Content\images\icons-svg\grid-black.svg" />
+    <Content Include="Content\images\icons-svg\grid-white.svg" />
+    <Content Include="Content\images\icons-svg\heart-black.svg" />
+    <Content Include="Content\images\icons-svg\heart-white.svg" />
+    <Content Include="Content\images\icons-svg\home-black.svg" />
+    <Content Include="Content\images\icons-svg\home-white.svg" />
+    <Content Include="Content\images\icons-svg\info-black.svg" />
+    <Content Include="Content\images\icons-svg\info-white.svg" />
+    <Content Include="Content\images\icons-svg\location-black.svg" />
+    <Content Include="Content\images\icons-svg\location-white.svg" />
+    <Content Include="Content\images\icons-svg\lock-black.svg" />
+    <Content Include="Content\images\icons-svg\lock-white.svg" />
+    <Content Include="Content\images\icons-svg\mail-black.svg" />
+    <Content Include="Content\images\icons-svg\mail-white.svg" />
+    <Content Include="Content\images\icons-svg\minus-black.svg" />
+    <Content Include="Content\images\icons-svg\minus-white.svg" />
+    <Content Include="Content\images\icons-svg\navigation-black.svg" />
+    <Content Include="Content\images\icons-svg\navigation-white.svg" />
+    <Content Include="Content\images\icons-svg\phone-black.svg" />
+    <Content Include="Content\images\icons-svg\phone-white.svg" />
+    <Content Include="Content\images\icons-svg\plus-black.svg" />
+    <Content Include="Content\images\icons-svg\plus-white.svg" />
+    <Content Include="Content\images\icons-svg\power-black.svg" />
+    <Content Include="Content\images\icons-svg\power-white.svg" />
+    <Content Include="Content\images\icons-svg\recycle-black.svg" />
+    <Content Include="Content\images\icons-svg\recycle-white.svg" />
+    <Content Include="Content\images\icons-svg\refresh-black.svg" />
+    <Content Include="Content\images\icons-svg\refresh-white.svg" />
+    <Content Include="Content\images\icons-svg\search-black.svg" />
+    <Content Include="Content\images\icons-svg\search-white.svg" />
+    <Content Include="Content\images\icons-svg\shop-black.svg" />
+    <Content Include="Content\images\icons-svg\shop-white.svg" />
+    <Content Include="Content\images\icons-svg\star-black.svg" />
+    <Content Include="Content\images\icons-svg\star-white.svg" />
+    <Content Include="Content\images\icons-svg\tag-black.svg" />
+    <Content Include="Content\images\icons-svg\tag-white.svg" />
+    <Content Include="Content\images\icons-svg\user-black.svg" />
+    <Content Include="Content\images\icons-svg\user-white.svg" />
+    <Content Include="Content\images\icons-svg\video-black.svg" />
+    <Content Include="Content\images\icons-svg\video-white.svg" />
+    <Content Include="Content\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\jquery-ui.structure.css" />
+    <Content Include="Content\jquery-ui.theme.css" />
+    <Content Include="Content\jquery.mobile-1.4.5.css" />
+    <Content Include="Content\jquery.mobile-1.4.5.min.css" />
+    <Content Include="Content\jquery.mobile.external-png-1.4.5.css" />
+    <Content Include="Content\jquery.mobile.external-png-1.4.5.min.css" />
+    <Content Include="Content\jquery.mobile.icons-1.4.5.css" />
+    <Content Include="Content\jquery.mobile.icons-1.4.5.min.css" />
+    <Content Include="Content\jquery.mobile.inline-png-1.4.5.css" />
+    <Content Include="Content\jquery.mobile.inline-png-1.4.5.min.css" />
+    <Content Include="Content\jquery.mobile.inline-svg-1.4.5.css" />
+    <Content Include="Content\jquery.mobile.inline-svg-1.4.5.min.css" />
+    <Content Include="Content\jquery.mobile.structure-1.4.5.css" />
+    <Content Include="Content\jquery.mobile.structure-1.4.5.min.css" />
+    <Content Include="Content\jquery.mobile.theme-1.4.5.css" />
+    <Content Include="Content\jquery.mobile.theme-1.4.5.min.css" />
+    <Content Include="Content\jquery.timepicker.css" />
+    <Content Include="Content\jquery.timepicker.min.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\themes\base\accordion.css" />
+    <Content Include="Content\themes\base\all.css" />
+    <Content Include="Content\themes\base\autocomplete.css" />
+    <Content Include="Content\themes\base\base.css" />
+    <Content Include="Content\themes\base\button.css" />
+    <Content Include="Content\themes\base\core.css" />
+    <Content Include="Content\themes\base\datepicker.css" />
+    <Content Include="Content\themes\base\dialog.css" />
+    <Content Include="Content\themes\base\draggable.css" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\themes\base\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\themes\base\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_444444_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_454545_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_555555_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777620_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_777777_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_888888_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\themes\base\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="Content\themes\base\jquery-ui.css" />
+    <Content Include="Content\themes\base\jquery-ui.min.css" />
+    <Content Include="Content\themes\base\menu.css" />
+    <Content Include="Content\themes\base\progressbar.css" />
+    <Content Include="Content\themes\base\resizable.css" />
+    <Content Include="Content\themes\base\selectable.css" />
+    <Content Include="Content\themes\base\selectmenu.css" />
+    <Content Include="Content\themes\base\slider.css" />
+    <Content Include="Content\themes\base\sortable.css" />
+    <Content Include="Content\themes\base\spinner.css" />
+    <Content Include="Content\themes\base\tabs.css" />
+    <Content Include="Content\themes\base\theme.css" />
+    <Content Include="Content\themes\base\tooltip.css" />
     <Content Include="estilos.css" />
     <Content Include="Global.asax" />
     <Content Include="home.css" />
@@ -345,11 +645,23 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\bootstrap.validate.js" />
+    <Content Include="Scripts\cldr.js" />
+    <Content Include="Scripts\cldr\event.js" />
+    <Content Include="Scripts\cldr\supplemental.js" />
+    <Content Include="Scripts\cldr\unresolved.js" />
     <Content Include="Scripts\date.format.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
     <Content Include="Scripts\esm\popper.min.js" />
+    <Content Include="Scripts\globalize.js" />
+    <Content Include="Scripts\globalize\currency.js" />
+    <Content Include="Scripts\globalize\date.js" />
+    <Content Include="Scripts\globalize\message.js" />
+    <Content Include="Scripts\globalize\number.js" />
+    <Content Include="Scripts\globalize\plural.js" />
+    <Content Include="Scripts\globalize\relative-time.js" />
+    <Content Include="Scripts\globalize\unit.js" />
     <Content Include="Scripts\index.js.flow" />
     <Content Include="Scripts\esm\popper.min.js.map" />
     <Content Include="Scripts\esm\popper.js.map" />
@@ -360,11 +672,26 @@
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
     <Content Include="Scripts\bootstrap.bundle.js.map" />
     <None Include="Scripts\jquery-3.5.0.intellisense.js" />
-    <Content Include="Scripts\jquery-3.5.0.js" />
-    <Content Include="Scripts\jquery-3.5.0.min.js" />
-    <Content Include="Scripts\jquery-3.5.0.slim.js" />
-    <Content Include="Scripts\jquery-3.5.0.slim.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <None Include="Scripts\jquery-3.5.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-3.5.1.js" />
+    <Content Include="Scripts\jquery-3.5.1.min.js" />
+    <Content Include="Scripts\jquery-3.5.1.slim.js" />
+    <Content Include="Scripts\jquery-3.5.1.slim.min.js" />
+    <Content Include="Scripts\jquery-3.5.1.slim.min.map" />
+    <Content Include="Scripts\jquery-3.5.1.min.map" />
+    <Content Include="Scripts\jquery-TimePicker-1.0.0.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.js" />
+    <Content Include="Scripts\jquery-ui-1.12.1.min.js" />
+    <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\jquery.mobile-1.4.5.js" />
+    <Content Include="Scripts\jquery.mobile-1.4.5.min.js" />
+    <Content Include="Scripts\jquery.mobile-1.4.5.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.timepicker.js" />
+    <Content Include="Scripts\jquery.timepicker.min.js" />
+    <Content Include="Scripts\jQuery.tmpl.js" />
+    <Content Include="Scripts\jQuery.tmpl.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -456,23 +783,31 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AmbulanciasController.cs" />
+    <Compile Include="Controllers\ClavesController.cs" />
+    <Compile Include="Controllers\ColoniasController.cs" />
     <Compile Include="Controllers\DelegacionesController.cs" />
     <Compile Include="Controllers\EstadosController.cs" />
     <Compile Include="Controllers\OrdenesController.cs" />
     <Compile Include="Controllers\PacientesController.cs" />
     <Compile Include="Controllers\PaisesController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\ServiciosAmbulanciasController.cs" />
     <Compile Include="Controllers\ServiciosController.cs" />
     <Compile Include="Controllers\ServiciosDelegacionController.cs" />
     <Compile Include="Controllers\ServiciosPreciosController.cs" />
     <Compile Include="Controllers\throwsController.cs" />
+    <Compile Include="Controllers\TrasladosController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Ambulancias.cs" />
+    <Compile Include="Models\Claves.cs" />
     <Compile Include="Models\Clientes.cs" />
     <Compile Include="Models\Cobros.cs" />
+    <Compile Include="Models\Colonias.cs" />
     <Compile Include="Models\Conceptos.cs" />
     <Compile Include="Models\Contexto.cs" />
     <Compile Include="Models\CustomActionFilter.cs" />
@@ -491,9 +826,11 @@
     <Compile Include="App_Data\Seguridad.cs" />
     <Compile Include="Models\Roles.cs" />
     <Compile Include="Models\Servicios.cs" />
+    <Compile Include="Models\ServiciosAmbulancias.cs" />
     <Compile Include="Models\ServiciosDelegacion.cs" />
     <Compile Include="Models\ServiciosPrecios.cs" />
     <Compile Include="Models\ServiciosVista.cs" />
+    <Compile Include="Models\Traslados.cs" />
     <Compile Include="Models\Users.cs" />
     <Compile Include="Models\UsersRoles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -544,8 +881,6 @@
     <Content Include="Views\throws\Index.cshtml" />
     <Content Include="Views\Roles\Editar.cshtml" />
     <Content Include="Views\Account\Unauthorized.cshtml" />
-    <Content Include="Scripts\jquery-3.5.0.slim.min.map" />
-    <Content Include="Scripts\jquery-3.5.0.min.map" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
     <Content Include="Scripts\umd\popper.js.flow" />
@@ -556,6 +891,31 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
+    <Content Include="Views\Ambulancias\Create.cshtml" />
+    <Content Include="Views\Ambulancias\Delete.cshtml" />
+    <Content Include="Views\Ambulancias\Details.cshtml" />
+    <Content Include="Views\Ambulancias\Edit.cshtml" />
+    <Content Include="Views\Ambulancias\Index.cshtml" />
+    <Content Include="Views\Claves\Create.cshtml" />
+    <Content Include="Views\Claves\Delete.cshtml" />
+    <Content Include="Views\Claves\Details.cshtml" />
+    <Content Include="Views\Claves\Edit.cshtml" />
+    <Content Include="Views\Claves\Index.cshtml" />
+    <Content Include="Views\Colonias\Create.cshtml" />
+    <Content Include="Views\Colonias\Delete.cshtml" />
+    <Content Include="Views\Colonias\Details.cshtml" />
+    <Content Include="Views\Colonias\Edit.cshtml" />
+    <Content Include="Views\Colonias\Index.cshtml" />
+    <Content Include="Views\Traslados\Create.cshtml" />
+    <Content Include="Views\Traslados\Delete.cshtml" />
+    <Content Include="Views\Traslados\Details.cshtml" />
+    <Content Include="Views\Traslados\Edit.cshtml" />
+    <Content Include="Views\Traslados\Index.cshtml" />
+    <Content Include="Views\ServiciosAmbulancias\Create.cshtml" />
+    <Content Include="Views\ServiciosAmbulancias\Delete.cshtml" />
+    <Content Include="Views\ServiciosAmbulancias\Details.cshtml" />
+    <Content Include="Views\ServiciosAmbulancias\Edit.cshtml" />
+    <Content Include="Views\ServiciosAmbulancias\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -579,6 +939,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -611,10 +972,10 @@
       <ErrorText>Este proyecto hace referencia a los paquetes NuGet que faltan en este equipo. Use la restauración de paquetes NuGet para descargarlos. Para obtener más información, consulte http://go.microsoft.com/fwlink/?LinkID=322105. El archivo que falta es {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
-    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.props'))" />
-    <Error Condition="!Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.0\build\EntityFramework.targets'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.props'))" />
+    <Error Condition="!Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\EntityFramework.6.4.4\build\EntityFramework.targets'))" />
   </Target>
-  <Import Project="..\packages\EntityFramework.6.4.0\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.0\build\EntityFramework.targets')" />
+  <Import Project="..\packages\EntityFramework.6.4.4\build\EntityFramework.targets" Condition="Exists('..\packages\EntityFramework.6.4.4\build\EntityFramework.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

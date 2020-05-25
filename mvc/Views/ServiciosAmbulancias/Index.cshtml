@@ -1,0 +1,107 @@
+﻿@model IEnumerable<mvc.Models.ServiciosAmbulancias>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+	<thead class="thead-dark">
+		<tr>
+			<th>
+				@Html.DisplayNameFor(model => model.Fecha)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Reportante)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Calle)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.NumeroExt)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.IdColonia)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Cruzamientos)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Referencia)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.Telefono)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.ClaveEmergencia)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.HoraRecepcion)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.UnidadAsignada)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.KilometrajeSalida)
+			</th>
+			<th>
+				@Html.DisplayNameFor(model => model.HoraSalida)
+			</th>
+			<th></th>
+		</tr>
+		</thead>
+		@foreach (var item in Model)
+		{
+			<tr>
+				<td>
+					@Html.DisplayFor(modelItem => item.Fecha)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Reportante)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Calle)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.NumeroExt)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.IdColonia)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Cruzamientos)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Referencia)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.Telefono)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.ClaveEmergencia)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.HoraRecepcion)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.UnidadAsignada)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.KilometrajeSalida)
+				</td>
+				<td>
+					@Html.DisplayFor(modelItem => item.HoraSalida)
+				</td>
+				<td>
+					@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+					@Html.ActionLink("Details", "Details", new { id = item.Id }) |
+					@Html.ActionLink("Delete", "Delete", new { id = item.Id })
+				</td>
+			</tr>
+		}
+		
+</table>

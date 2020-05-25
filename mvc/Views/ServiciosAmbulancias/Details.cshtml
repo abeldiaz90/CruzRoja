@@ -1,0 +1,122 @@
+﻿@model mvc.Models.ServiciosAmbulancias
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ServiciosAmbulancias</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Reportante)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Reportante)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Calle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Calle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.NumeroExt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NumeroExt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdColonia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdColonia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cruzamientos)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cruzamientos)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Referencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Referencia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Telefono)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telefono)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ClaveEmergencia)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ClaveEmergencia)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HoraRecepcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HoraRecepcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UnidadAsignada)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UnidadAsignada)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KilometrajeSalida)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KilometrajeSalida)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HoraSalida)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HoraSalida)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

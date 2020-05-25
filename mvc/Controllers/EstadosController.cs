@@ -93,9 +93,9 @@ namespace mvc.Controllers
             return View(estadoslista);
         }
 
-        [HttpPost]
-        [CustomAuthFilter]
-        [Authorize(Roles = "Administrador")]
+       [HttpPost]
+       [CustomAuthFilter]
+       [Authorize(Roles = "Administrador")]
         public ActionResult Guardar(Estados estados)
         {
             if (ModelState.IsValid)

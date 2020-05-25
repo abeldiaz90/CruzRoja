@@ -25,5 +25,14 @@ namespace mvc.Models
         public DbSet<Roles> roles { set; get; }
         public DbSet<ServiciosDelegacionPrecios> serviciosDelegacionPrecios { set; get; }
 
+        public System.Data.Entity.DbSet<mvc.Models.Ambulancias> Ambulancias { get; set; }
+
+        public System.Data.Entity.DbSet<mvc.Models.Claves> Claves { get; set; }
+
+        public System.Data.Entity.DbSet<mvc.Models.Colonias> Colonias { get; set; }
+
+        public System.Data.Entity.DbSet<mvc.Models.Traslados> Traslados { get; set; }
+
+        public System.Data.Entity.DbSet<mvc.Models.ServiciosAmbulancias> ServiciosAmbulancias { get; set; }
     }
 }
