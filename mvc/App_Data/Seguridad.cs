@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Security;
 using System.Configuration;
-using System.Text;
 using System.IO;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace mvc.Models
 {

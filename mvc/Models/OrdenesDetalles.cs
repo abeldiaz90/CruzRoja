@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
 namespace mvc.Models
 {
@@ -13,7 +9,7 @@ namespace mvc.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { set; get; }
 
-        [Display(Name ="Numero de orden")]
+        [Display(Name = "Numero de orden")]
         public int IdFolio { set; get; }
 
         [Display(Name = "Servicio")]

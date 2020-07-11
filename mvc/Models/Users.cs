@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
 namespace mvc.Models
 {
@@ -13,8 +10,8 @@ namespace mvc.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { set; get; }
 
-        [Required(ErrorMessage ="El usuario es Obligatorio")]
-        [Display(Name ="Usuario:")]
+        [Required(ErrorMessage = "El usuario es Obligatorio")]
+        [Display(Name = "Usuario:")]
         public string Usuario { set; get; }
 
         [Required(ErrorMessage = "El password es Obligatorio")]
@@ -30,8 +27,8 @@ namespace mvc.Models
         [ForeignKey("IdDelegacion")]
         public Delegaciones delegacion { set; get; }
 
-        [Required(ErrorMessage ="Seleccione su Delegación")]
-        [Display(Name ="Delegación:")]
+        [Required(ErrorMessage = "Seleccione su Delegación")]
+        [Display(Name = "Delegación:")]
         public int IdDelegacion { set; get; }
 
         [ForeignKey("IdRol")]

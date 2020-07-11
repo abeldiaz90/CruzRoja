@@ -1,18 +1,14 @@
-﻿using System;
+﻿using mvc.Models;
+using System;
 using System.Collections.Generic;
-using System.Data.Entity.Core.Metadata.Edm;
 using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
 using System.Web.Mvc;
-using mvc.Models;
 //using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.DependencyInjection;
 
 
 namespace mvc.Controllers
 {
-    
+
     public class OrdenesController : Controller
     {
         // GET: Ordenes
@@ -180,7 +176,7 @@ namespace mvc.Controllers
             ordenesmodelo.Factura = ordenes.Factura;
             var username = Seguridad.Encrypt(HttpContext.User.Identity.Name);
             int idenc = con.users.FirstOrDefault(x => x.Usuario == username).IdDelegacion;
-            int idsuario=con.users.FirstOrDefault(x => x.Usuario == username).Id;
+            int idsuario = con.users.FirstOrDefault(x => x.Usuario == username).Id;
             ordenesmodelo.IdDelegacionExpedicion = idenc;
             ordenesmodelo.IdUsuario = idsuario;
 
@@ -220,8 +216,8 @@ namespace mvc.Controllers
                 con.SaveChanges();
                 con.Dispose();
             }
-            return Json(true,JsonRequestBehavior.AllowGet);
-          //  return RedirectToAction("Index");
+            return Json(true, JsonRequestBehavior.AllowGet);
+            //  return RedirectToAction("Index");
         }
 
         [CustomAuthFilter]

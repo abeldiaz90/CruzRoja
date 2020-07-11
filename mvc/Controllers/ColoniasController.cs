@@ -1,13 +1,10 @@
-﻿using System;
+﻿using mvc.Models;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
-using mvc.Models;
 
 namespace mvc.Controllers
 {
@@ -21,12 +18,12 @@ namespace mvc.Controllers
         public async Task<ActionResult> Index()
         {
             IEnumerable<Colonias> colonias = db.Colonias.ToList();
-            foreach (var col in colonias) 
+            foreach (var col in colonias)
             {
                 col.Colonia = Seguridad.Decrypt(col.Colonia);
             }
             return View(await Task.FromResult(colonias));
-           // return View(await db.Colonias.ToListAsync());
+            // return View(await db.Colonias.ToListAsync());
         }
 
         // GET: Colonias/Details/5
@@ -43,7 +40,7 @@ namespace mvc.Controllers
             {
                 return HttpNotFound();
             }
-            else 
+            else
             {
                 colonias.Colonia = Seguridad.Decrypt(colonias.Colonia);
             }
@@ -65,7 +62,7 @@ namespace mvc.Controllers
         [ValidateAntiForgeryToken]
         [CustomAuthFilter]
         [Authorize(Roles = "Administrador")]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Colonia")] Colonias colonias)
+        public async Task<ActionResult> Create([Bind(Include = "IdColonia,Colonia")] Colonias colonias)
         {
             if (ModelState.IsValid)
             {
@@ -92,10 +89,10 @@ namespace mvc.Controllers
             {
                 return HttpNotFound();
             }
-            else 
+            else
             {
                 colonias.Colonia = Seguridad.Decrypt(colonias.Colonia);
-            }            
+            }
             return View(colonias);
         }
 
@@ -106,7 +103,7 @@ namespace mvc.Controllers
         [ValidateAntiForgeryToken]
         [CustomAuthFilter]
         [Authorize(Roles = "Administrador")]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Colonia")] Colonias colonias)
+        public async Task<ActionResult> Edit([Bind(Include = "IdColonia,Colonia")] Colonias colonias)
         {
             if (ModelState.IsValid)
             {

@@ -1,138 +1,535 @@
 ﻿@model mvc.Models.ServiciosAmbulancias
 
 @{
-    ViewBag.Title = "Edit";
+	ViewBag.Title = "Edit";
 }
+<h2>Reporte Diario</h2>
+<h4></h4>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<style>
+	body {
+		margin-top: 40px;
+	}
 
-<h2>Edit</h2>
+	.stepwizard-step p {
+		margin-top: 10px;
+	}
 
+	.stepwizard-row {
+		display: table-row;
+	}
 
+	.stepwizard {
+		display: table;
+		width: 100%;
+		position: relative;
+	}
+
+	.stepwizard-step button[disabled] {
+		opacity: 1 !important;
+		filter: alpha(opacity=100) !important;
+	}
+
+	.stepwizard-row:before {
+		top: 14px;
+		bottom: 0;
+		position: absolute;
+		content: " ";
+		width: 100%;
+		height: 1px;
+		background-color: #ccc;
+		z-order: 0;
+	}
+
+	.stepwizard-step {
+		display: table-cell;
+		text-align: center;
+		position: relative;
+	}
+
+	.btn-circle {
+		width: 30px;
+		height: 30px;
+		text-align: center;
+		padding: 6px 0;
+		font-size: 12px;
+		line-height: 1.428571429;
+		border-radius: 15px;
+	}
+</style>
 @using (Html.BeginForm())
 {
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>ServiciosAmbulancias</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Fecha, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Fecha, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Reportante, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Reportante, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Reportante, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Calle, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Calle, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Calle, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.NumeroExt, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.NumeroExt, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.NumeroExt, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.IdColonia, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.IdColonia, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.IdColonia, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Cruzamientos, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Cruzamientos, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Cruzamientos, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Referencia, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Referencia, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Referencia, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Telefono, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Telefono, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.ClaveEmergencia, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ClaveEmergencia, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ClaveEmergencia, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.HoraRecepcion, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.HoraRecepcion, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.HoraRecepcion, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.UnidadAsignada, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UnidadAsignada, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UnidadAsignada, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.KilometrajeSalida, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.KilometrajeSalida, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.KilometrajeSalida, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.HoraSalida, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.HoraSalida, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.HoraSalida, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
+	@Html.AntiForgeryToken()
+	<fieldset>
+		@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+		<div class="form-group">
+			<div class="container">
+				<div class="stepwizard">
+					<div class="stepwizard-row setup-panel">
+						<div class="stepwizard-step">
+							<a href="#step-1" type="button" class="btn btn-primary btn-circle" id="a1">1</a>
+							<p>Reportante</p>
+						</div>
+						<div class="stepwizard-step">
+							<a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled" id="a2">2</a>
+							<p>Llegada al sitio</p>
+						</div>
+						<div class="stepwizard-step">
+							<a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled" id="a3">3</a>
+							<p>Traslado</p>
+						</div>
+						<div class="stepwizard-step">
+							<a href="#step-4" type="button" class="btn btn-default btn-circle" disabled="disabled" id="a4">4</a>
+							<p>Fin del Traslado</p>
+						</div>
+						<div class="stepwizard-step">
+							<a href="#step-5" type="button" class="btn btn-default btn-circle" disabled="disabled" id="a5">5</a>
+							<p>Retorno a la base</p>
+						</div>
+						<div class="stepwizard-step">
+							<a href="#step-6" type="button" class="btn btn-default btn-circle" disabled="disabled" id="a6">6</a>
+							<p>Servicio Completado</p>
+						</div>
+					</div>
+				</div>
+				<div class="row setup-content" id="step-1">
+					<div class="col-xl-12">
+						<div class="col-xl-12">
+							<h3> Reportante</h3>
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm">
+										@Html.LabelFor(model => model.Id, htmlAttributes: new { @class = "control-label font-weight-bold" })
+										<div class="row-cols-sm-6">
+											@Html.EditorFor(model => model.Id, new { htmlAttributes = new { @class = "form-control", @disabled = "true" } })
+										</div>
+									</div>
+									<div class="col-sm">
+										@Html.LabelFor(model => model.Fecha, htmlAttributes: new { @class = "control-label font-weight-bold" })
+										<div class="row-cols-sm-6">
+											@Html.EditorFor(model => model.Fecha, new { htmlAttributes = new { @class = "form-control datepicker", @type = "date" } })
+											@Html.ValidationMessageFor(model => model.Fecha, "", new { @class = "text-danger" })
+										</div>
+									</div>
+									<div class="col-sm">
+										@Html.LabelFor(model => model.HoraRecepcion, htmlAttributes: new { @class = "control-label font-weight-bold" })
+										<div class="row-cols-sm-6">
+											@Html.EditorFor(model => model.HoraRecepcion, new { htmlAttributes = new { @class = "form-control", @Type = "Time" } })
+											@Html.ValidationMessageFor(model => model.HoraRecepcion, "", new { @class = "text-danger" })
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm">
+										@Html.LabelFor(model => model.Reportante, htmlAttributes: new { @class = "control-label font-weight-bold" })
+										<div class="row-cols-sm-6">
+											@Html.EditorFor(model => model.Reportante, new { htmlAttributes = new { @class = "form-control", @style = "text-transform:uppercase" } })
+											@Html.ValidationMessageFor(model => model.Reportante, "", new { @class = "text-danger" })
+										</div>
+									</div>
+									<div class="col-sm">
+										@Html.LabelFor(model => model.Telefono, htmlAttributes: new { @class = "control-label font-weight-bold" })
+										<div class="row-cols-sm-6">
+											@Html.EditorFor(model => model.Telefono, new { htmlAttributes = new { @class = "form-control" } })
+											@Html.ValidationMessageFor(model => model.Telefono, "", new { @class = "text-danger" })
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm">
+										@Html.LabelFor(model => model.IdColonia, htmlAttributes: new { @class = "control-label font-weight-bold" })
+										<div class="row-cols-sm-6">
+											@Html.DropDownListFor(model => model.IdColonia, new SelectList(Model.colonias, "IdColonia", "Colonia"), "--Seleccione una Colonia--", new { @class = "form-control" })
+											@Html.ValidationMessageFor(model => model.IdColonia, "", new { @class = "text-danger" })
+										</div>
+									</div>
+									<div class="col-sm">
+										@Html.LabelFor(model => model.Calle, htmlAttributes: new { @class = "control-label font-weight-bold" })
+										<div class="row-cols-sm-6">
+											@Html.EditorFor(model => model.Calle, new { htmlAttributes = new { @style = "text-transform:uppercase", @class = "form-control" } })
+											@Html.ValidationMessageFor(model => model.Calle, "", new { @class = "text-danger" })
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm">
+										@Html.LabelFor(model => model.NumeroExt, htmlAttributes: new { @class = "control-label font-weight-bold" })
+										<div class="row-cols-sm-6">
+											@Html.EditorFor(model => model.NumeroExt, new { htmlAttributes = new { @class = "form-control" } })
+											@Html.ValidationMessageFor(model => model.NumeroExt, "", new { @class = "text-danger" })
+										</div>
+									</div>
+									<div class="col-sm">
+										@Html.LabelFor(model => model.Cruzamientos, htmlAttributes: new { @class = "control-label font-weight-bold" })
+										<div class="row-cols-sm-6">
+											@Html.EditorFor(model => model.Cruzamientos, new { htmlAttributes = new { @class = "form-control", @style = "text-transform:uppercase", @onkeyup = "InputToUpper(this);" } })
+											@Html.ValidationMessageFor(model => model.Cruzamientos, "", new { @class = "text-danger" })
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm">
+										@Html.LabelFor(model => model.Referencia, htmlAttributes: new { @class = "control-label font-weight-bold" })
+										<div class="row-cols-sm-6">
+											@Html.EditorFor(model => model.Referencia, new { htmlAttributes = new { @class = "form-control", @style = "text-transform:uppercase", @onkeyup = "InputToUpper(this);" } })
+											@Html.ValidationMessageFor(model => model.Referencia, "", new { @class = "text-danger" })
+										</div>
+									</div>
+									<div class="col-sm">
+										@Html.LabelFor(model => model.IdClave, htmlAttributes: new { @class = "control-label col-md-10 font-weight-bold" })
+										<div class="row-cols-sm-6">
+											@Html.DropDownListFor(model => model.IdClave, new SelectList(Model.claves, "IdClave", "Descripcion"), "--Seleccione la Clave--", new { @class = "form-control" })
+											@Html.ValidationMessageFor(model => model.IdClave, "", new { @class = "text-danger" })
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm">
+										@Html.LabelFor(model => model.IdAmbulancia, htmlAttributes: new { @class = "control-label font-weight-bold" })
+										<div class="row-cols-sm-6">
+											@Html.DropDownListFor(model => model.IdAmbulancia, new SelectList(Model.ambulancias, "IdAmbulancia", "Unidad"), "--Seleccione una Unidad--", new { @class = "form-control" })
+											@Html.ValidationMessageFor(model => model.IdAmbulancia, "", new { @class = "text-danger" })
+										</div>
+									</div>
+									<div class="col-sm">
+										@Html.LabelFor(model => model.KilometrajeSalida, htmlAttributes: new { @class = "control-label font-weight-bold" })
+										<div class="row-cols-sm-6">
+											@Html.EditorFor(model => model.KilometrajeSalida, new { htmlAttributes = new { @class = "form-control" } })
+											@Html.ValidationMessageFor(model => model.KilometrajeSalida, "", new { @class = "text-danger" })
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm">
+										@Html.LabelFor(model => model.HoraSalida, htmlAttributes: new { @class = "control-label font-weight-bold" })
+										<div class="row-cols-sm-6">
+											@Html.EditorFor(model => model.HoraSalida, new { htmlAttributes = new { @class = "form-control", @Type = "Time" } })
+											@Html.ValidationMessageFor(model => model.HoraSalida, "", new { @class = "text-danger" })
+										</div>
+									</div>
+								</div>
+							</div>
+							<button class="btn btn-primary nextBtn btn-lg pull-right" type="button" id="btnGuardarStep1">Guardar</button>
+						</div>
+					</div>
+				</div>
+				<div class="row setup-content" id="step-2">
+					<div class="col-xl-12">
+						<div class="col-xl-12">
+							<h3>Llegada al Sitio</h3>
+							<div class="form-group">
+								<div class="row">
+									<div class="col-sm">
+										@Html.LabelFor(model => model.HoraLlegadaSitio, htmlAttributes: new { @class = "control-label col-md-10 font-weight-bold" })
+										<div class="row-cols-sm-6">
+											@Html.EditorFor(model => model.HoraLlegadaSitio, new { htmlAttributes = new { @class = "form-control", @Type = "Time" } })
+											@Html.ValidationMessageFor(model => model.HoraLlegadaSitio, "", new { @class = "text-danger" })
+										</div>
+									</div>
+								</div>
+							</div>
+							<button class="btn btn-primary nextBtn btn-lg pull-right" type="submit" id="btnGuardarStep2">Guardar</button>
+						</div>
+					</div>
+				</div>
+				<div class="row setup-content" id="step-3">
+					<div class="col-xl-12">
+						<div class="col-xl-12">
+							<h3> Traslado</h3>
+							<div class="col-sm">
+								@Html.LabelFor(model => model.HoraTraslado, htmlAttributes: new { @class = "control-label col-md-10 font-weight-bold" })
+								<div class="row-cols-sm-6">
+									@Html.EditorFor(model => model.HoraTraslado, new { htmlAttributes = new { @class = "form-control", @Type = "Time" } })
+									@Html.ValidationMessageFor(model => model.HoraTraslado, "", new { @class = "text-danger" })
+								</div>
+							</div>
+							<div class="col-sm">
+								@Html.LabelFor(model => model.IdTraslado, htmlAttributes: new { @class = "control-label font-weight-bold" })
+								<div class="row-cols-sm-6">
+									@Html.DropDownListFor(model => model.IdTraslado, new SelectList(Model.traslados, "IdTraslado", "Descripcion"), "--Lugar de Traslado--", new { @class = "form-control" })
+									@Html.ValidationMessageFor(model => model.IdTraslado, "", new { @class = "text-danger" })
+								</div>
+							</div>
+						</div>
+						<button class="btn btn-primary nextBtn btn-lg pull-right" type="submit" id="btnGuardarStep3">Guardar</button>
+					</div>
+				</div>
+				<div class="row setup-content" id="step-4">
+					<div class="col-xl-12">
+						<div class="col-xl-12">
+							<h3>Step 4</h3>
+							<div class="row">
+								<div class="col-sm">
+									@Html.LabelFor(model => model.HoraSalidaTraslado, htmlAttributes: new { @class = "control-label font-weight-bold" })
+									<div class="row-cols-sm-6">
+										@Html.EditorFor(model => model.HoraSalidaTraslado, new { htmlAttributes = new { @class = "form-control", @Type = "Time" } })
+										@Html.ValidationMessageFor(model => model.HoraSalidaTraslado, "", new { @class = "text-danger" })
+									</div>
+								</div>
+							</div>
+							<button class="btn btn-primary nextBtn btn-lg pull-right" type="submit" id="btnGuardarStep4">Guardar</button>
+						</div>
+					</div>
+				</div>
+				<div class="row setup-content" id="step-5">
+					<div class="col-xl-12">
+						<div class="col-xl-12">
+							<h3>Retorno a la Base</h3>
+							<div class="row">
+								<div class="col-sm">
+									@Html.LabelFor(model => model.KilometrajeLlegada, htmlAttributes: new { @class = "control-label col-md-10 font-weight-bold" })
+									<div class="row-cols-sm-6">
+										@Html.EditorFor(model => model.KilometrajeLlegada, new { htmlAttributes = new { @class = "form-control" } })
+										@Html.ValidationMessageFor(model => model.KilometrajeLlegada, "", new { @class = "text-danger" })
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-sm">
+									@Html.LabelFor(model => model.KilometrajeRecorrido, htmlAttributes: new { @class = "control-label col-md-10 font-weight-bold" })
+									<div class="row-cols-sm-6">
+										@Html.EditorFor(model => model.KilometrajeRecorrido, new { htmlAttributes = new { @class = "form-control" } })
+										@Html.ValidationMessageFor(model => model.KilometrajeRecorrido, "", new { @class = "text-danger" })
+									</div>
+								</div>
+								<div class="col-sm">
+									@Html.HiddenFor(model => model.Status)
+								</div>
+							</div>
+						</div>
+						<button class="btn btn-primary nextBtn btn-lg pull-right" type="submit" id="btnGuardarStep5">Guardar</button>
+					</div>
+				</div>
+				<div class="row setup-content" id="step-6">
+					<div class="col-xl-12">
+						<div class="col-xl-12 align-content-center">
+							<h1>SERVICIO COMPLETADO</h1>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</fieldset>
 }
-
 <div>
-    @Html.ActionLink("Back to List", "Index")
+	@Html.ActionLink("Regresar", "Index")
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+	@*@Scripts.Render("~/bundles/jqueryval")*@
+	<script>
+		$(document).ready(function () {
+			$('#Fecha').prop("readonly", true);
+			$('#HoraRecepcion').prop("readonly", true);
+			$('#KilometrajeSalida').prop("readonly", true);
+			$('#HoraSalida').prop("readonly", true);
+			$('#KilometrajeRecorrido').prop("readonly", true);
+			$('#KilometrajeLlegada').attr("Min", document.getElementById('KilometrajeSalida').value)
+
+			var navListItems = $('div.setup-panel div a'),
+				allWells = $('.setup-content'),
+				allNextBtn = $('.nextBtn');
+
+			allWells.hide();
+
+			navListItems.click(function (e) {
+				e.preventDefault();
+				var $target = $($(this).attr('href')),
+					$item = $(this);
+
+				if (!$item.hasClass('disabled')) {
+					navListItems.removeClass('btn-primary').addClass('btn-default');
+					$item.addClass('btn-primary');
+					allWells.hide();
+					$target.show();
+					$target.find('input:eq(0)').focus();
+				}
+			});
+
+			allNextBtn.click(function () {
+				var curStep = $(this).closest(".setup-content"),
+					curStepBtn = curStep.attr("id"),
+					nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+					curInputs = curStep.find("input[type='text'],input[type='url']"),
+					isValid = true;
+				console.log(curStepBtn);
+				$("#Status").val(curStepBtn);
+				$(".form-group").removeClass("has-error");
+				for (var i = 0; i < curInputs.length; i++) {
+					if (!curInputs[i].validity.valid) {
+						isValid = false;
+						$(curInputs[i]).closest(".form-group").addClass("has-error");
+					}
+				}
+
+				if (isValid)
+					nextStepWizard.removeAttr('disabled').trigger('click');
+			});
+
+			$('div.setup-panel div a.btn-primary').trigger('click');
+			StepActual();
+		});
+		$('#KilometrajeLlegada').on("change", function () {
+			var ki = document.getElementById('KilometrajeLlegada').value
+			var kl = document.getElementById('KilometrajeSalida').value
+			$("#KilometrajeRecorrido").val(ki - kl)
+		});
+
+		function StepActual() {
+			var curStep = $(this).closest(".setup-content"),
+				curStepBtn = document.getElementById("Status").value
+			nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+				curInputs = curStep.find("input[type='text'],input[type='url']"),
+				isValid = true;
+			if (curStepBtn == "step-1") {
+				$('#btnGuardarStep1').attr("style", "visibility: hidden");
+				//$('#HoraTraslado').prop("disabled", true);
+				$('#IdTraslado').prop("disabled", true);
+				$('#HoraTraslado').attr("readonly", "readonly");
+				$('#IdTraslado').attr("readonly", "readonly");
+				$('#HoraLlegadaSitio').attr("readonly", "readonly");
+				$('#btnGuardarStep3').attr("style", "visibility: hidden");
+				$('#btnGuardarStep4').attr("style", "visibility: hidden");
+				$('#HoraSalidaTraslado').attr("readonly", "readonly");
+				$('#a1').addClass('btn btn-default btn-circle btn-success');
+				$('#a3').addClass('btn btn-default btn-circle btn-danger disabled');
+				$('#a4').addClass('btn btn-default btn-circle btn-danger disabled');
+				$('#a5').addClass('btn btn-default btn-circle btn-danger disabled');
+				$('#a6').addClass('btn btn-default btn-circle btn-danger disabled');
+				mueveRelojLlegadaSitio('HoraLlegadaSitio');
+
+			} else if (curStepBtn == "step-2") {
+				$('#HoraLlegadaSitio').attr("readonly", "readonly");
+				$('#HoraTraslado').attr("readonly", "readonly");
+				$('#btnGuardarStep1').attr("style", "visibility: hidden");
+				$('#btnGuardarStep2').attr("style", "visibility: hidden");
+				$('#KilometrajeLlegada').attr("readonly", "readonly");
+				$('#KilometrajeLlegada').prop("disabled", true);
+				$('#HoraSalidaTraslado').attr("readonly", "readonly");
+				$('#a1').addClass('btn btn-default btn-circle btn-success');
+				$('#a2').addClass('btn btn-default btn-circle btn-success');
+				$('#a3').addClass('btn btn-default btn-circle btn-primary');
+				$('#a4').addClass('btn btn-default btn-circle btn-danger disabled');
+				$('#a5').addClass('btn btn-default btn-circle btn-danger disabled');
+				$('#a6').addClass('btn btn-default btn-circle btn-danger disabled');
+				mueveRelojHoraTraslado('#HoraTraslado');
+
+			}
+			else if (curStepBtn == "step-3") {
+				$('#HoraLlegadaSitio').attr("readonly", "readonly");
+				$('#HoraTraslado').attr("readonly", "readonly");
+				$('#IdTraslado').attr("readonly", "readonly");
+				$('#IdTraslado').prop("disabled", true);
+				$('#KilometrajeLlegada').prop("disabled", true);
+				$('#KilometrajeLlegada').attr("readonly", "readonly");
+				$('#HoraSalidaTraslado').attr("readonly", "readonly");
+				$('#a1').addClass('btn btn-default btn-circle btn-success');
+				$('#a2').addClass('btn btn-default btn-circle btn-success');
+				$('#a3').addClass('btn btn-default btn-circle btn-success');
+				$('#a5').addClass('btn btn-default btn-circle btn-danger disabled');
+				$('#a6').addClass('btn btn-default btn-circle btn-danger disabled');
+				$('#btnGuardarStep1').attr("style", "visibility: hidden");
+				$('#btnGuardarStep2').attr("style", "visibility: hidden");
+				$('#btnGuardarStep3').attr("style", "visibility: hidden");
+				$('#btnGuardarStep4').attr("style", "visibility: true");
+				$('#a5').addClass('disabled');
+				$('#a6').addClass('disabled');
+				mueveRelojFinTraslado();
+			}
+			else if (curStepBtn == "step-4") {
+				$('#HoraLlegadaSitio').attr("readonly", "readonly");
+				$('#HoraTraslado').attr("readonly", "readonly");
+				$('#IdTraslado').attr("readonly", "readonly");
+				$('#IdTraslado').prop("disabled", true);
+				$('#HoraSalidaTraslado').attr("readonly", "readonly");
+				$('#a1').addClass('btn btn-default btn-circle btn-success');
+				$('#a2').addClass('btn btn-default btn-circle btn-success');
+				$('#a3').addClass('btn btn-default btn-circle btn-success');
+				$('#a4').addClass('btn btn-default btn-circle btn-success');
+				$('#a5').addClass('btn btn-default btn-circle btn-primary');
+				$('#btnGuardarStep1').attr("style", "visibility: hidden");
+				$('#btnGuardarStep2').attr("style", "visibility: hidden");
+				$('#btnGuardarStep3').attr("style", "visibility: hidden");
+				$('#btnGuardarStep4').attr("style", "visibility: hidden");
+			} else if (curStepBtn == "step-5") {
+				$('#HoraLlegadaSitio').attr("readonly", "readonly");
+				$('#HoraTraslado').attr("readonly", "readonly");
+				$('#IdTraslado').attr("readonly", "readonly");
+				$('#IdTraslado').prop("disabled", true);
+				$('#KilometrajeRecorrido').attr("readonly", "readonly");
+				$('#KilometrajeLlegada').attr("readonly", "readonly");				
+				$('#HoraSalidaTraslado').attr("readonly", "readonly");
+				$('#a1').addClass('btn btn-default btn-circle btn-success');
+				$('#a2').addClass('btn btn-default btn-circle btn-success');
+				$('#a3').addClass('btn btn-default btn-circle btn-success');
+				$('#a4').addClass('btn btn-default btn-circle btn-success');
+				$('#a5').addClass('btn btn-default btn-circle btn-success');
+				$('#a6').addClass('btn btn-default btn-circle btn-success');
+				$('#btnGuardarStep1').attr("style", "visibility: hidden");
+				$('#btnGuardarStep2').attr("style", "visibility: hidden");
+				$('#btnGuardarStep3').attr("style", "visibility: hidden");
+				$('#btnGuardarStep4').attr("style", "visibility: hidden");
+				$('#btnGuardarStep5').attr("style", "visibility: hidden");
+			}
+			console.log(curStepBtn);
+
+			$(".form-group").removeClass("has-error");
+			for (var i = 0; i < curInputs.length; i++) {
+				if (!curInputs[i].validity.valid) {
+					isValid = false;
+					$(curInputs[i]).closest(".form-group").addClass("has-error");
+				}
+			}
+
+			if (isValid)
+				nextStepWizard.removeAttr('disabled').trigger('click');
+		}
+
+		function mueveRelojLlegadaSitio() {
+			momentoActual = new Date()
+			hora = momentoActual.getHours()
+			minuto = momentoActual.getMinutes()
+			segundo = momentoActual.getSeconds()
+			if (hora < 10) {
+				hora = '0' + hora;
+			}
+			if (minuto < 10) {
+				minuto = '0' + minuto;
+			}
+			horaImprimible = hora + ":" + minuto
+			$('#HoraLlegadaSitio').val(horaImprimible);
+			setTimeout("mueveRelojLlegadaSitio()", 1000)
+		}
+		function mueveRelojHoraTraslado() {
+			momentoActual = new Date()
+			hora = momentoActual.getHours()
+			minuto = momentoActual.getMinutes()
+			segundo = momentoActual.getSeconds()
+			if (hora < 10) {
+				hora = '0' + hora;
+			}
+			if (minuto < 10) {
+				minuto = '0' + minuto;
+			}
+			horaImprimible = hora + ":" + minuto
+			$('#HoraTraslado').val(horaImprimible);
+			setTimeout("mueveRelojHoraTraslado()", 1000)
+		}
+		function mueveRelojFinTraslado() {
+			momentoActual = new Date()
+			hora = momentoActual.getHours()
+			minuto = momentoActual.getMinutes()
+			segundo = momentoActual.getSeconds()
+			if (hora < 10) {
+				hora = '0' + hora;
+			}
+			if (minuto < 10) {
+				minuto = '0' + minuto;
+			}
+			horaImprimible = hora + ":" + minuto
+			$('#HoraSalidaTraslado').val(horaImprimible);
+			setTimeout("mueveRelojFinTraslado()", 1000)
+		}
+	</script>
 }

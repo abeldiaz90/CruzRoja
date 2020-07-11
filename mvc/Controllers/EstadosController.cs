@@ -1,10 +1,8 @@
-﻿using System;
+﻿using mvc.Models;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using mvc.Models;
 namespace mvc.Controllers
 {
     public class EstadosController : Controller
@@ -35,16 +33,16 @@ namespace mvc.Controllers
                 e.Estado = Seguridad.Decrypt(i.Estado);
                 e.IdPais = i.IdPais;
                 e.pais = i.pais;
-                e.paises = i.paises;         
+                e.paises = i.paises;
                 le.Add(e);
             }
 
             var vistaestados = from p in lp
                                join e in le on p.Id equals e.IdPais
                                select new EstadosVista { paises = p, estados = e };
-    
 
-            return View(vistaestados.OrderBy(s=>s.estados.Estado));
+
+            return View(vistaestados.OrderBy(s => s.estados.Estado));
         }
         [CustomAuthFilter]
         [Authorize(Roles = "Administrador")]
@@ -93,9 +91,9 @@ namespace mvc.Controllers
             return View(estadoslista);
         }
 
-       [HttpPost]
-       [CustomAuthFilter]
-       [Authorize(Roles = "Administrador")]
+        [HttpPost]
+        [CustomAuthFilter]
+        [Authorize(Roles = "Administrador")]
         public ActionResult Guardar(Estados estados)
         {
             if (ModelState.IsValid)

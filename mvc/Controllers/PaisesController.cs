@@ -1,11 +1,8 @@
-﻿using System;
+﻿using mvc.Models;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using mvc.Models;
-using mvc;
 namespace mvc.Controllers
 {
     public class PaisesController : Controller
@@ -13,13 +10,13 @@ namespace mvc.Controllers
         // GET: Paises
         Contexto con = new Contexto();
 
-        [CustomAuthFilter]
-        [Authorize(Roles = "Administrador")]
+        //[CustomAuthFilter]
+        //[Authorize(Roles = "Administrador")]
         public ActionResult Index()
         {
             IEnumerable<Paises> paises = con.paises.ToList();
             List<Paises> listaPaises = new List<Paises>();
-            
+
             foreach (var i in paises)
             {
                 Paises p = new Paises();
@@ -31,17 +28,17 @@ namespace mvc.Controllers
         }
 
 
-        [CustomAuthFilter]
-        [Authorize(Roles = "Administrador")]
+        //[CustomAuthFilter]
+        //[Authorize(Roles = "Administrador")]
         public ActionResult Nuevo()
         {
-            return View();            
+            return View();
         }
 
-        [CustomAuthFilter]
-        [Authorize(Roles = "Administrador")]
+        //[CustomAuthFilter]
+        //[Authorize(Roles = "Administrador")]
         public ActionResult Editar(Paises paises)
-        {            
+        {
             var paiseslistado = con.paises.FirstOrDefault(model => model.Id == paises.Id);
             Paises p = new Paises();
             p.Id = paiseslistado.Id;
@@ -50,8 +47,8 @@ namespace mvc.Controllers
         }
 
         [HttpPost]
-        [CustomAuthFilter]
-        [Authorize(Roles = "Administrador")]
+        //[CustomAuthFilter]
+        //[Authorize(Roles = "Administrador")]
         public ActionResult Guardar(Paises paises)
         {
             if (ModelState.IsValid)
@@ -63,7 +60,7 @@ namespace mvc.Controllers
                 Paises paiseslistado = con.paises.FirstOrDefault(model => model.Id == paises.Id);
                 if (paiseslistado == null)
                 {
-                 
+
                     con.paises.Add(p);
                     con.SaveChanges();
                 }

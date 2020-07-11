@@ -140,5 +140,59 @@ namespace Resources {
                 return ResourceManager.GetString("ORDENES_SERVICIOS_CANCELA_ORDEN", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a EN TRANSITO A LA EMERGENCIA.
+        /// </summary>
+        internal static string SERVICIOS_AMBULANCIAS_STEP1 {
+            get {
+                return ResourceManager.GetString("SERVICIOS_AMBULANCIAS_STEP1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a EL EL SITIO DE LA EMERGENCIA.
+        /// </summary>
+        internal static string SERVICIOS_AMBULANCIAS_STEP2 {
+            get {
+                return ResourceManager.GetString("SERVICIOS_AMBULANCIAS_STEP2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a INICIO DEL TRASLADO.
+        /// </summary>
+        internal static string SERVICIOS_AMBULANCIAS_STEP3 {
+            get {
+                return ResourceManager.GetString("SERVICIOS_AMBULANCIAS_STEP3", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a FIN DEL TRASLADO.
+        /// </summary>
+        internal static string SERVICIOS_AMBULANCIAS_STEP4 {
+            get {
+                return ResourceManager.GetString("SERVICIOS_AMBULANCIAS_STEP4", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a DE RETORNO A LA BASE.
+        /// </summary>
+        internal static string SERVICIOS_AMBULANCIAS_STEP5 {
+            get {
+                return ResourceManager.GetString("SERVICIOS_AMBULANCIAS_STEP5", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a SERVICIO COMPLETADO.
+        /// </summary>
+        internal static string SERVICIOS_AMBULANCIAS_STEP6 {
+            get {
+                return ResourceManager.GetString("SERVICIOS_AMBULANCIAS_STEP6", resourceCulture);
+            }
+        }
     }
 }

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
 namespace mvc.Models
 {
@@ -12,15 +9,15 @@ namespace mvc.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { set; get; }
-        
-        [Display(Name ="Estado:")]
+
+        [Display(Name = "Estado:")]
         public IEnumerable<Estados> estado { set; get; }
 
         [ForeignKey("IdEstado")]
         public Estados estados { set; get; }
 
         [Display(Name = "Estado:")]
-        [Required(ErrorMessage ="Seleccione un Estado")]
+        [Required(ErrorMessage = "Seleccione un Estado")]
         public int IdEstado { set; get; }
 
         [Required(ErrorMessage = "Ingrese el nombre de la delegación")]

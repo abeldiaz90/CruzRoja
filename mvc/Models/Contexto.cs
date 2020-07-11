@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
-using System.Linq;
-using System.Web;
+﻿using System.Data.Entity;
 
 namespace mvc.Models
 {
-    public class Contexto:DbContext
+    public class Contexto : DbContext
     {
-        public Contexto():base(System.Configuration.ConfigurationManager.ConnectionStrings["Conexion"].ToString())
+        public Contexto() : base(System.Configuration.ConfigurationManager.ConnectionStrings["Conexion"].ToString())
         {
         }
 

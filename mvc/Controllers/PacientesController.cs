@@ -1,12 +1,11 @@
-﻿using System;
+﻿using mvc.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Data.Entity.Validation;
 using System.Diagnostics;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using mvc.Models;
 
 namespace mvc.Controllers
 {
@@ -30,7 +29,7 @@ namespace mvc.Controllers
                 pacientes.RFC = Seguridad.Decrypt(i.RFC);
                 pacientes.CURP = Seguridad.Decrypt(i.CURP);
                 pacientes.Email = Seguridad.Decrypt(i.Email);
-                pacientes.Telefono= i.Telefono;
+                pacientes.Telefono = i.Telefono;
                 pacientes.FechaNacimiento = i.FechaNacimiento;
                 pacienteslista.Add(pacientes);
             }
@@ -73,7 +72,7 @@ namespace mvc.Controllers
             pa.pacientes = con.pacientes.ToList();
             return View(pa);
         }
- 
+
         [HttpPost]
         [CustomAuthFilter]
         [Authorize(Roles = "Administrador, Capturista")]
@@ -81,7 +80,7 @@ namespace mvc.Controllers
         {
             Contexto con = new Contexto();
             IEnumerable<Pacientes> p = con.pacientes.ToList();
-         
+
             List<Pacientes> pacientes = new List<Pacientes>();
             foreach (var i in p)
             {
@@ -133,7 +132,7 @@ namespace mvc.Controllers
                 pacientes = pacientes.Where(s => s.ApellidoMaterno.Contains(pa.ApellidoMaterno.ToUpper())).ToList();
             }
 
-             return PartialView("Resultados", pacientes);
+            return PartialView("Resultados", pacientes);
         }
 
         [CustomAuthFilter]
@@ -141,7 +140,7 @@ namespace mvc.Controllers
         public ActionResult BuscarId(Pacientes pa)
         {
             Contexto con = new Contexto();
-            IEnumerable<Pacientes> p = con.pacientes.ToList().Where(s=>s.Id==pa.Id);
+            IEnumerable<Pacientes> p = con.pacientes.ToList().Where(s => s.Id == pa.Id);
 
             List<Pacientes> pacientes = new List<Pacientes>();
             foreach (var i in p)
@@ -197,7 +196,7 @@ namespace mvc.Controllers
             }
             return Json(pacientes, JsonRequestBehavior.AllowGet);
 
-           // return PartialView("Resultados", pacientes);
+            // return PartialView("Resultados", pacientes);
         }
 
 
@@ -219,7 +218,7 @@ namespace mvc.Controllers
                 {
                     paciente.SegundoNombre = Seguridad.Encrypt(paciente.SegundoNombre.ToUpper());
                 }
-       
+
                 paciente.ApellidoPaterno = Seguridad.Encrypt(paciente.ApellidoPaterno.ToUpper());
 
                 if (string.IsNullOrEmpty(paciente.ApellidoMaterno))
@@ -296,7 +295,7 @@ namespace mvc.Controllers
                                 validationError.ErrorMessage);
                         }
                     }
-                }              
+                }
             }
             return RedirectToAction("index");
         }
@@ -307,7 +306,7 @@ namespace mvc.Controllers
             {
                 texto = string.Empty;
             }
-            return texto; 
+            return texto;
         }
     }
 }

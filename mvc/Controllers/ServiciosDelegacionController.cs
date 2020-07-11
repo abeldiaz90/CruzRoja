@@ -1,10 +1,8 @@
-﻿using System;
+﻿using mvc.Models;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using mvc.Models;
 namespace mvc.Controllers
 {
     public class ServiciosDelegacionController : Controller
@@ -34,7 +32,7 @@ namespace mvc.Controllers
                 s.Id = i.Id;
                 s.IdDelegacion = i.IdDelegacion;
                 s.IdServicio = i.IdServicio;
-                s.NombreServicio= Seguridad.Decrypt(i.NombreServicio);
+                s.NombreServicio = Seguridad.Decrypt(i.NombreServicio);
                 s.precios = i.precios;
                 s.servicios = i.servicios;
                 s.serviciosdelegacionvista = i.serviciosdelegacionvista;
@@ -47,8 +45,8 @@ namespace mvc.Controllers
             var vistaservicios = from sd in serviciosdelegacion
                                  join ss in servicios on sd.IdServicio equals ss.Id
                                  select new ServiciosVista { servicios = ss, serviciosdelegacion = sd };
-            serviciosDelegacion.serviciosdelegacionvista = vistaservicios.OrderBy(s=>s.serviciosdelegacion.NombreServicio);
-         
+            serviciosDelegacion.serviciosdelegacionvista = vistaservicios.OrderBy(s => s.serviciosdelegacion.NombreServicio);
+
             //foreach (var i in vistaservicios)
             //{
             //    ServiciosVista sv = new ServiciosVista();
@@ -100,22 +98,22 @@ namespace mvc.Controllers
             ServiciosDelegacion serviciosDelegacion = con.serviciosdelegacion.FirstOrDefault(model => model.Id == serviciosdelegacion.Id);
             serviciosDelegacion.delegaciones = con.delegaciones.ToList();
 
-            List<Delegaciones> lista = new List<Delegaciones>();          
-            foreach(var i in serviciosDelegacion.delegaciones)
+            List<Delegaciones> lista = new List<Delegaciones>();
+            foreach (var i in serviciosDelegacion.delegaciones)
             {
                 Delegaciones d = new Delegaciones();
                 d.Id = i.Id;
                 d.Municipio = Seguridad.Decrypt(i.Municipio);
                 lista.Add(d);
             }
-         
+
             serviciosDelegacion.servicios = con.servicios.ToList();
             List<Servicios> listaserviciosdelegacion = new List<Servicios>();
             foreach (var i in serviciosDelegacion.servicios)
             {
                 Servicios ser = new Servicios();
                 ser.Id = i.Id;
-                ser.NombreServicio = Seguridad.Decrypt(i.NombreServicio);               
+                ser.NombreServicio = Seguridad.Decrypt(i.NombreServicio);
                 listaserviciosdelegacion.Add(ser);
             }
             serviciosDelegacion.delegaciones = lista;
@@ -167,7 +165,7 @@ namespace mvc.Controllers
                              select new ServiciosVista { servicios = vista.servicios, serviciosdelegacion = vista.serviciosdelegacion, serviciosdelegacionprecios = vistaprecios };
 
 
-            IEnumerable <ServiciosDelegacionPrecios> sdp = con.serviciosDelegacionPrecios.ToList().Where(s => s.IdServicio == id);
+            IEnumerable<ServiciosDelegacionPrecios> sdp = con.serviciosDelegacionPrecios.ToList().Where(s => s.IdServicio == id);
             return PartialView("Precios", vistatotal.Where(s => s.serviciosdelegacionprecios.IdServicio == id));
         }
     }

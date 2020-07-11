@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Security.Principal;
 using System.Web;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
-using System.Web.SessionState;
-using System.Web.Http;
-using System.Data.Entity;
-using mvc.Models;
-using System.Security.Principal;
 
 namespace mvc
 {
@@ -52,7 +47,7 @@ namespace mvc
 
             if (Context.User != null)
                 Context.User = new GenericPrincipal(Context.User.Identity, roles);
-           // Context.User.IsInRole(roles[0]);
+            // Context.User.IsInRole(roles[0]);
         }
     }
 }

@@ -1,107 +1,115 @@
-﻿@model IEnumerable<mvc.Models.ServiciosAmbulancias>
+﻿@model IEnumerable<mvc.Models.ServiciosAmbulanciasVistas>
 
 @{
-    ViewBag.Title = "Index";
+	ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Reportes Diarios</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+	@Html.ActionLink("Nuevo Reporte", "Create")
 </p>
-<table class="table">
-	<thead class="thead-dark">
+<table class="table table-hover ">
+	<thead>
 		<tr>
-			<th>
-				@Html.DisplayNameFor(model => model.Fecha)
+			<th scope="col">
+				@Html.DisplayNameFor(model => model.serviciosAmbulancias.Fecha)
 			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.Reportante)
+			<th scope="col">
+				@Html.DisplayNameFor(model => model.serviciosAmbulancias.HoraRecepcion)
 			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.Calle)
+			<th scope="col">
+				@Html.DisplayNameFor(model => model.serviciosAmbulancias.Reportante)
 			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.NumeroExt)
+			@*<th scope="col">
+				@Html.DisplayNameFor(model => model.colonias.Colonia)
 			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.IdColonia)
+			<th scope="col">
+				@Html.DisplayNameFor(model => model.serviciosAmbulancias.Calle)
 			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.Cruzamientos)
+			<th scope="col">
+				@Html.DisplayNameFor(model => model.serviciosAmbulancias.NumeroExt)
+			</th>*@
+			@*<th scope="col">
+			@Html.DisplayNameFor(model => model.serviciosAmbulancias.Cruzamientos)
+		</th>*@
+			@*<th scope="col">
+			@Html.DisplayNameFor(model => model.serviciosAmbulancias.Referencia)
+		</th>*@
+			@*<th scope="col">
+			@Html.DisplayNameFor(model => model.serviciosAmbulancias.Telefono)
+		</th>*@
+			<th scope="col">
+				@Html.DisplayNameFor(model => model.claves.Descripcion)
 			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.Referencia)
+			<th scope="col">
+				@Html.DisplayNameFor(model => model.ambulancias.Unidad)
 			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.Telefono)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.ClaveEmergencia)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.HoraRecepcion)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.UnidadAsignada)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.KilometrajeSalida)
-			</th>
-			<th>
-				@Html.DisplayNameFor(model => model.HoraSalida)
+			@*<th scope="col">
+			@Html.DisplayNameFor(model => model.serviciosAmbulancias.KilometrajeSalida)
+		</th>
+		<th scope="col">
+			@Html.DisplayNameFor(model => model.serviciosAmbulancias.HoraSalida)
+		</th>*@
+			<th scope="col">
+				@Html.DisplayNameFor(model => model.serviciosAmbulancias.Status)
 			</th>
 			<th></th>
 		</tr>
-		</thead>
-		@foreach (var item in Model)
-		{
+	</thead>
+	@foreach (var item in Model)
+	{
+		<tbody>
 			<tr>
-				<td>
-					@Html.DisplayFor(modelItem => item.Fecha)
+				<td scope="row">
+					@Html.DisplayFor(modelItem => item.serviciosAmbulancias.Fecha)
 				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.Reportante)
+				<td scope="row">
+					@Html.DisplayFor(modelItem => item.serviciosAmbulancias.HoraRecepcion)
 				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.Calle)
+				<td scope="row">
+					@Html.DisplayFor(modelItem => item.serviciosAmbulancias.Reportante).ToString().ToUpper()
 				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.NumeroExt)
+				@*<td scope="row">
+					@Html.DisplayFor(modelItem => item.colonias.Colonia)
 				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.IdColonia)
+				<td scope="row">
+					@Html.DisplayFor(modelItem => item.serviciosAmbulancias.Calle).ToString().ToUpper()
 				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.Cruzamientos)
+				<td scope="row">
+					@Html.DisplayFor(modelItem => item.serviciosAmbulancias.NumeroExt)
+				</td>*@
+				@*<td scope="row">
+			@Html.DisplayFor(modelItem => item.serviciosAmbulancias.Cruzamientos).ToString().ToUpper()
+		</td>
+		<td scope="row">
+			@Html.DisplayFor(modelItem => item.serviciosAmbulancias.Referencia).ToString().ToUpper()
+		</td>
+		<td scope="row">
+			@Html.DisplayFor(modelItem => item.serviciosAmbulancias.Telefono)
+		</td>*@
+				<td scope="row">
+					@Html.DisplayFor(modelItem => item.claves.Descripcion)
 				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.Referencia)
+				<td scope="row">
+					@Html.DisplayFor(modelItem => item.ambulancias.Unidad)
 				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.Telefono)
+				@*<td scope="row">
+			@Html.DisplayFor(modelItem => item.serviciosAmbulancias.KilometrajeSalida)
+		</td>
+		<td scope="row">
+			@Html.DisplayFor(modelItem => item.serviciosAmbulancias.HoraSalida)
+		</td>*@
+				<td scope="row">
+					@Html.DisplayFor(modelItem => item.serviciosAmbulancias.Status)
 				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.ClaveEmergencia)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.HoraRecepcion)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.UnidadAsignada)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.KilometrajeSalida)
-				</td>
-				<td>
-					@Html.DisplayFor(modelItem => item.HoraSalida)
-				</td>
-				<td>
-					@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-					@Html.ActionLink("Details", "Details", new { id = item.Id }) |
-					@Html.ActionLink("Delete", "Delete", new { id = item.Id })
+				<td scope="row">
+					@Html.ActionLink("Edit", "Edit", new { id = item.serviciosAmbulancias.Id }) |
+					@Html.ActionLink("Details", "Details", new { id = item.serviciosAmbulancias.Id }) |
+					@Html.ActionLink("Delete", "Delete", new { id = item.serviciosAmbulancias.Id })
 				</td>
 			</tr>
-		}
-		
+		</tbody>
+	}
+
 </table>

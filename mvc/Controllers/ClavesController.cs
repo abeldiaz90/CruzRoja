@@ -1,13 +1,10 @@
-﻿using System;
+﻿using mvc.Models;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
-using mvc.Models;
 
 namespace mvc.Controllers
 {
@@ -28,8 +25,8 @@ namespace mvc.Controllers
                 clave.Descripcion = Seguridad.Decrypt(clave.Descripcion);
                 listaclaves.Add(clave);
             }
-       
-         
+
+
             // return View(await db.Claves.ToListAsync());
             return View(await Task.FromResult(listaclaves));
         }
@@ -71,7 +68,7 @@ namespace mvc.Controllers
         [ValidateAntiForgeryToken]
         [CustomAuthFilter]
         [Authorize(Roles = "Administrador")]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Clave,Descripcion")] Claves claves)
+        public async Task<ActionResult> Create([Bind(Include = "IdClave,Clave,Descripcion")] Claves claves)
         {
             if (ModelState.IsValid)
             {
@@ -114,7 +111,7 @@ namespace mvc.Controllers
         [ValidateAntiForgeryToken]
         [CustomAuthFilter]
         [Authorize(Roles = "Administrador")]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Clave,Descripcion")] Claves claves)
+        public async Task<ActionResult> Edit([Bind(Include = "IdClave,Clave,Descripcion")] Claves claves)
         {
             if (ModelState.IsValid)
             {

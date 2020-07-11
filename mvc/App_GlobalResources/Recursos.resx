@@ -144,4 +144,22 @@
   <data name="ORDENES_SERVICIOS_CANCELA_ORDEN" xml:space="preserve">
     <value>CANCELAR ORDEN</value>
   </data>
+  <data name="SERVICIOS_AMBULANCIAS_STEP1" xml:space="preserve">
+    <value>EN TRANSITO A LA EMERGENCIA</value>
+  </data>
+  <data name="SERVICIOS_AMBULANCIAS_STEP2" xml:space="preserve">
+    <value>EL EL SITIO DE LA EMERGENCIA</value>
+  </data>
+  <data name="SERVICIOS_AMBULANCIAS_STEP3" xml:space="preserve">
+    <value>INICIO DEL TRASLADO</value>
+  </data>
+  <data name="SERVICIOS_AMBULANCIAS_STEP4" xml:space="preserve">
+    <value>FIN DEL TRASLADO</value>
+  </data>
+  <data name="SERVICIOS_AMBULANCIAS_STEP5" xml:space="preserve">
+    <value>DE RETORNO A LA BASE</value>
+  </data>
+  <data name="SERVICIOS_AMBULANCIAS_STEP6" xml:space="preserve">
+    <value>SERVICIO COMPLETADO</value>
+  </data>
 </root>

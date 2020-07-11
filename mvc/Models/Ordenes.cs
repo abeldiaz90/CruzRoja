@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
 namespace mvc.Models
 {
@@ -55,7 +53,7 @@ namespace mvc.Models
 
         [Display(Name = "Requiere Factura")]
         public Boolean Factura { set; get; }
-        [Required(ErrorMessage ="Delegación")]
+        [Required(ErrorMessage = "Delegación")]
         public int IdDelegacionExpedicion { set; get; }
 
         public OrdenesTemporal ordentemporal { set; get; }

@@ -1,4 +1,4 @@
-namespace mvc.Migrations
+﻿namespace mvc.Migrations
 {
     using System;
     using System.Data.Entity;
@@ -10,14 +10,13 @@ namespace mvc.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            AutomaticMigrationDataLossAllowed = true;
         }
 
         protected override void Seed(mvc.Models.Contexto context)
         {
             //  This method will be called after migrating to the latest version.
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+            //  You can use the DbSet<T>.AddOrUpdate() helper extension method
             //  to avoid creating duplicate seed data.
         }
     }

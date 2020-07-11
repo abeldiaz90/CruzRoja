@@ -1,10 +1,8 @@
-﻿using System;
+﻿using mvc.Models;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using mvc.Models;
 namespace mvc.Controllers
 {
     public class ServiciosController : Controller
@@ -59,7 +57,7 @@ namespace mvc.Controllers
                 servicios.Clave = Seguridad.Encrypt(servicios.Clave);
                 servicios.NombreServicio = Seguridad.Encrypt(servicios.NombreServicio);
                 if (ser == null)
-                {   
+                {
                     con.servicios.Add(servicios);
                     con.SaveChanges();
                 }

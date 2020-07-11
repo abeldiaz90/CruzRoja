@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
 namespace mvc.Models
 {
@@ -31,7 +28,7 @@ namespace mvc.Models
 
         [Display(Name = "IVA:")]
         public decimal IVA { set; get; }
-               
+
         [Display(Name = "Total:")]
         public decimal Total { set; get; }
 
@@ -41,7 +38,7 @@ namespace mvc.Models
         [Display(Name = "Cambio:")]
         public decimal cambio { set; get; }
 
-        [Display(Name ="Elemento ya fue agregado")]
+        [Display(Name = "Elemento ya fue agregado")]
         public Boolean Agregado { set; get; }
     }
 }

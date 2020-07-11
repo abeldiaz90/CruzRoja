@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Configuration;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 
 namespace mvc.Models
 {
@@ -17,7 +13,7 @@ namespace mvc.Models
         public int Id { set; get; }
         [Required(ErrorMessage = "Escriba Nombre del Paciente")]
         [Display(Name = "Primer Nombre:")]
-   
+
         public String Nombre { set; get; }
         [Display(Name = "Segundo Nombre:")]
         public String SegundoNombre { set; get; }
@@ -44,13 +40,13 @@ namespace mvc.Models
 
 
         [Display(Name = "Correo Electrónico:")]
-        [DataType(DataType.EmailAddress,ErrorMessage ="Correo Invalido")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Correo Invalido")]
         public String Email { set; get; }
 
         [Display(Name = "Teléfono:")]
-        [DataType(DataType.PhoneNumber,ErrorMessage ="Telefono Invalido")]
+        [DataType(DataType.PhoneNumber, ErrorMessage = "Telefono Invalido")]
         [Phone]
-        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$",ErrorMessage = "Telefono Invalido")]
+        [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Telefono Invalido")]
         public String Telefono { set; get; }
 
         [Display(Name = "Sexo:")]

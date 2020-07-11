@@ -1,13 +1,10 @@
-﻿using System;
+﻿using mvc.Models;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Net;
-using System.Web;
+using System.Threading.Tasks;
 using System.Web.Mvc;
-using mvc.Models;
 
 namespace mvc.Controllers
 {
@@ -61,7 +58,7 @@ namespace mvc.Controllers
         [ValidateAntiForgeryToken]
         [CustomAuthFilter]
         [Authorize(Roles = "Administrador")]
-        public async Task<ActionResult> Create([Bind(Include = "Id,Unidad")] Ambulancias ambulancias)
+        public async Task<ActionResult> Create([Bind(Include = "IdAmbulancia,Unidad")] Ambulancias ambulancias)
         {
             if (ModelState.IsValid)
             {
@@ -102,7 +99,7 @@ namespace mvc.Controllers
         [ValidateAntiForgeryToken]
         [CustomAuthFilter]
         [Authorize(Roles = "Administrador")]
-        public async Task<ActionResult> Edit([Bind(Include = "Id,Unidad")] Ambulancias ambulancias)
+        public async Task<ActionResult> Edit([Bind(Include = "IdAmbulancia,Unidad")] Ambulancias ambulancias)
         {
             if (ModelState.IsValid)
             {

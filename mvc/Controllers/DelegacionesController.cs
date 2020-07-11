@@ -1,10 +1,8 @@
-﻿using System;
+﻿using mvc.Models;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using mvc.Models;
 namespace mvc.Controllers
 {
     public class DelegacionesController : Controller
@@ -79,7 +77,7 @@ namespace mvc.Controllers
             if (ModelState.IsValid)
             {
                 Delegaciones delegacioneslistado = con.delegaciones.FirstOrDefault(model => model.Id == delegaciones.Id);
-                
+
                 if (delegacioneslistado == null)
                 {
                     Delegaciones del = new Delegaciones();

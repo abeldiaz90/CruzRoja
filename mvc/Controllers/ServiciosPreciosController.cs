@@ -1,10 +1,9 @@
-﻿using System;
+﻿using mvc.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using mvc.Models;
 namespace mvc.Controllers
 {
     public class ServiciosPreciosController : Controller
@@ -40,7 +39,7 @@ namespace mvc.Controllers
             sdp.IdServicio = id;
             sdp.serviciosDelegacionPrecios = con.serviciosDelegacionPrecios.ToList().Where(s => s.IdServicio == id).OrderByDescending(s => s.PrecioSinIva);
             sdp.listaserviciosdelegacion = listaservicios.OrderBy(s => s.NombreServicio);
-            
+
             return View(sdp);
         }
 
@@ -49,7 +48,7 @@ namespace mvc.Controllers
         {
             ServiciosDelegacionPrecios sdp = con.serviciosDelegacionPrecios.FirstOrDefault(s => s.Id == id);
             try
-            {               
+            {
                 IEnumerable<ServiciosDelegacion> serviciosDelegacions = con.serviciosdelegacion.ToList().OrderBy(s => s.NombreServicio);
                 List<ServiciosDelegacion> listaservicios = new List<ServiciosDelegacion>();
                 foreach (var i in serviciosDelegacions)
@@ -61,7 +60,7 @@ namespace mvc.Controllers
                 }
 
                 var idServicio = sdp.IdServicio;
-                sdp.serviciosDelegacionPrecios = con.serviciosDelegacionPrecios.ToList().Where(s => s.IdServicio == idServicio).OrderByDescending(s => s.PrecioSinIva); 
+                sdp.serviciosDelegacionPrecios = con.serviciosDelegacionPrecios.ToList().Where(s => s.IdServicio == idServicio).OrderByDescending(s => s.PrecioSinIva);
                 sdp.listaserviciosdelegacion = listaservicios.OrderBy(s => s.NombreServicio);
             }
             catch (Exception Ex) { Ex.ToString(); }
@@ -73,7 +72,7 @@ namespace mvc.Controllers
         public ActionResult ConsultaPrecios(Int32 IdServicio)
         {
             ServiciosDelegacionPrecios sp = new ServiciosDelegacionPrecios();
-            sp.serviciosDelegacionPrecios = con.serviciosDelegacionPrecios.ToList().Where(s => s.IdServicio == IdServicio).OrderByDescending(s=>s.PrecioSinIva);
+            sp.serviciosDelegacionPrecios = con.serviciosDelegacionPrecios.ToList().Where(s => s.IdServicio == IdServicio).OrderByDescending(s => s.PrecioSinIva);
             return Json(sp.serviciosDelegacionPrecios, JsonRequestBehavior.AllowGet);
         }
 
@@ -97,7 +96,7 @@ namespace mvc.Controllers
                 }
 
             }
-            return RedirectToAction("Nuevo/"+ serviciosDelegacionPrecios.IdServicio);
+            return RedirectToAction("Nuevo/" + serviciosDelegacionPrecios.IdServicio);
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace mvc.Models
 {
@@ -14,11 +10,11 @@ namespace mvc.Models
         [Required]
 
         [Display(Name = "Clave")]
-        public string Clave{set; get;}
+        public string Clave { set; get; }
         [Required]
-        [Display(Name="Concepto")]
+        [Display(Name = "Concepto")]
         public string Concepto { set; get; }
 
- 
+
     }
 }

@@ -1,17 +1,9 @@
-﻿using System;
-using System.Configuration;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
-using System.Reflection;
-using Newtonsoft.Json.Serialization;
-using System.IO;
-using System.Globalization;
-using System.Collections.Generic;
 
 
 [assembly: OwinStartup(typeof(mvc.App_Start.Startup))]
@@ -35,9 +27,9 @@ namespace mvc.App_Start
             // only allow authenticated users
             var defaultPolicy = new AuthorizationPolicyBuilder()
                 .RequireAuthenticatedUser()
-                .Build();            
+                .Build();
 
-   
+
             services.AddAuthorizationCore(options =>
             {
                 // inline policies
@@ -55,7 +47,7 @@ namespace mvc.App_Start
                   policy.RequireRole("Administrador", "CONTADOR"));
             });
 
-           
+
 
             //services.AddMvc(setup =>
             //{

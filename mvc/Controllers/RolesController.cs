@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace mvc.Controllers
@@ -36,7 +35,7 @@ namespace mvc.Controllers
         public ActionResult Editar(Roles roles)
         {
             Contexto con = new Contexto();
-            var rol=con.roles.FirstOrDefault(x => x.Id == roles.Id);
+            var rol = con.roles.FirstOrDefault(x => x.Id == roles.Id);
             rol.Rol = Seguridad.Decrypt(rol.Rol);
             return View(rol);
         }

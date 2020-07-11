@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Web;
 
 namespace mvc.Models
 {
@@ -14,8 +11,8 @@ namespace mvc.Models
         public int Id { set; get; }
 
         [Key]
-        [Required(ErrorMessage ="El Folio es Requerido")]
-        [Display(Name ="Número de Orden:")]
+        [Required(ErrorMessage = "El Folio es Requerido")]
+        [Display(Name = "Número de Orden:")]
         public int IdFolio { set; get; }
 
         [Display(Name = "SubTotal:")]
@@ -35,7 +32,7 @@ namespace mvc.Models
         public decimal Denominacion { set; get; }
         [Display(Name = "Requiere Factura:")]
         public Boolean Factura { set; get; }
-     
+
         [Display(Name = "Tipo de Pago:")]
         public Boolean TipoPago { set; get; }
 
