@@ -124,10 +124,15 @@
 
 								</li>
 
-
-								<li class="nav-item">
-									<a class="nav-link" href="~/Account/signout" tabindex="-1" aria-disabled="false" onclick="dataLayer.push({ categoria: 'ACCOUNT', accion: 'LOGIN', etiqueta: 'CIERRE DE SESIÓN', event: 'eventos' });">Cerrar Sesión</a>
-								</li>
+								<li class="nav-item dropdown">
+									<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownservicios" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+										@Context.User.Identity.Name
+									</a>
+									<div class="dropdown-menu" aria-labelledby="navbarDropdownseguridad">
+										<a class="nav-link" href="~/Account/Password" tabindex="-1" aria-disabled="false" onclick="dataLayer.push({ categoria: 'ACCOUNT', accion: 'LOGIN', etiqueta: 'CAMBIO DE CONTRASEÑA', event: 'eventos' });">Cambiar Contraseña</a>
+										<a class="nav-link" href="~/Account/signout" tabindex="-1" aria-disabled="false" onclick="dataLayer.push({ categoria: 'ACCOUNT', accion: 'LOGIN', etiqueta: 'CIERRE DE SESIÓN', event: 'eventos' });">Cerrar Sesión</a>
+									</div>								
+								</li>								
 							</ul>
 							<form class="form-inline my-2 my-lg-0">
 								<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

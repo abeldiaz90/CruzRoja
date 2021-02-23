@@ -57,8 +57,8 @@
     <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
-    <Reference Include="BouncyCastle.Crypto, Version=1.8.6.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
-      <HintPath>..\packages\BouncyCastle.1.8.6.1\lib\BouncyCastle.Crypto.dll</HintPath>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.9.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.9\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
     <Reference Include="BundleTransformer.Core, Version=1.10.0.0, Culture=neutral, PublicKeyToken=973c344c93aac60d, processorArchitecture=MSIL">
       <HintPath>..\packages\BundleTransformer.Core.1.10.0\lib\net40\BundleTransformer.Core.dll</HintPath>
@@ -72,8 +72,8 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Protobuf, Version=3.12.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
-      <HintPath>..\packages\Google.Protobuf.3.12.1\lib\net45\Google.Protobuf.dll</HintPath>
+    <Reference Include="Google.Protobuf, Version=3.15.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.15.1\lib\net45\Google.Protobuf.dll</HintPath>
     </Reference>
     <Reference Include="JavaScriptEngineSwitcher.Core, Version=3.3.0.0, Culture=neutral, PublicKeyToken=c608b2a8cc9e4472, processorArchitecture=MSIL">
       <HintPath>..\packages\JavaScriptEngineSwitcher.Core.3.3.0\lib\net45\JavaScriptEngineSwitcher.Core.dll</HintPath>
@@ -664,12 +664,6 @@
     <Content Include="assets\sass\libs\_vendor.scss" />
     <Content Include="assets\sass\main.scss" />
     <Content Include="assets\sass\noscript.scss" />
-    <Content Include="Content\bootstrap.min.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-reboot.min.css.map" />
-    <Content Include="Content\bootstrap-reboot.css.map" />
-    <Content Include="Content\bootstrap-grid.min.css.map" />
-    <Content Include="Content\bootstrap-grid.css.map" />
     <Content Include="Content\scss\core\_base.scss" />
     <Content Include="Content\scss\smart_wizard.scss" />
     <Content Include="Content\scss\smart_wizard_all.scss" />
@@ -680,6 +674,60 @@
     <Content Include="Content\scss\themes\_dark.scss" />
     <Content Include="Content\scss\themes\_default.scss" />
     <Content Include="Content\scss\themes\_dots.scss" />
+    <Content Include="assets\fonts\roboto\Roboto-Black-webfont.eot" />
+    <Content Include="assets\fonts\roboto\Roboto-Black-webfont.ttf" />
+    <Content Include="assets\fonts\roboto\Roboto-Black-webfont.woff" />
+    <Content Include="assets\fonts\roboto\Roboto-BlackItalic-webfont.eot" />
+    <Content Include="assets\fonts\roboto\Roboto-BlackItalic-webfont.ttf" />
+    <Content Include="assets\fonts\roboto\Roboto-BlackItalic-webfont.woff" />
+    <Content Include="assets\fonts\roboto\Roboto-Bold-webfont.eot" />
+    <Content Include="assets\fonts\roboto\Roboto-Bold-webfont.ttf" />
+    <Content Include="assets\fonts\roboto\Roboto-Bold-webfont.woff" />
+    <Content Include="assets\fonts\roboto\Roboto-BoldItalic-webfont.eot" />
+    <Content Include="assets\fonts\roboto\Roboto-BoldItalic-webfont.ttf" />
+    <Content Include="assets\fonts\roboto\Roboto-BoldItalic-webfont.woff" />
+    <Content Include="assets\fonts\roboto\Roboto-Italic-webfont.eot" />
+    <Content Include="assets\fonts\roboto\Roboto-Italic-webfont.ttf" />
+    <Content Include="assets\fonts\roboto\Roboto-Italic-webfont.woff" />
+    <Content Include="assets\fonts\roboto\Roboto-Light-webfont.eot" />
+    <Content Include="assets\fonts\roboto\Roboto-Light-webfont.ttf" />
+    <Content Include="assets\fonts\roboto\Roboto-Light-webfont.woff" />
+    <Content Include="assets\fonts\roboto\Roboto-LightItalic-webfont.eot" />
+    <Content Include="assets\fonts\roboto\Roboto-LightItalic-webfont.ttf" />
+    <Content Include="assets\fonts\roboto\Roboto-LightItalic-webfont.woff" />
+    <Content Include="assets\fonts\roboto\Roboto-Medium-webfont.eot" />
+    <Content Include="assets\fonts\roboto\Roboto-Medium-webfont.ttf" />
+    <Content Include="assets\fonts\roboto\Roboto-Medium-webfont.woff" />
+    <Content Include="assets\fonts\roboto\Roboto-MediumItalic-webfont.eot" />
+    <Content Include="assets\fonts\roboto\Roboto-MediumItalic-webfont.ttf" />
+    <Content Include="assets\fonts\roboto\Roboto-MediumItalic-webfont.woff" />
+    <Content Include="assets\fonts\roboto\Roboto-Regular-webfont.eot" />
+    <Content Include="assets\fonts\roboto\Roboto-Regular-webfont.ttf" />
+    <Content Include="assets\fonts\roboto\Roboto-Regular-webfont.woff" />
+    <Content Include="assets\fonts\roboto\Roboto-Thin-webfont.eot" />
+    <Content Include="assets\fonts\roboto\Roboto-Thin-webfont.ttf" />
+    <Content Include="assets\fonts\roboto\Roboto-Thin-webfont.woff" />
+    <Content Include="assets\fonts\roboto\Roboto-ThinItalic-webfont.eot" />
+    <Content Include="assets\fonts\roboto\Roboto-ThinItalic-webfont.ttf" />
+    <Content Include="assets\fonts\roboto\Roboto-ThinItalic-webfont.woff" />
+    <Content Include="assets\fonts\roboto\RobotoCondensed-Bold-webfont.eot" />
+    <Content Include="assets\fonts\roboto\RobotoCondensed-Bold-webfont.ttf" />
+    <Content Include="assets\fonts\roboto\RobotoCondensed-Bold-webfont.woff" />
+    <Content Include="assets\fonts\roboto\RobotoCondensed-BoldItalic-webfont.eot" />
+    <Content Include="assets\fonts\roboto\RobotoCondensed-BoldItalic-webfont.ttf" />
+    <Content Include="assets\fonts\roboto\RobotoCondensed-BoldItalic-webfont.woff" />
+    <Content Include="assets\fonts\roboto\RobotoCondensed-Italic-webfont.eot" />
+    <Content Include="assets\fonts\roboto\RobotoCondensed-Italic-webfont.ttf" />
+    <Content Include="assets\fonts\roboto\RobotoCondensed-Italic-webfont.woff" />
+    <Content Include="assets\fonts\roboto\RobotoCondensed-Light-webfont.eot" />
+    <Content Include="assets\fonts\roboto\RobotoCondensed-Light-webfont.ttf" />
+    <Content Include="assets\fonts\roboto\RobotoCondensed-Light-webfont.woff" />
+    <Content Include="assets\fonts\roboto\RobotoCondensed-LightItalic-webfont.eot" />
+    <Content Include="assets\fonts\roboto\RobotoCondensed-LightItalic-webfont.ttf" />
+    <Content Include="assets\fonts\roboto\RobotoCondensed-LightItalic-webfont.woff" />
+    <Content Include="assets\fonts\roboto\RobotoCondensed-Regular-webfont.eot" />
+    <Content Include="assets\fonts\roboto\RobotoCondensed-Regular-webfont.ttf" />
+    <Content Include="assets\fonts\roboto\RobotoCondensed-Regular-webfont.woff" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
@@ -757,60 +805,12 @@
     <Content Include="Content\bootstrap\alerts.less" />
     <Content Include="Content\_bootstrap-datetimepicker.less" />
     <Content Include="Content\bootstrap-datetimepicker-build.less" />
-    <Content Include="assets\fonts\roboto\Roboto-Black-webfont.eot" />
-    <Content Include="assets\fonts\roboto\Roboto-Black-webfont.ttf" />
-    <Content Include="assets\fonts\roboto\Roboto-Black-webfont.woff" />
-    <Content Include="assets\fonts\roboto\Roboto-BlackItalic-webfont.eot" />
-    <Content Include="assets\fonts\roboto\Roboto-BlackItalic-webfont.ttf" />
-    <Content Include="assets\fonts\roboto\Roboto-BlackItalic-webfont.woff" />
-    <Content Include="assets\fonts\roboto\Roboto-Bold-webfont.eot" />
-    <Content Include="assets\fonts\roboto\Roboto-Bold-webfont.ttf" />
-    <Content Include="assets\fonts\roboto\Roboto-Bold-webfont.woff" />
-    <Content Include="assets\fonts\roboto\Roboto-BoldItalic-webfont.eot" />
-    <Content Include="assets\fonts\roboto\Roboto-BoldItalic-webfont.ttf" />
-    <Content Include="assets\fonts\roboto\Roboto-BoldItalic-webfont.woff" />
-    <Content Include="assets\fonts\roboto\Roboto-Italic-webfont.eot" />
-    <Content Include="assets\fonts\roboto\Roboto-Italic-webfont.ttf" />
-    <Content Include="assets\fonts\roboto\Roboto-Italic-webfont.woff" />
-    <Content Include="assets\fonts\roboto\Roboto-Light-webfont.eot" />
-    <Content Include="assets\fonts\roboto\Roboto-Light-webfont.ttf" />
-    <Content Include="assets\fonts\roboto\Roboto-Light-webfont.woff" />
-    <Content Include="assets\fonts\roboto\Roboto-LightItalic-webfont.eot" />
-    <Content Include="assets\fonts\roboto\Roboto-LightItalic-webfont.ttf" />
-    <Content Include="assets\fonts\roboto\Roboto-LightItalic-webfont.woff" />
-    <Content Include="assets\fonts\roboto\Roboto-Medium-webfont.eot" />
-    <Content Include="assets\fonts\roboto\Roboto-Medium-webfont.ttf" />
-    <Content Include="assets\fonts\roboto\Roboto-Medium-webfont.woff" />
-    <Content Include="assets\fonts\roboto\Roboto-MediumItalic-webfont.eot" />
-    <Content Include="assets\fonts\roboto\Roboto-MediumItalic-webfont.ttf" />
-    <Content Include="assets\fonts\roboto\Roboto-MediumItalic-webfont.woff" />
-    <Content Include="assets\fonts\roboto\Roboto-Regular-webfont.eot" />
-    <Content Include="assets\fonts\roboto\Roboto-Regular-webfont.ttf" />
-    <Content Include="assets\fonts\roboto\Roboto-Regular-webfont.woff" />
-    <Content Include="assets\fonts\roboto\Roboto-Thin-webfont.eot" />
-    <Content Include="assets\fonts\roboto\Roboto-Thin-webfont.ttf" />
-    <Content Include="assets\fonts\roboto\Roboto-Thin-webfont.woff" />
-    <Content Include="assets\fonts\roboto\Roboto-ThinItalic-webfont.eot" />
-    <Content Include="assets\fonts\roboto\Roboto-ThinItalic-webfont.ttf" />
-    <Content Include="assets\fonts\roboto\Roboto-ThinItalic-webfont.woff" />
-    <Content Include="assets\fonts\roboto\RobotoCondensed-Bold-webfont.eot" />
-    <Content Include="assets\fonts\roboto\RobotoCondensed-Bold-webfont.ttf" />
-    <Content Include="assets\fonts\roboto\RobotoCondensed-Bold-webfont.woff" />
-    <Content Include="assets\fonts\roboto\RobotoCondensed-BoldItalic-webfont.eot" />
-    <Content Include="assets\fonts\roboto\RobotoCondensed-BoldItalic-webfont.ttf" />
-    <Content Include="assets\fonts\roboto\RobotoCondensed-BoldItalic-webfont.woff" />
-    <Content Include="assets\fonts\roboto\RobotoCondensed-Italic-webfont.eot" />
-    <Content Include="assets\fonts\roboto\RobotoCondensed-Italic-webfont.ttf" />
-    <Content Include="assets\fonts\roboto\RobotoCondensed-Italic-webfont.woff" />
-    <Content Include="assets\fonts\roboto\RobotoCondensed-Light-webfont.eot" />
-    <Content Include="assets\fonts\roboto\RobotoCondensed-Light-webfont.ttf" />
-    <Content Include="assets\fonts\roboto\RobotoCondensed-Light-webfont.woff" />
-    <Content Include="assets\fonts\roboto\RobotoCondensed-LightItalic-webfont.eot" />
-    <Content Include="assets\fonts\roboto\RobotoCondensed-LightItalic-webfont.ttf" />
-    <Content Include="assets\fonts\roboto\RobotoCondensed-LightItalic-webfont.woff" />
-    <Content Include="assets\fonts\roboto\RobotoCondensed-Regular-webfont.eot" />
-    <Content Include="assets\fonts\roboto\RobotoCondensed-Regular-webfont.ttf" />
-    <Content Include="assets\fonts\roboto\RobotoCondensed-Regular-webfont.woff" />
+    <Content Include="Content\bootstrap.min.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
@@ -1002,6 +1002,7 @@
     <Compile Include="Models\OrdenesTemporal.cs" />
     <Compile Include="Models\OrdenesTemporalVista.cs" />
     <Compile Include="Models\Pacientes.cs" />
+    <Compile Include="Models\Paginador.cs" />
     <Compile Include="Models\Paises.cs" />
     <Compile Include="App_Data\Seguridad.cs" />
     <Compile Include="Models\Roles.cs" />

@@ -1,4 +1,6 @@
-﻿using mvc.Models;
+﻿using Microsoft.Ajax.Utilities;
+using mvc.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
@@ -7,57 +9,45 @@ namespace mvc.Controllers
 {
     public class ServiciosDelegacionController : Controller
     {
+        private readonly int _RegistrosPorPagina = 10;
+        private List<ServiciosDelegacion> _ServiciosDelegacion;
+        private Paginador<ServiciosVista> _Paginador;
         Contexto con = new Contexto();
         [CustomAuthFilter]
         [Authorize(Roles = "Administrador")]
-        public ActionResult Index()
+        public ActionResult Index(int pagina = 1)
         {
-            ServiciosDelegacion serviciosDelegacion = new ServiciosDelegacion();
-            IEnumerable<ServiciosDelegacion> serviciosDelegacions = con.serviciosdelegacion.ToList();
-            IEnumerable<Servicios> serviciosvista = con.servicios.ToList();
-            List<Servicios> servicios = new List<Servicios>();
-            foreach (var i in serviciosvista)
-            {
-                Servicios s = new Servicios();
-                s.Id = i.Id;
-                s.Clave = Seguridad.Decrypt(i.Clave);
-                s.NombreServicio = Seguridad.Decrypt(i.NombreServicio);
-                servicios.Add(s);
-            }
+            int _TotalRegistros = 0;
+            _TotalRegistros = con.serviciosdelegacion.Count();
+            _ServiciosDelegacion = con.serviciosdelegacion.OrderBy(x => x.NombreServicio)
+                                                 .Skip((pagina - 1) * _RegistrosPorPagina)
+                                                 .Take(_RegistrosPorPagina)
+                                                 .ToList();
 
-            List<ServiciosDelegacion> serviciosdelegacion = new List<ServiciosDelegacion>();
-            foreach (var i in serviciosDelegacions)
-            {
-                ServiciosDelegacion s = new ServiciosDelegacion();
-                s.Id = i.Id;
-                s.IdDelegacion = i.IdDelegacion;
-                s.IdServicio = i.IdServicio;
-                s.NombreServicio = Seguridad.Decrypt(i.NombreServicio);
-                s.precios = i.precios;
-                s.servicios = i.servicios;
-                s.serviciosdelegacionvista = i.serviciosdelegacionvista;
-                s.AplicaIVA = i.AplicaIVA;
-                serviciosdelegacion.Add(s);
-            }
-
-
-
-            var vistaservicios = from sd in serviciosdelegacion
-                                 join ss in servicios on sd.IdServicio equals ss.Id
+            var listaunicaservicios= _ServiciosDelegacion.DistinctBy(x => x.IdServicio).ToList();
+            IEnumerable<Servicios> serviciosvista = con.servicios.Where(x => x.Id.IsAnyOf(_ServiciosDelegacion.Select(y => y.IdServicio).ToArray())).ToList();
+            var vistaservicios = from sd in _ServiciosDelegacion
+                                 join ss in serviciosvista on sd.IdServicio equals ss.Id
                                  select new ServiciosVista { servicios = ss, serviciosdelegacion = sd };
-            serviciosDelegacion.serviciosdelegacionvista = vistaservicios.OrderBy(s => s.serviciosdelegacion.NombreServicio);
 
-            //foreach (var i in vistaservicios)
-            //{
-            //    ServiciosVista sv = new ServiciosVista();
-            //    sv.servicios.Id = i.servicios.Id;
-            //    sv.servicios.Clave = Seguridad.Decrypt(i.servicios.Clave);
-            //    sv.servicios.NombreServicio = Seguridad.Decrypt(i.servicios.NombreServicio);
-            //    vistaservicios
-            //}
 
-            serviciosDelegacion.precios = con.serviciosDelegacionPrecios.ToList().Where(s => s.IdServicio == 20);
-            return View(serviciosDelegacion);
+            foreach (var i in vistaservicios)
+            {
+                i.servicios.Clave = Seguridad.Decrypt(i.servicios.Clave);
+                i.servicios.NombreServicio = Seguridad.Decrypt(i.servicios.NombreServicio);
+                i.serviciosdelegacion.NombreServicio = Seguridad.Decrypt(i.serviciosdelegacion.NombreServicio);
+            }
+
+            var _TotalPaginas = (int)Math.Ceiling((double)_TotalRegistros / _RegistrosPorPagina);
+            _Paginador = new Paginador<ServiciosVista>()
+            {
+                RegistrosPorPagina = _RegistrosPorPagina,
+                TotalRegistros = _TotalRegistros,
+                TotalPaginas = _TotalPaginas,
+                PaginaActual = pagina,
+                Resultado = vistaservicios.OrderBy(c=>c.servicios.NombreServicio)
+            };
+            return View(_Paginador);
         }
 
         [CustomAuthFilter]

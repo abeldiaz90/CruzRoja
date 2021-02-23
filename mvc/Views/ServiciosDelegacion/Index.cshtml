@@ -1,5 +1,5 @@
 ﻿@using mvc.Models;
-@model ServiciosDelegacion
+@model Paginador<ServiciosVista>
 @{
 	ViewBag.Title = "Cruz Roja";
 	Layout = "~/Views/Shared/_Layout.cshtml";
@@ -20,7 +20,7 @@
 				Aplica IVA
 			</th>
 		</tr>
-		@foreach (var modelo in Model.serviciosdelegacionvista)
+		@foreach (var modelo in Model.Resultado)
 		{
 			<tr>
 				<td scope="row">
@@ -58,9 +58,9 @@
 			<div class="modal-body">
 
 				<div id="myPartialViewDiv">
-					@{
-						Html.RenderPartial("Precios", Model.precios);
-					}
+					@*@{
+						Html.RenderPartial("Precios", Model.Resultado);
+					}*@
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -69,7 +69,58 @@
 		</div>
 	</div>
 </div>
+@*CÓDIGO PARA EL PAGINADOR DE REGISTROS*@
+@if (Model.Resultado.Count() > 0)
+{
+	<span>
+		<strong>@Model.TotalRegistros</strong> registros encontrados
+	</span>
+	<span>&nbsp;|&nbsp;</span>
+	<span>
+		Página <strong>@(Model.PaginaActual)</strong> de
+		<strong>@Model.TotalPaginas</strong>
+	</span>
+	<span>&nbsp;|&nbsp;</span>
+}
+else
+{
+	<span>No hay resultados para esta búsqueda</span>
+	<span>&nbsp;|&nbsp;</span>
+}
 
+@if (Model.PaginaActual > 1)
+{
+	@Html.ActionLink("<<", "Index", new { pagina = 1 },
+					new { @class = "btn btn-sm btn-default" })
+	<span></span>
+	@Html.ActionLink("Anterior", "Index", new { pagina = Model.PaginaActual - 1 },
+					new { @class = "btn btn-sm btn-default" })
+}
+else
+{
+	@Html.ActionLink("<<", "Index", new { pagina = 1 },
+					new { @class = "btn btn-sm btn-default disabled" })
+	<span></span>
+	@Html.ActionLink("Anterior", "Index", new { pagina = 1 },
+					new { @class = "btn btn-sm btn-default disabled" })
+}
+<span></span>
+@if (Model.PaginaActual < Model.TotalPaginas)
+{
+	@Html.ActionLink("Siguiente", "Index", new { pagina = Model.PaginaActual + 1 },
+					new { @class = "btn btn-sm btn-default" })
+	<span></span>
+	@Html.ActionLink(">>", "Index", new { pagina = Model.TotalPaginas },
+					new { @class = "btn btn-sm btn-default" })
+}
+else
+{
+	@Html.ActionLink("Siguiente", "Index", new { pagina = Model.TotalPaginas - 1 },
+					new { @class = "btn btn-sm btn-default disabled" })
+	<span></span>
+	@Html.ActionLink(">>", "Index", new { pagina = Model.TotalPaginas },
+					new { @class = "btn btn-sm btn-default disabled" })
+}
 <script>
 	$(document).ready(function () {
 

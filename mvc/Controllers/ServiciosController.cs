@@ -1,4 +1,5 @@
 ﻿using mvc.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity.Migrations;
 using System.Linq;
@@ -7,23 +8,37 @@ namespace mvc.Controllers
 {
     public class ServiciosController : Controller
     {
+        private readonly int _RegistrosPorPagina = 10;
         Contexto con = new Contexto();
+        private List<Servicios> _Servicios;
+        private Paginador<Servicios> _PaginadorServicios;
         // GET: Servicios
         [CustomAuthFilter]
         [Authorize(Roles = "Administrador")]
-        public ActionResult Index()
+        public ActionResult Index(int pagina = 1)
         {
-            IEnumerable<Servicios> servicios = con.servicios.ToList();
-            List<Servicios> listaservicios = new List<Servicios>();
-            foreach (var i in servicios)
-            {
-                Servicios ser = new Servicios();
-                ser.Id = i.Id;
-                ser.Clave = Seguridad.Decrypt(i.Clave);
-                ser.NombreServicio = Seguridad.Decrypt(i.NombreServicio);
-                listaservicios.Add(ser);
+            int _TotalRegistros = 0;
+            _TotalRegistros = con.servicios.Count();
+            _Servicios=con.servicios.OrderBy(x => x.NombreServicio)
+                                                 .Skip((pagina - 1) * _RegistrosPorPagina)
+                                                 .Take(_RegistrosPorPagina)
+                                                 .ToList();
+            foreach (var i in _Servicios)
+            {               
+                i.Id = i.Id;
+                i.Clave = Seguridad.Decrypt(i.Clave);
+                i.NombreServicio = Seguridad.Decrypt(i.NombreServicio);
             }
-            return View(listaservicios);
+            var _TotalPaginas = (int)Math.Ceiling((double)_TotalRegistros / _RegistrosPorPagina);
+            _PaginadorServicios = new Paginador<Servicios>()
+            {
+                RegistrosPorPagina = _RegistrosPorPagina,
+                TotalRegistros = _TotalRegistros,
+                TotalPaginas = _TotalPaginas,
+                PaginaActual = pagina,
+                Resultado = _Servicios
+            };           
+            return View(_PaginadorServicios);
         }
 
         [CustomAuthFilter]
